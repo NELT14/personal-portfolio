@@ -1,6 +1,6 @@
 # Ali Aliyev — Personal Portfolio (Jekyll)
 
-Personal portfolio for the SITE 1101: Principles of Information Systems course. It showcases competitive programming achievements, research, activities (Codeforces, volunteering), and contact links.
+Personal portfolio showcasing competitive programming achievements, research, activities (Codeforces, volunteering), and contact links.
 
 ## Highlights
 
@@ -21,7 +21,7 @@ Personal portfolio for the SITE 1101: Principles of Information Systems course. 
 ## Project Structure
 
 ```
-my-site/
+personal-portfolio/
 ├── index.html          # Custom homepage (with front matter)
 ├── style.css           # Styles (responsive, fluid type, components)
 ├── script.js           # Smooth scroll, mobile drawer, observers, toggles
@@ -42,12 +42,12 @@ my-site/
 2) From the project folder:
 
 ```powershell
-cd "C:\Users\alish\Desktop\_\Other\ADA U\Semester 1\P. Info systems\Project 3\my-site"
+cd "C:\Users\alish\Desktop\_\Other\ADA U\Semester 1\P. Info systems\Project 3\personal-portfolio"
 bundle install
 bundle exec jekyll serve --livereload
 ```
 
-Visit http://127.0.0.1:4000/ (or http://127.0.0.1:4000/<repo> if published as a project page).
+Visit http://127.0.0.1:4000/personal-portfolio/ (project page with baseurl).
 
 Note: Opening index.html directly will show the YAML front matter. Serve through Jekyll for correct rendering.
 
@@ -74,7 +74,7 @@ Note: Opening index.html directly will show the YAML front matter. Serve through
 Commit/push from Windows PowerShell:
 
 ```powershell
-cd "C:\Users\alish\Desktop\_\Other\ADA U\Semester 1\P. Info systems\Project 3\my-site"; git add .; git commit -m "Update site and docs"; git push
+cd "C:\Users\alish\Desktop\_\Other\ADA U\Semester 1\P. Info systems\Project 3\personal-portfolio"; git add .; git commit -m "Update site and docs"; git push
 ```
 
 ## Contact
@@ -87,6 +87,3 @@ cd "C:\Users\alish\Desktop\_\Other\ADA U\Semester 1\P. Info systems\Project 3\my
 - Email: ali__aliyev@outlook.com
 
 ---
-
-Created: Dec 2025  
-Course: SITE 1101 — ADA University
