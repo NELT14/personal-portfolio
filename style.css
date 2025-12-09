@@ -457,6 +457,17 @@ body.no-scroll { overflow: hidden; }
     font-size: 0.95rem;
 }
 
+/* Bullet list styling for About and Achievements */
+.info-item ul.list,
+.achievement ul.list {
+    margin: 0.25rem 0 0 1.1rem;
+    color: var(--text-muted);
+}
+.info-item ul.list li,
+.achievement ul.list li {
+    margin-bottom: 0.35rem;
+}
+
 .info-item a {
     color: var(--primary-color);
     font-weight: 600;

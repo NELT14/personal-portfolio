@@ -4,7 +4,7 @@ Personal portfolio showcasing competitive programming achievements, research, ac
 
 ## Highlights
 
-- Jekyll site (qualifies for the +10% bonus). Custom HTML design with front matter and Liquid variables.
+- Jekyll‑powered site with custom HTML design (front matter and Liquid variables).
 - Fully responsive design with fluid type and modern CSS (Grid/Flex/variables).
 - Mobile navigation drawer that becomes a full‑height, scrollable panel (works at extreme zoom).
 - “Around the Web” section with colored brand icons; social/contact icons in Connect.
