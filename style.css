@@ -472,7 +472,7 @@ a:hover {
     display: block;
     width: 100%;
     padding: 0.75rem 1rem;
-    margin-top: 1rem;
+    margin: 1.5rem 0 0 0;
     background-color: var(--light-color);
     color: var(--primary-color);
     border: 2px solid var(--primary-color);
@@ -482,6 +482,7 @@ a:hover {
     cursor: pointer;
     transition: var(--transition);
     text-align: left;
+    font-family: inherit;
 }
 
 .papers-toggle:hover {
@@ -493,6 +494,7 @@ a:hover {
 .papers-toggle[aria-expanded="true"] {
     background-color: var(--primary-color);
     color: white;
+    margin-bottom: 0.5rem;
 }
 
 .research-papers {
