@@ -457,6 +457,8 @@ a:hover {
     display: flex;
     gap: 1rem;
     flex-wrap: wrap;
+    opacity: 1;
+    visibility: visible;
 }
 
 .project-links .btn {
