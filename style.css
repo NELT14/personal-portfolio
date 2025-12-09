@@ -150,7 +150,7 @@ a:hover {
 }
 
 .introduction-text .name {
-    color: var(--accent-color);
+    color: white;
 }
 
 .introduction-text .tagline {
