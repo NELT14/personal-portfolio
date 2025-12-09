@@ -141,12 +141,12 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
             // Collapse
             targetElement.style.display = 'none';
             this.setAttribute('aria-expanded', 'false');
-            this.textContent = '📄 View Research Papers (2)';
+            this.textContent = 'View Research Papers';
         } else {
             // Expand
             targetElement.style.display = 'block';
             this.setAttribute('aria-expanded', 'true');
-            this.textContent = '📄 Hide Research Papers (2)';
+            this.textContent = 'Hide Research Papers';
         }
     });
 });
