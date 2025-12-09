@@ -320,6 +320,17 @@ a:hover {
     box-shadow: var(--shadow-sm);
 }
 
+.edu-list {
+    margin: 0.25rem 0 0 1.1rem;
+}
+.edu-list li {
+    margin-bottom: 0.35rem;
+}
+
+/* Slightly smaller hero icons row */
+.hero-social .social-icon { width: 44px; height: 44px; font-size: 1.1rem; }
+.hero-social { margin-top: 1rem; }
+
 .info-item h3 {
     color: var(--primary-color);
     margin-bottom: 0.5rem;
