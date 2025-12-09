@@ -127,3 +127,24 @@ style.textContent = `
     }
 `;
 document.head.appendChild(style);
+
+// ===========================
+// Expandable Research Papers Toggle
+// ===========================
+document.querySelectorAll('.papers-toggle').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const targetElement = document.getElementById(targetId);
+        const isExpanded = this.getAttribute('aria-expanded') === 'true';
+        
+        if (isExpanded) {
+            // Collapse
+            targetElement.style.display = 'none';
+            this.setAttribute('aria-expanded', 'false');
+        } else {
+            // Expand
+            targetElement.style.display = 'block';
+            this.setAttribute('aria-expanded', 'true');
+        }
+    });
+});
