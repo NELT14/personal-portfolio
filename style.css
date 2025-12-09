@@ -468,6 +468,56 @@ a:hover {
     text-align: center;
 }
 
+.research-papers {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 2px solid var(--border-color);
+}
+
+.paper {
+    margin-bottom: 1.5rem;
+    padding: 1rem;
+    background: var(--light-color);
+    border-radius: var(--border-radius);
+    border-left: 3px solid var(--primary-color);
+}
+
+.paper:last-child {
+    margin-bottom: 0;
+}
+
+.paper h4 {
+    color: var(--primary-color);
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    font-weight: 700;
+}
+
+.paper p {
+    color: var(--text-muted);
+    font-size: 0.9rem;
+    margin-bottom: 0.5rem;
+    line-height: 1.5;
+}
+
+.paper strong {
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+.paper-link {
+    display: inline-block;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-top: 0.5rem;
+    transition: var(--transition);
+}
+
+.paper-link:hover {
+    color: var(--secondary-color);
+    transform: translateX(3px);
+}
+
 /* ===========================
    Connect Section
    =========================== */
