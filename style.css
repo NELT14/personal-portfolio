@@ -552,6 +552,7 @@ a:hover {
     font-weight: 600;
     margin-top: 0.5rem;
     transition: var(--transition);
+    text-decoration: none;
 }
 
 .paper-link:hover {
