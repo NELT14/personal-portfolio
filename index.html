@@ -3,29 +3,41 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personal Portfolio - Welcome</title>
+    <title>Ali Aliyev - Competitive Programmer & Machine Learning Enthusiast</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="navbar">
         <div class="container">
-            <div class="nav-brand">MyPortfolio</div>
+            <div class="nav-brand">Ali Aliyev</div>
             <ul class="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
+                <li><a href="#achievements">Achievements</a></li>
                 <li><a href="#projects">Projects</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#connect">Connect</a></li>
             </ul>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
+    <!-- Hero Section / Introduction -->
+    <section id="home" class="hero introduction">
         <div class="container">
-            <h1>Hello, I'm Your Name</h1>
-            <p class="tagline">Full Stack Developer | Creative Problem Solver</p>
-            <a href="#projects" class="btn btn-primary">View My Work</a>
+            <div class="introduction-content">
+                <img alt="Ali Aliyev" class="profile-pic" src="assets/images/profile.jpg" width="256" height="256"/>
+                <div class="introduction-text">
+                    <h1>Hi, I'm <span class="name">Ali Aliyev</span>!</h1>
+                    <p class="tagline">
+                        Competitive programmer passionate about Informatics Olympiads and machine learning. 
+                        Strong algorithmic skills dedicated to improving education quality through research projects.
+                    </p>
+                    <div class="btn-group">
+                        <a href="#connect" class="btn btn-primary">Connect with Me</a>
+                        <a href="#projects" class="btn btn-secondary">View My Work</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -33,19 +45,82 @@
     <section id="about" class="about">
         <div class="container">
             <h2>About Me</h2>
-            <p>I'm a passionate developer with expertise in building modern web applications. I love creating intuitive user experiences and writing clean, maintainable code.</p>
-            <div class="skills">
+            <div class="about-content">
+                <p class="bio">
+                    I'm Ali Aliyev, a 17-year-old competitive programmer from Baku, Azerbaijan. 
+                    Participating in plenty of Informatics Olympiads and researching in machine learning, 
+                    I've developed a strong interest in computer science. My dedication to research projects 
+                    to improve education quality, combined with my algorithmic skills, makes me a potential 
+                    contributor to the field of Informatics.
+                </p>
+                
+                <div class="info-grid">
+                    <div class="info-item">
+                        <h3>Education</h3>
+                        <p>High School Degree from "Ankara school" lyceum (2014-2025)</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Languages</h3>
+                        <p>Azerbaijani (Native), Russian, English (C2)</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Location</h3>
+                        <p>Baku, Azerbaijan</p>
+                    </div>
+                    <div class="info-item">
+                        <h3>Email</h3>
+                        <p><a href="mailto:ali_aliyev@hotmail.com">ali_aliyev@hotmail.com</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills">
+        <div class="container">
+            <h2>Technical Skills</h2>
+            <div class="skills-grid">
                 <div class="skill-item">
-                    <h3>Web Development</h3>
-                    <p>HTML, CSS, JavaScript, React</p>
+                    <h3>Programming Languages</h3>
+                    <p>C++, Python</p>
                 </div>
                 <div class="skill-item">
-                    <h3>Backend</h3>
-                    <p>Python, Node.js, Databases</p>
+                    <h3>Competitive Programming</h3>
+                    <p>Algorithms, Data Structures, Problem Solving</p>
                 </div>
                 <div class="skill-item">
-                    <h3>Tools</h3>
-                    <p>Git, VS Code, Adobe XD</p>
+                    <h3>Web Technologies</h3>
+                    <p>HTML, CSS, JavaScript</p>
+                </div>
+                <div class="skill-item">
+                    <h3>Tools & Platforms</h3>
+                    <p>Git, VS Code, Codeforces</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section id="achievements" class="achievements">
+        <div class="container">
+            <h2>Achievements & Awards</h2>
+            <div class="achievements-list">
+                <div class="achievement">
+                    <h3>🏆 Multiple Gold Medals</h3>
+                    <p>Azerbaijan Republican Olympiad in Informatics (2022, 2023, 2024, 2025)</p>
+                </div>
+                <div class="achievement">
+                    <h3>🥈 Silver Medals</h3>
+                    <p>International Olympiad in Informatics (IOI 2024 - Bulgaria)</p>
+                </div>
+                <div class="achievement">
+                    <h3>🥉 Bronze Medals</h3>
+                    <p>Junior Balkan Olympiad (2022), Zhautykov Olympiad (2024, 2025)</p>
+                </div>
+                <div class="achievement">
+                    <h3>📊 Research Publications</h3>
+                    <p>Presented at international conferences on machine learning for education</p>
                 </div>
             </div>
         </div>
@@ -54,50 +129,102 @@
     <!-- Projects Section -->
     <section id="projects" class="projects">
         <div class="container">
-            <h2>Recent Projects</h2>
+            <h2>Featured Projects</h2>
             <div class="project-grid">
                 <article class="project-card">
-                    <h3>E-Commerce Platform</h3>
-                    <p>A full-stack e-commerce solution built with React and Node.js featuring payment integration and user authentication.</p>
-                    <a href="#" class="btn btn-secondary">Learn More</a>
+                    <h3>Digital Logic Gates Implementation</h3>
+                    <p>
+                        Built AND, OR, NOT, and NAND gates using breadboard and transistors. 
+                        A hands-on exploration of digital logic and circuit design fundamentals. 
+                        Team project in collaboration with peers.
+                    </p>
+                    <div class="project-meta">
+                        <span class="project-type">Team Project (SITE 1101)</span>
+                        <span class="project-year">2024</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu" class="btn btn-secondary" target="_blank">Watch Demo</a>
+                    </div>
                 </article>
+
                 <article class="project-card">
-                    <h3>Task Management App</h3>
-                    <p>A collaborative task management application with real-time updates and team collaboration features.</p>
-                    <a href="#" class="btn btn-secondary">Learn More</a>
+                    <h3>Competitive Programming Solutions</h3>
+                    <p>
+                        Extensive collection of algorithmic problem solutions and implementations 
+                        for various online judges and Olympiad competitions. 
+                        Focus on optimization and elegant code.
+                    </p>
+                    <div class="project-meta">
+                        <span class="project-type">Personal Portfolio</span>
+                        <span class="project-year">2022-Present</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="https://codeforces.com/profile/Nxxlt" class="btn btn-secondary" target="_blank">View on Codeforces</a>
+                    </div>
                 </article>
+
                 <article class="project-card">
-                    <h3>Weather Dashboard</h3>
-                    <p>Interactive weather application using APIs to display real-time weather data with beautiful visualizations.</p>
-                    <a href="#" class="btn btn-secondary">Learn More</a>
+                    <h3>Education Research Projects</h3>
+                    <p>
+                        Research on applying machine learning and ensemble learning methods 
+                        to predict student performance and improve educational outcomes. 
+                        Published in international conferences.
+                    </p>
+                    <div class="project-meta">
+                        <span class="project-type">Research</span>
+                        <span class="project-year">2024-2025</span>
+                    </div>
+                    <div class="project-links">
+                        <a href="#" class="btn btn-secondary">View Papers</a>
+                    </div>
                 </article>
             </div>
         </div>
     </section>
 
-    <!-- Contact Section -->
-    <section id="contact" class="contact">
+    <!-- Connect Section -->
+    <section id="connect" class="connect">
         <div class="container">
-            <h2>Get In Touch</h2>
-            <p>Feel free to reach out. I'm always open to new opportunities!</p>
-            <form class="contact-form">
-                <input type="text" placeholder="Your Name" required>
-                <input type="email" placeholder="Your Email" required>
-                <textarea placeholder="Your Message" rows="5" required></textarea>
-                <button type="submit" class="btn btn-primary">Send Message</button>
-            </form>
+            <h2>Connect With Me</h2>
+            <p>Find me on various platforms and let's collaborate!</p>
+            <div class="social-grid">
+                <a href="https://github.com/NELT14" class="social-card" target="_blank" rel="me">
+                    <h3>GitHub</h3>
+                    <p>@NELT14</p>
+                </a>
+                <a href="https://www.codecademy.com/profiles/net9134894948" class="social-card" target="_blank" rel="me">
+                    <h3>Codecademy</h3>
+                    <p>net9134894948</p>
+                </a>
+                <a href="https://codeforces.com/profile/Nxxlt" class="social-card" target="_blank" rel="me">
+                    <h3>Codeforces</h3>
+                    <p>@Nxxlt</p>
+                </a>
+                <a href="https://linkedin.com/in/ali-aliyev-1b24a6381" class="social-card" target="_blank" rel="me">
+                    <h3>LinkedIn</h3>
+                    <p>Ali Aliyev</p>
+                </a>
+                <a href="https://www.instagram.com/nelt_13" class="social-card" target="_blank" rel="me">
+                    <h3>Instagram</h3>
+                    <p>@nelt_13</p>
+                </a>
+                <a href="https://www.facebook.com/share/16ce5MZQc1/" class="social-card" target="_blank" rel="me">
+                    <h3>Facebook</h3>
+                    <p>Ali Aliyev</p>
+                </a>
+                <a href="mailto:ali_aliyev@hotmail.com" class="social-card email">
+                    <h3>Email</h3>
+                    <p>ali_aliyev@hotmail.com</p>
+                </a>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 My Portfolio. All rights reserved.</p>
-            <div class="social-links">
-                <a href="#">GitHub</a>
-                <a href="#">LinkedIn</a>
-                <a href="#">Twitter</a>
-            </div>
+            <p>&copy; 2024 Ali Aliyev. All rights reserved.</p>
+            <p>This is my personal portfolio website for SITE 1101: Principles of Information Systems</p>
         </div>
     </footer>
 
