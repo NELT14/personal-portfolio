@@ -466,6 +466,15 @@ a:hover {
     font-size: 0.9rem;
     flex: 1;
     text-align: center;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+}
+
+.project-links .btn:hover {
+    background-color: var(--secondary-color);
+    color: white;
+    transform: translateY(-2px);
 }
 
 .papers-toggle {
@@ -475,7 +484,7 @@ a:hover {
     margin: 1.5rem 0 0 0;
     background-color: var(--light-color);
     color: var(--primary-color);
-    border: 2px solid var(--primary-color);
+    border: none;
     border-radius: var(--border-radius);
     font-weight: 600;
     font-size: 0.95rem;
