@@ -27,6 +27,7 @@ const navLinksList = document.querySelector('.nav-links');
 if (navToggleBtn && navLinksList) {
     navToggleBtn.addEventListener('click', () => {
         navLinksList.classList.toggle('active');
+        document.body.classList.toggle('no-scroll', navLinksList.classList.contains('active'));
     });
 }
 
