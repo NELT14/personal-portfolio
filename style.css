@@ -241,7 +241,7 @@ a:hover {
 }
 
 .about-content {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
 }
 
@@ -250,7 +250,7 @@ a:hover {
     line-height: 1.8;
     color: var(--text-dark);
     margin-bottom: 3rem;
-    text-align: center;
+    text-align: left;
 }
 
 .info-grid {
