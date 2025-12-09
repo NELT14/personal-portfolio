@@ -259,6 +259,18 @@ a:hover {
     color: #fff; flex-shrink: 0;
 }
 
+.web-icon-img {
+    width: 22px;
+    height: 22px;
+    display: block;
+}
+
+/* Slightly larger Codecademy mark for visual balance */
+.icon--codecademy .web-icon-img {
+    width: 26px;
+    height: 26px;
+}
+
 .web-text { display: flex; flex-direction: column; }
 .web-text strong { color: var(--dark-color); font-size: 1rem; }
 .web-text span { color: var(--text-muted); font-size: 0.9rem; }
@@ -269,6 +281,7 @@ a:hover {
 .icon--facebook { background: #1877F2; }
 .icon--github { background: #181717; }
 .icon--codeforces { background: #ffffff; border: 1px solid var(--border-color); }
+.icon--codecademy { background: #ffffff; border: 1px solid var(--border-color); }
 
 .btn {
     display: inline-block;
