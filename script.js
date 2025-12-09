@@ -38,7 +38,7 @@ const observer = new IntersectionObserver(function(entries) {
 }, observerOptions);
 
 // Apply observer to elements
-document.querySelectorAll('.project-card, .skill-item, .achievement, .social-card, .info-item').forEach(element => {
+document.querySelectorAll('.skill-item, .achievement, .social-card, .info-item').forEach(element => {
     element.style.opacity = '0';
     element.style.transform = 'translateY(20px)';
     element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
@@ -141,10 +141,12 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
             // Collapse
             targetElement.style.display = 'none';
             this.setAttribute('aria-expanded', 'false');
+            this.textContent = '📄 View Research Papers (2)';
         } else {
             // Expand
             targetElement.style.display = 'block';
             this.setAttribute('aria-expanded', 'true');
+            this.textContent = '📄 Hide Research Papers (2)';
         }
     });
 });
