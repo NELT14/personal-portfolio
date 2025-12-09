@@ -24,10 +24,45 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 // ===========================
 const navToggleBtn = document.querySelector('.nav-toggle');
 const navLinksList = document.querySelector('.nav-links');
+const navbarEl = document.querySelector('.navbar');
+function setNavHeightVar() {
+    if (!navbarEl) return;
+    const h = navbarEl.offsetHeight;
+    document.documentElement.style.setProperty('--nav-height', h + 'px');
+}
+setNavHeightVar();
+window.addEventListener('resize', setNavHeightVar);
 if (navToggleBtn && navLinksList) {
     navToggleBtn.addEventListener('click', () => {
         navLinksList.classList.toggle('active');
-        document.body.classList.toggle('no-scroll', navLinksList.classList.contains('active'));
+        const open = navLinksList.classList.contains('active');
+        document.body.classList.toggle('no-scroll', open);
+        navToggleBtn.setAttribute('aria-expanded', open ? 'true' : 'false');
+        if (open) {
+            const firstLink = navLinksList.querySelector('a');
+            if (firstLink) firstLink.focus();
+        }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navLinksList.classList.contains('active')) {
+            navLinksList.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+            navToggleBtn.focus();
+        }
+    });
+
+    // Close when clicking outside the menu
+    document.addEventListener('click', (e) => {
+        if (!navLinksList.classList.contains('active')) return;
+        const container = document.querySelector('.navbar .container');
+        if (container && !container.contains(e.target)) {
+            navLinksList.classList.remove('active');
+            document.body.classList.remove('no-scroll');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+        }
     });
 }
 
@@ -117,16 +152,7 @@ document.querySelectorAll('.social-card').forEach(card => {
 });
 
 // ===========================
-// Email Mailto Handler
-// ===========================
-const emailCard = document.querySelector('.social-card.email');
-if (emailCard) {
-    emailCard.addEventListener('click', function(e) {
-        // Prevents default action, mailto already works
-        e.preventDefault();
-        window.location.href = 'mailto:ali_aliyev@hotmail.com';
-    });
-}
+// Email handler removed; mailto link works as provided
 
 // ===========================
 // Add CSS for Active Nav Links
@@ -148,15 +174,12 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
         const targetId = this.getAttribute('data-target');
         const targetElement = document.getElementById(targetId);
         const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        
         if (isExpanded) {
-            // Collapse
-            targetElement.style.display = 'none';
+            targetElement.hidden = true;
             this.setAttribute('aria-expanded', 'false');
             this.textContent = 'View Research Papers';
         } else {
-            // Expand
-            targetElement.style.display = 'block';
+            targetElement.hidden = false;
             this.setAttribute('aria-expanded', 'true');
             this.textContent = 'Hide Research Papers';
         }

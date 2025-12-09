@@ -21,6 +21,7 @@
     --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+    --nav-height: 64px;
 }
 
 html {
@@ -32,7 +33,21 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     background-color: #ffffff;
+    color-scheme: light dark;
 }
+
+/* Skip Link */
+.skip-link {
+    position: absolute;
+    left: -999px;
+    top: -999px;
+    background: var(--dark-color);
+    color: #fff;
+    padding: 0.5rem 0.75rem;
+    border-radius: 6px;
+    z-index: 2000;
+}
+.skip-link:focus { left: 1rem; top: 1rem; }
 
 a {
     color: var(--primary-color);
@@ -101,6 +116,11 @@ a:hover {
     position: relative;
 }
 
+.nav-links a:focus-visible,
+.btn:focus-visible,
+.social-icon:focus-visible,
+.web-card:focus-visible { outline: 3px solid var(--accent-color); outline-offset: 2px; }
+
 .nav-links a:hover {
     color: var(--accent-color);
 }
@@ -137,7 +157,7 @@ a:hover {
     .nav-links.active {
         display: flex;
         position: fixed;
-        top: 64px; /* approx navbar height; scales with zoom */
+        top: calc(var(--nav-height) + env(safe-area-inset-top, 0px));
         left: 0;
         right: 0;
         bottom: 0;
@@ -210,7 +230,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .introduction-text h1 {
-    font-size: 2.5rem;
+    font-size: clamp(1.75rem, 1.5rem + 1.8vw, 2.5rem);
     margin-bottom: 0.5rem;
     font-weight: 700;
     line-height: 1.2;
@@ -242,7 +262,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .around-web h2 {
-    font-size: 2rem;
+    font-size: clamp(1.5rem, 1.2rem + 1.2vw, 2rem);
     text-align: left;
     margin-bottom: 1.5rem;
     color: var(--dark-color);
@@ -264,6 +284,7 @@ body.no-scroll { overflow: hidden; }
     border-radius: 10px;
     box-shadow: var(--shadow-sm);
     transition: var(--transition);
+    text-decoration: none;
 }
 
 .web-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
@@ -297,6 +318,19 @@ body.no-scroll { overflow: hidden; }
 .icon--github { background: #181717; }
 .icon--codeforces { background: #ffffff; border: 1px solid var(--border-color); }
 .icon--codecademy { background: #ffffff; border: 1px solid var(--border-color); }
+
+/* Content resiliency */
+.project-card p, .paper p, .bio { overflow-wrap: anywhere; }
+
+@media (min-width: 1200px) {
+    .container { max-width: 1100px; }
+}
+
+/* Print styles */
+@media print {
+    .navbar, .btn-group, .nav-toggle, .social-icons, .papers-toggle { display: none !important; }
+    .container { max-width: 100%; padding: 0; }
+}
 
 .btn {
     display: inline-block;
@@ -365,7 +399,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .about h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
     color: var(--dark-color);
     margin-bottom: 2rem;
     text-align: center;
@@ -436,7 +470,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .skills h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
     color: var(--dark-color);
     margin-bottom: 2rem;
     text-align: center;
@@ -487,7 +521,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .achievements h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
     color: var(--dark-color);
     margin-bottom: 3rem;
     text-align: center;
@@ -535,7 +569,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .projects h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
     color: var(--dark-color);
     text-align: center;
     margin-bottom: 3rem;
@@ -723,7 +757,7 @@ body.no-scroll { overflow: hidden; }
 }
 
 .connect h2 {
-    font-size: 2.5rem;
+    font-size: clamp(1.75rem, 1.3rem + 2vw, 2.5rem);
     margin-bottom: 0.5rem;
     text-align: center;
     font-weight: 700;

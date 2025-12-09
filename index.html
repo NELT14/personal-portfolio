@@ -1,19 +1,36 @@
+---
+title: Ali Aliyev
+layout: none
+---
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ali Aliyev - Competitive Programmer & Machine Learning Enthusiast</title>
+    <!-- Open Graph / Twitter Cards -->
+    <meta property="og:title" content="{{ page.title | default: site.title }}">
+    <meta property="og:description" content="{{ site.description | default: 'Competitive Programmer and ML Enthusiast.' }}">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/">
+    <meta property="og:site_name" content="{{ site.title | default: 'Ali Aliyev — Portfolio' }}">
+    <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/assets/images/profile.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="{{ page.title | default: site.title }}">
+    <meta name="twitter:description" content="{{ site.description | default: 'Competitive Programmer and ML Enthusiast.' }}">
+    <meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}/assets/images/profile.jpg">
+    <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
     <!-- Navigation -->
-    <nav class="navbar">
+    <a class="skip-link" href="#about">Skip to main content</a>
+    <nav class="navbar" role="navigation" aria-label="Primary">
         <div class="container">
             <div class="nav-brand">Ali Aliyev</div>
-            <button class="nav-toggle" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
-            <ul class="nav-links">
+            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"><i class="fa-solid fa-bars"></i></button>
+            <ul id="primary-nav" class="nav-links" role="menubar">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#achievements">Achievements</a></li>
@@ -29,7 +46,7 @@
     <section id="home" class="hero introduction">
         <div class="container">
             <div class="introduction-content">
-                <img alt="Ali Aliyev" class="profile-pic" src="assets/images/profile.jpg" width="256" height="256"/>
+                <img alt="Ali Aliyev" class="profile-pic" src="assets/images/profile.jpg" width="256" height="256" loading="lazy" decoding="async"/>
                 <div class="introduction-text">
                     <h1>Hi, I'm <span class="name">Ali Aliyev</span>!</h1>
                     <p class="tagline">
@@ -67,7 +84,7 @@
                 </a>
                 <a class="web-card" href="https://www.codecademy.com/profiles/net9134894948" target="_blank" aria-label="Codecademy">
                     <span class="web-icon icon--codecademy" aria-hidden="true">
-                        <img src="assets/images/codecademy_icon.png" alt="" class="web-icon-img" />
+                        <img src="assets/images/codecademy_icon.png" alt="" class="web-icon-img" loading="lazy" decoding="async"/>
                     </span>
                     <div class="web-text"><strong>Codecademy</strong><span>Learning profile</span></div>
                 </a>
@@ -188,7 +205,7 @@
                         <span class="project-year">2025</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu" class="btn btn-secondary" target="_blank">Watch Demo</a>
+                        <a href="https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu" class="btn btn-secondary" target="_blank" rel="noopener">Watch Demo</a>
                     </div>
                 </article>
 
@@ -205,23 +222,23 @@
                         <span class="project-type">Research</span>
                         <span class="project-year">2024</span>
                     </div>
-                    <button class="papers-toggle" data-target="research-papers-1" aria-expanded="false">
+                    <button class="papers-toggle" data-target="research-papers-1" aria-controls="research-papers-1" aria-expanded="false">
                         View Research Papers
                     </button>
-                    <div id="research-papers-1" class="research-papers" style="display: none;">
+                    <div id="research-papers-1" class="research-papers" hidden>
                         <div class="paper">
                             <h4>6th International Black Sea Modern Scientific Research Congress</h4>
                             <p><strong>Thesis:</strong> "Predicting Student Performance Using Ensemble Learning to Improve Success Quality"</p>
                             <p><strong>Location:</strong> Trabzon, August 23-25, 2024</p>
                             <p><strong>Pages:</strong> 1250-1254</p>
-                            <a href="https://www.blackseacountries.org/_files/ugd/614b1f_484ed20333674aa5b2e634a5f443b278.pdf" target="_blank" class="paper-link">View Paper →</a>
+                            <a href="https://www.blackseacountries.org/_files/ugd/614b1f_484ed20333674aa5b2e634a5f443b278.pdf" target="_blank" rel="noopener" class="paper-link">View Paper →</a>
                         </div>
                         <div class="paper">
                             <h4>10th International European Conference on Interdisciplinary Scientific Research</h4>
                             <p><strong>Thesis:</strong> "Predicting Final Exam Success in a Data Course Using Ensemble Learning Models"</p>
                             <p><strong>Location:</strong> Zurich, August 27-29, 2024</p>
                             <p><strong>Pages:</strong> 186-191</p>
-                            <a href="https://www.eucongress.org/_files/ugd/614b1f_090579f0cb3d4ced99d9cfd41ba8fc5b.pdf" target="_blank" class="paper-link">View Paper →</a>
+                            <a href="https://www.eucongress.org/_files/ugd/614b1f_090579f0cb3d4ced99d9cfd41ba8fc5b.pdf" target="_blank" rel="noopener" class="paper-link">View Paper →</a>
                         </div>
                     </div>
                 </article>
@@ -247,7 +264,7 @@
                         <span class="project-year">2021–Present</span>
                     </div>
                     <div class="project-links">
-                        <a href="https://codeforces.com/profile/Nxxlt" class="btn btn-secondary" target="_blank">View on Codeforces</a>
+                        <a href="https://codeforces.com/profile/Nxxlt" class="btn btn-secondary" target="_blank" rel="noopener">View on Codeforces</a>
                     </div>
                 </article>
 
@@ -313,9 +330,9 @@
             <h2>Connect With Me</h2>
             <p>Find me on various platforms and let's collaborate!</p>
             <div class="social-icons">
-                <a class="social-icon" href="https://linkedin.com/in/ali-aliyev-1b24a6381" target="_blank" aria-label="LinkedIn" rel="me"><i class="fa-brands fa-linkedin"></i></a>
-                <a class="social-icon" href="https://www.instagram.com/nelt_13" target="_blank" aria-label="Instagram" rel="me"><i class="fa-brands fa-instagram"></i></a>
-                <a class="social-icon" href="https://www.facebook.com/share/16ce5MZQc1/" target="_blank" aria-label="Facebook" rel="me"><i class="fa-brands fa-facebook"></i></a>
+                <a class="social-icon" href="https://linkedin.com/in/ali-aliyev-1b24a6381" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
+                <a class="social-icon" href="https://www.instagram.com/nelt_13" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
+                <a class="social-icon" href="https://www.facebook.com/share/16ce5MZQc1/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
                 <a class="social-icon" href="mailto:ali__aliyev@outlook.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
                 <a class="social-icon" href="tel:+994507121680" aria-label="Phone"><i class="fa-solid fa-phone"></i></a>
             </div>
