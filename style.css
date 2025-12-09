@@ -218,6 +218,58 @@ a:hover {
     flex-wrap: wrap;
 }
 
+/* ===========================
+   Around the Web Section
+   =========================== */
+.around-web {
+    padding: 3rem 0 1rem;
+    background: #fff;
+}
+
+.around-web h2 {
+    font-size: 2rem;
+    text-align: left;
+    margin-bottom: 1.5rem;
+    color: var(--dark-color);
+}
+
+.web-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1rem;
+}
+
+.web-card {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    padding: 0.9rem 1rem;
+    background: #fff;
+    border: 1px solid var(--border-color);
+    border-radius: 10px;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition);
+}
+
+.web-card:hover { box-shadow: var(--shadow-md); transform: translateY(-2px); }
+
+.web-icon {
+    width: 44px; height: 44px; border-radius: 50%;
+    display: inline-flex; align-items: center; justify-content: center;
+    color: #fff; flex-shrink: 0;
+}
+
+.web-text { display: flex; flex-direction: column; }
+.web-text strong { color: var(--dark-color); font-size: 1rem; }
+.web-text span { color: var(--text-muted); font-size: 0.9rem; }
+
+/* Brand colors */
+.icon--linkedin { background: #0a66c2; }
+.icon--instagram { background: #E4405F; }
+.icon--facebook { background: #1877F2; }
+.icon--github { background: #181717; }
+.icon--codeforces { background: #ffffff; border: 1px solid var(--border-color); }
+
 .btn {
     display: inline-block;
     padding: 0.75rem 1.5rem;
