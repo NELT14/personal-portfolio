@@ -20,6 +20,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 });
 
 // ===========================
+// Mobile Navigation Toggle
+// ===========================
+const navToggleBtn = document.querySelector('.nav-toggle');
+const navLinksList = document.querySelector('.nav-links');
+if (navToggleBtn && navLinksList) {
+    navToggleBtn.addEventListener('click', () => {
+        navLinksList.classList.toggle('active');
+    });
+}
+
+// ===========================
 // Intersection Observer for Animations
 // ===========================
 const observerOptions = {
