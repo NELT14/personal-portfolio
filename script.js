@@ -122,11 +122,19 @@ function highlightActiveLink() {
 
     const updateActive = () => {
         const current = getCurrentSectionId();
+        let activeText = '';
         navLinks.forEach(link => {
             const active = link.getAttribute('href') === `#${current}`;
             link.classList.toggle('active', active);
             if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
+            if (active) activeText = (link.textContent || '').trim();
         });
+
+        // Update document title based on active section
+        const siteName = (document.querySelector('.nav-brand')?.textContent || 'Portfolio').trim();
+        if (activeText) {
+            document.title = `${activeText} | ${siteName}`;
+        }
     };
 
     window.addEventListener('scroll', updateActive, { passive: true });

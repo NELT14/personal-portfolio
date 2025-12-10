@@ -1,3 +1,8 @@
+Update notes (2025-12-10):
+- Navbar scrollspy tweaked for earlier activation (pivot = 0.30).
+- Added Skills to the navbar.
+- Dynamic document title set to "<Section> | Ali Aliyev".
+- "Connect" renamed to "Contact"; tagline clarified to "Reach me via the channels below".
 # Ali Aliyev — Personal Portfolio
 
 This repository contains the source of my personal website. The live site is available at:
