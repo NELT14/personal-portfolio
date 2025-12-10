@@ -102,8 +102,9 @@ function highlightActiveLink() {
 
     const getCurrentSectionId = () => {
         const scrollY = window.scrollY || window.pageYOffset;
-        const navH = (document.querySelector('.navbar')?.offsetHeight) || 0;
-        const pivot = scrollY + navH + 1; // just below the sticky navbar
+        const navH = (navbarEl ? navbarEl.offsetHeight : 0);
+        // Pivot ~30% viewport below the navbar for earlier switching
+        const pivot = scrollY + navH + Math.floor(window.innerHeight * 0.30);
 
         let currentId = sections[0].id;
         for (const section of sections) {
@@ -129,6 +130,7 @@ function highlightActiveLink() {
     };
 
     window.addEventListener('scroll', updateActive, { passive: true });
+    window.addEventListener('resize', updateActive, { passive: true });
     updateActive();
 }
 
