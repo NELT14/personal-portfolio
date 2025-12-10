@@ -229,3 +229,20 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
         }
     });
 });
+
+// ===========================
+// Responsive helpers (vh unit + OS class)
+// ===========================
+(function () {
+    function setVhVar() {
+        const vh = window.innerHeight * 0.01;
+        document.documentElement.style.setProperty('--vh', vh + 'px');
+    }
+    setVhVar();
+    window.addEventListener('resize', setVhVar, { passive: true });
+    window.addEventListener('orientationchange', setVhVar);
+
+    const ua = (navigator.userAgent || '').toLowerCase();
+    if (/android/.test(ua)) document.documentElement.classList.add('os-android');
+    if (/iphone|ipad|ipod/.test(ua)) document.documentElement.classList.add('os-ios');
+})();

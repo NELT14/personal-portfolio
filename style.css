@@ -82,6 +82,15 @@ a:hover {
     padding-right: var(--page-gutter);
 }
 
+/* Fluid media */
+img, video { max-width: 100%; height: auto; }
+
+/* Progressive container widths (Bootstrap-like scale) */
+@media (min-width: 576px) { .container { max-width: 540px; } }
+@media (min-width: 768px) { .container { max-width: 720px; } }
+@media (min-width: 992px) { .container { max-width: 960px; } }
+@media (min-width: 1200px) { .container { max-width: 1100px; } }
+
 /* ===========================
    Navigation Bar
    =========================== */
