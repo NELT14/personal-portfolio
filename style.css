@@ -363,7 +363,7 @@ section {
 
 .web-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1rem;
 }
 
@@ -461,7 +461,8 @@ section {
     transform: translateY(-2px);
 }
 
-@media (max-width: 1200px) {
+/* Only apply mobile hero layout on actual tablets/phones, not desktop zoom */
+@media (max-width: 1024px) {
     .introduction-content {
         grid-template-columns: 1fr;
         text-align: center;
@@ -508,7 +509,7 @@ section {
 }
 
 /* ALL LANDSCAPE PHONES - Comprehensive fix for Xiaomi 15 Ultra and similar devices */
-@media (orientation: landscape) and (max-width: 1200px) {
+@media (orientation: landscape) and (max-width: 1024px) {
     :root {
         --page-gutter: 0px !important;
         --nav-gutter: 0px !important;
