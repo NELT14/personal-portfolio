@@ -25,7 +25,7 @@ bundle exec jekyll serve --livereload
 
 Then open:
 
-- http://127.0.0.1:4000 (project page with `baseurl`)
+- http://127.0.0.1:4000 (project page)
 
 Note: Opening `index.html` directly will show the YAML front matter. Always run through Jekyll.
 
