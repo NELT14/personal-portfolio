@@ -527,7 +527,7 @@ section {
         margin-right: 0 !important;
     }
     
-    /* Containers should be centered with auto margins and only safe-area padding */
+    /* Containers should have zero padding and no margins */
     .navbar .container,
     .container,
     .introduction .container,
@@ -536,11 +536,30 @@ section {
     .connect .container,
     section .container,
     .hero .container {
-        padding-left: env(safe-area-inset-left, 0px) !important;
-        padding-right: env(safe-area-inset-right, 0px) !important;
-        margin-left: auto !important;
-        margin-right: auto !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
         width: 100% !important;
+        max-width: 100% !important;
+    }
+    
+    /* Fix all grid layouts to single column with smaller min-width */
+    .web-grid,
+    .project-grid,
+    .social-grid,
+    .skills-grid {
+        grid-template-columns: 1fr !important;
+        gap: 0.8rem !important;
+        padding: 0 0.5rem !important;
+    }
+    
+    /* Ensure all child elements don't overflow */
+    .web-card,
+    .project-card,
+    .social-card,
+    .skill-category {
+        margin: 0 !important;
         max-width: 100% !important;
     }
     
