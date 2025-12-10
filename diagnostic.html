@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Viewport Diagnostic</title>
+    <style>
+        body {
+            font-family: system-ui, -apple-system, sans-serif;
+            padding: 2rem;
+            line-height: 1.6;
+        }
+        .info-box {
+            background: #f0f9ff;
+            border: 2px solid #2563eb;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-bottom: 1rem;
+        }
+        .info-box h2 {
+            margin-top: 0;
+            color: #1e40af;
+        }
+        .metric {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2563eb;
+            margin: 0.5rem 0;
+        }
+        .breakpoint {
+            padding: 0.5rem;
+            margin: 0.25rem 0;
+            border-radius: 4px;
+        }
+        .active {
+            background: #22c55e;
+            color: white;
+            font-weight: bold;
+        }
+        .inactive {
+            background: #e2e8f0;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <h1>🔍 Viewport Diagnostic Tool</h1>
+    
+    <div class="info-box">
+        <h2>Current Viewport Dimensions</h2>
+        <div>Window inner width: <span class="metric" id="innerWidth"></span></div>
+        <div>Window inner height: <span class="metric" id="innerHeight"></span></div>
+        <div>Screen width: <span class="metric" id="screenWidth"></span></div>
+        <div>Device pixel ratio (zoom indicator): <span class="metric" id="dpr"></span></div>
+    </div>
+
+    <div class="info-box">
+        <h2>Media Query Status</h2>
+        <div class="breakpoint" id="bp-mobile">≤768px (Mobile): <span></span></div>
+        <div class="breakpoint" id="bp-tablet">≤1024px (Tablet): <span></span></div>
+        <div class="breakpoint" id="bp-small-desktop">≤1200px: <span></span></div>
+        <div class="breakpoint" id="bp-desktop">>1024px (Desktop): <span></span></div>
+    </div>
+
+    <div class="info-box">
+        <h2>Calculated Container Width</h2>
+        <div>Max container: <span class="metric">1000px</span></div>
+        <div>Page gutter (clamp 16-48px, 3vw): <span class="metric" id="gutter"></span></div>
+        <div>Effective content width: <span class="metric" id="contentWidth"></span></div>
+        <div>Cards that fit (280px min): <span class="metric" id="cardsFit"></span></div>
+    </div>
+
+    <script>
+        function updateDiagnostics() {
+            // Viewport dimensions
+            document.getElementById('innerWidth').textContent = window.innerWidth + 'px';
+            document.getElementById('innerHeight').textContent = window.innerHeight + 'px';
+            document.getElementById('screenWidth').textContent = screen.width + 'px';
+            document.getElementById('dpr').textContent = window.devicePixelRatio.toFixed(2);
+
+            // Media queries
+            const checks = [
+                { id: 'bp-mobile', query: '(max-width: 768px)' },
+                { id: 'bp-tablet', query: '(max-width: 1024px)' },
+                { id: 'bp-small-desktop', query: '(max-width: 1200px)' },
+                { id: 'bp-desktop', query: '(min-width: 1025px)' }
+            ];
+
+            checks.forEach(check => {
+                const matches = window.matchMedia(check.query).matches;
+                const element = document.getElementById(check.id);
+                element.querySelector('span').textContent = matches ? 'ACTIVE' : 'inactive';
+                element.className = 'breakpoint ' + (matches ? 'active' : 'inactive');
+            });
+
+            // Container calculations
+            const vw = window.innerWidth;
+            const gutter = Math.max(16, Math.min(48, vw * 0.03));
+            const containerWidth = Math.min(1000, vw - 32); // Account for body margins
+            const contentWidth = containerWidth - (2 * gutter);
+            const cardsFit = Math.floor(contentWidth / (280 + 16)); // 280px + 16px gap
+
+            document.getElementById('gutter').textContent = gutter.toFixed(1) + 'px';
+            document.getElementById('contentWidth').textContent = contentWidth.toFixed(0) + 'px';
+            document.getElementById('cardsFit').textContent = cardsFit + ' cards';
+        }
+
+        // Update on load and resize
+        updateDiagnostics();
+        window.addEventListener('resize', updateDiagnostics);
+        
+        // Update every 500ms to catch zoom changes
+        setInterval(updateDiagnostics, 500);
+    </script>
+</body>
+</html>

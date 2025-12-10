@@ -236,6 +236,28 @@ a:hover {
         padding: 0.5rem 0;
         font-size: 1rem;
     }
+
+    /* Mobile hero layout: centered with stacked elements */
+    .introduction-content {
+        grid-template-columns: 1fr !important;
+        text-align: center;
+        gap: 2rem;
+    }
+
+    .profile-pic {
+        width: 200px !important;
+        height: 200px !important;
+        margin: 0 auto !important;
+    }
+
+    .btn-group {
+        justify-content: center;
+    }
+
+    /* Mobile web-grid: allow responsive stacking */
+    .web-grid {
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
+    }
 }
 
 /* Desktop & Laptop styles - removed to maintain consistent sizing at all zoom levels */
@@ -363,7 +385,8 @@ section {
 
 .web-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    /* Fixed 3-column grid on desktop to prevent auto-stacking at zoom levels */
+    grid-template-columns: repeat(3, 1fr);
     gap: 1rem;
 }
 
@@ -459,29 +482,6 @@ section {
 .btn-secondary:hover {
     background-color: rgba(255, 255, 255, 0.1);
     transform: translateY(-2px);
-}
-
-/* Only apply mobile hero layout on actual tablets/phones, not desktop zoom */
-@media (max-width: 1024px) {
-    .introduction-content {
-        grid-template-columns: 1fr;
-        text-align: center;
-        gap: 2rem;
-    }
-
-    .introduction-text h1 {
-        font-size: 1.75rem;
-    }
-
-    .profile-pic {
-        width: 200px;
-        height: 200px;
-        margin: 0 auto;
-    }
-
-    .btn-group {
-        justify-content: center;
-    }
 }
 
 /* Tablets and small laptops */
