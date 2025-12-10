@@ -66,7 +66,8 @@ a:hover {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding-left: calc(1rem + env(safe-area-inset-left, 0px));
+    padding-right: calc(1rem + env(safe-area-inset-right, 0px));
 }
 
 /* ===========================
@@ -90,9 +91,6 @@ a:hover {
 }
 body {
     padding-top: env(safe-area-inset-top, 0px);
-    padding-left: env(safe-area-inset-left, 0px);
-    padding-right: env(safe-area-inset-right, 0px);
-    padding-bottom: env(safe-area-inset-bottom, 0px);
 }
 
 .navbar .container {
@@ -188,7 +186,7 @@ body {
         left: 0;
         right: 0;
         bottom: 0;
-        padding: 1rem calc(1.25rem + env(safe-area-inset-right, 0px)) 2rem calc(1.25rem + env(safe-area-inset-left, 0px));
+        padding: 1rem calc(1rem + env(safe-area-inset-right, 0px)) 2rem calc(1rem + env(safe-area-inset-left, 0px));
         overflow-y: auto;
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
