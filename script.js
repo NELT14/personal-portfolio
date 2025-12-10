@@ -231,9 +231,10 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
 });
 
 // ===========================
-// Responsive helpers (vh unit + OS class)
+// Responsive helpers (vh unit + OS class + Android viewport fix)
 // ===========================
 (function () {
+    // Set custom --vh variable for viewport height issues on mobile
     function setVhVar() {
         const vh = window.innerHeight * 0.01;
         document.documentElement.style.setProperty('--vh', vh + 'px');
@@ -242,7 +243,23 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
     window.addEventListener('resize', setVhVar, { passive: true });
     window.addEventListener('orientationchange', setVhVar);
 
+    // OS detection
     const ua = (navigator.userAgent || '').toLowerCase();
-    if (/android/.test(ua)) document.documentElement.classList.add('os-android');
+    if (/android/.test(ua)) {
+        document.documentElement.classList.add('os-android');
+        
+        // Android-specific fix: prevent body from exceeding window width
+        // This fixes the horizontal scrollbar and white band issue
+        function fixAndroidViewport() {
+            const docWidth = document.documentElement.clientWidth;
+            document.body.style.width = docWidth + 'px';
+            document.body.style.maxWidth = '100vw';
+        }
+        
+        fixAndroidViewport();
+        window.addEventListener('resize', fixAndroidViewport, { passive: true });
+        window.addEventListener('orientationchange', fixAndroidViewport);
+    }
+    
     if (/iphone|ipad|ipod/.test(ua)) document.documentElement.classList.add('os-ios');
 })();

@@ -32,6 +32,7 @@ html {
     scroll-behavior: smooth;
     background-color: #ffffff; /* ensures safe-area outside body is not black */
     width: 100%;
+    height: 100%;
     overflow-x: hidden; /* prevent horizontal white band in landscape */
 }
 
@@ -45,8 +46,11 @@ body {
     background-color: #ffffff;
     color-scheme: light;
     width: 100%;
+    max-width: 100vw;
     overflow-x: hidden; /* avoid sideways scroll that creates right gutter */
     box-sizing: border-box;
+    margin: 0;
+    padding: 0;
 }
 
 /* Skip Link */
@@ -81,13 +85,14 @@ a:hover {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: min(1000px, 100vw - 2 * var(--page-gutter));
     width: 100%;
     margin-left: auto;
     margin-right: auto;
     /* Symmetric gutters + safe-areas for Android/iOS */
     padding-left: var(--page-gutter);
     padding-right: var(--page-gutter);
+    box-sizing: border-box;
 }
 
 /* ===========================
@@ -127,11 +132,13 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    max-width: none;
-    width: 100%;
+    max-width: 100%;
+    width: 100vw;
     padding-left: calc(var(--nav-gutter) + env(safe-area-inset-left, 0px));
     padding-right: calc(var(--nav-gutter) + env(safe-area-inset-right, 0px));
     flex-wrap: nowrap;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 .nav-brand {
@@ -252,6 +259,14 @@ a:hover {
 
 /* Prevent background scroll when mobile menu is open */
 body.no-scroll { overflow: hidden; }
+
+/* Ensure all sections don't overflow horizontally */
+section {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    overflow-x: hidden;
+}
 
 /* Social icons */
 .social-icons {
@@ -492,6 +507,24 @@ body.no-scroll { overflow: hidden; }
     }
     .nav-links { gap: 0.5rem; }
     .nav-links a, .nav-brand { font-size: 0.95rem; }
+}
+
+/* Android-specific global fixes to prevent horizontal overflow */
+.os-android, .os-android body, .os-android html {
+    max-width: 100vw;
+    overflow-x: hidden;
+}
+
+.os-android .navbar, .os-android .navbar .container {
+    max-width: 100%;
+    width: 100%;
+}
+
+.os-android .introduction, .os-android .about, .os-android .skills, 
+.os-android .achievements, .os-android .projects, .os-android .around-web, 
+.os-android .activities, .os-android .experience, .os-android .connect {
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
 /* ===========================
