@@ -43,7 +43,7 @@ body {
     line-height: 1.6;
     color: var(--text-dark);
     background-color: #ffffff;
-    color-scheme: light dark;
+    color-scheme: light;
     width: 100%;
     overflow-x: hidden; /* avoid sideways scroll that creates right gutter */
     box-sizing: border-box;
