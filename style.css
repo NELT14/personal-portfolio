@@ -81,6 +81,7 @@ a:hover {
     top: 0;
     z-index: 100;
     box-shadow: var(--shadow-md);
+    overflow: hidden; /* prevent link overflow artifacts */
 }
 
 /* Respect device cutouts (hole‑punch, notches) */
@@ -165,7 +166,7 @@ body {
     width: 100%;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
     .nav-links {
         display: none;
@@ -410,7 +411,7 @@ body.no-scroll { overflow: hidden; }
     transform: translateY(-2px);
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
     .introduction-content {
         grid-template-columns: 1fr;
         text-align: center;
