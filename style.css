@@ -28,12 +28,6 @@
     --nav-gutter: clamp(8px, 2vw, 16px);
 }
 
-/* Utility: use full width without 100vw scrollbar overflow */
-.width-full {
-    width: 100%;
-    max-width: calc(100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
-}
-
 html {
     scroll-behavior: smooth;
     background-color: #ffffff; /* ensures safe-area outside body is not black */
@@ -88,15 +82,6 @@ a:hover {
     padding-right: var(--page-gutter);
 }
 
-/* Fluid media */
-img, video { max-width: 100%; height: auto; }
-
-/* Progressive container widths (Bootstrap-like scale) */
-@media (min-width: 576px) { .container { max-width: 540px; } }
-@media (min-width: 768px) { .container { max-width: 720px; } }
-@media (min-width: 992px) { .container { max-width: 960px; } }
-@media (min-width: 1200px) { .container { max-width: 1100px; } }
-
 /* ===========================
    Navigation Bar
    =========================== */
@@ -135,15 +120,10 @@ img, video { max-width: 100%; height: auto; }
     align-items: center;
     position: relative;
     /* Make navbar span full width and reduce left/right padding */
-    max-width: none;
-    flex-wrap: nowrap;
+    max-width: 100%;
     padding-left: calc(var(--nav-gutter) + env(safe-area-inset-left, 0px));
     padding-right: calc(var(--nav-gutter) + env(safe-area-inset-right, 0px));
 }
-
-/* Keep brand anchored left and hamburger anchored right */
-.nav-brand { flex: 1 1 auto; }
-.nav-toggle{ flex: 0 0 auto; }
 
 .nav-brand {
     font-size: 1.5rem;
@@ -479,25 +459,10 @@ body.no-scroll { overflow: hidden; }
 
 /* Landscape-specific tuning for phones */
 @media (orientation: landscape) and (max-height: 480px) {
-    .nav-links  { gap: 0.5rem; }
-    .nav-links a,
-    .nav-brand  { font-size: 0.9rem; }
-}
-
-/* Collapse page gutters on ultra-wide phones in landscape */
-@media (orientation: landscape) and (min-width: 850px) {
-    :root { --page-gutter: 0px; }
-}
-
-/* Xiaomi 15 Ultra class of devices (QHD-ish, high DPR) */
-@media (orientation: landscape) and (min-width: 780px) and (max-height: 560px) and (min-resolution: 2.75dppx) {
-    :root { --page-gutter: 0px; }
-    .navbar .container {
-        padding-left: calc(6px + env(safe-area-inset-left, 0px));
-        padding-right: calc(6px + env(safe-area-inset-right, 0px));
-    }
-    .nav-links { gap: 0.5rem; }
-    .nav-links a, .nav-brand { font-size: 0.95rem; }
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.95rem; }
+    .nav-brand { font-size: 1.25rem; }
+    .container { max-width: 100%; }
 }
 
 /* ===========================
