@@ -495,35 +495,55 @@ section {
 }
 
 /* Landscape phones ONLY (not tablets, not desktops) */
-@media (orientation: landscape) and (max-width: 896px) and (max-height: 450px) {
+@media (orientation: landscape) and (max-width: 896px) and (max-height: 500px) {
     :root {
-        --page-gutter: 0px;
-        --nav-gutter: 0px;
+        --page-gutter: 0px !important;
+        --nav-gutter: 0px !important;
     }
     .navbar .container,
-    .container {
-        padding-left: env(safe-area-inset-left, 0px);
-        padding-right: env(safe-area-inset-right, 0px);
+    .container,
+    .introduction .container,
+    .about .container,
+    .around-web .container,
+    section .container {
+        padding-left: env(safe-area-inset-left, 0px) !important;
+        padding-right: env(safe-area-inset-right, 0px) !important;
     }
     .nav-links { gap: 0.8rem; }
     .nav-links a { font-size: 0.9rem; }
     .nav-brand { font-size: 1.2rem; }
     .container { max-width: 100%; }
+    
+    /* Make all sections full-width */
+    section {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
-/* Xiaomi 15 Ultra specific: wide landscape, high DPI, NOT desktop width */
-@media (orientation: landscape) and (min-width: 780px) and (max-width: 1100px) and (max-height: 560px) and (min-resolution: 2.5dppx) {
+/* Xiaomi 15 Ultra and wide landscape phones */
+@media (orientation: landscape) and (min-width: 780px) and (max-width: 1100px) and (max-height: 600px) {
     :root {
-        --page-gutter: 0px;
-        --nav-gutter: 0px;
+        --page-gutter: 0px !important;
+        --nav-gutter: 0px !important;
     }
     .navbar .container,
-    .container {
-        padding-left: env(safe-area-inset-left, 0px);
-        padding-right: env(safe-area-inset-right, 0px);
+    .container,
+    .introduction .container,
+    .about .container,
+    .around-web .container,
+    section .container {
+        padding-left: env(safe-area-inset-left, 0px) !important;
+        padding-right: env(safe-area-inset-right, 0px) !important;
     }
     .nav-links { gap: 0.5rem; }
     .nav-links a, .nav-brand { font-size: 0.95rem; }
+    
+    /* Make all sections full-width */
+    section {
+        width: 100%;
+        max-width: 100%;
+    }
 }
 
 /* ===========================
