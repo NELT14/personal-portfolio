@@ -96,26 +96,40 @@ document.querySelectorAll('.skill-item, .achievement, .social-card, .info-item')
 // Active Navigation Link Indicator
 // ===========================
 function highlightActiveLink() {
-    const sections = document.querySelectorAll('section[id]');
+    const sections = Array.from(document.querySelectorAll('section[id]'));
     const navLinks = document.querySelectorAll('.nav-links a');
+    if (!sections.length || !navLinks.length) return;
 
-    window.addEventListener('scroll', () => {
-        let current = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.clientHeight;
-            if (pageYOffset >= sectionTop - 200) {
-                current = section.getAttribute('id');
-            }
-        });
+    const getCurrentSectionId = () => {
+        const scrollY = window.scrollY || window.pageYOffset;
+        const navH = (document.querySelector('.navbar')?.offsetHeight) || 0;
+        const pivot = scrollY + navH + 1; // just below the sticky navbar
 
+        let currentId = sections[0].id;
+        for (const section of sections) {
+            const top = section.offsetTop;
+            const bottom = top + section.offsetHeight;
+            if (pivot >= top && pivot < bottom) { currentId = section.id; break; }
+            if (pivot >= top) currentId = section.id;
+        }
+
+        // At the very bottom, force last section
+        const atBottom = Math.ceil(window.innerHeight + scrollY) >= document.documentElement.scrollHeight;
+        if (atBottom) currentId = sections[sections.length - 1].id;
+        return currentId;
+    };
+
+    const updateActive = () => {
+        const current = getCurrentSectionId();
         navLinks.forEach(link => {
-            link.classList.remove('active');
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-            }
+            const active = link.getAttribute('href') === `#${current}`;
+            link.classList.toggle('active', active);
+            if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
         });
-    });
+    };
+
+    window.addEventListener('scroll', updateActive, { passive: true });
+    updateActive();
 }
 
 // Call on page load
