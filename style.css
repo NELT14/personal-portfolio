@@ -90,7 +90,7 @@ a:hover {
     color: white;
     padding: 1rem 0;
     position: sticky;
-    top: 0;
+    top: env(safe-area-inset-top, 0px); /* sit just below the cutout */
     z-index: 100;
     box-shadow: var(--shadow-md);
     overflow: hidden; /* prevent link overflow artifacts */
@@ -102,9 +102,7 @@ a:hover {
     padding-left: env(safe-area-inset-left, 0px);
     padding-right: env(safe-area-inset-right, 0px);
 }
-body {
-    padding-top: env(safe-area-inset-top, 0px);
-}
+/* no safe-area padding on body – navbar handles top inset */
 
 /* Apply safe-area padding globally in landscape to avoid cutouts */
 @media screen and (orientation: landscape) {
@@ -444,15 +442,6 @@ body.no-scroll { overflow: hidden; }
         gap: 2rem;
     }
 
-
-/* Landscape-specific tuning for phones */
-@media (orientation: landscape) and (max-height: 480px) {
-    .nav-links { gap: 1rem; }
-    .nav-links a { font-size: 0.95rem; }
-    .nav-brand { font-size: 1.25rem; }
-    /* Use the full viewport width on short landscape phones */
-    .container { max-width: 100%; }
-}
     .introduction-text h1 {
         font-size: 1.75rem;
     }
@@ -466,6 +455,14 @@ body.no-scroll { overflow: hidden; }
     .btn-group {
         justify-content: center;
     }
+}
+
+/* Landscape-specific tuning for phones */
+@media (orientation: landscape) and (max-height: 480px) {
+    .nav-links { gap: 1rem; }
+    .nav-links a { font-size: 0.95rem; }
+    .nav-brand { font-size: 1.25rem; }
+    .container { max-width: 100%; }
 }
 
 /* ===========================
