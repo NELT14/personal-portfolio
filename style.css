@@ -238,16 +238,7 @@ a:hover {
     }
 }
 
-/* Desktop & Laptop - ensure nav items fit and scale properly */
-@media (min-width: 769px) and (max-width: 1200px) {
-    .nav-links {
-        gap: 1.5rem;
-    }
-    
-    .nav-links a {
-        font-size: 0.9rem;
-    }
-}
+/* Desktop & Laptop styles - removed to maintain consistent sizing at all zoom levels */
 
 /* Hamburger icon animation */
 .nav-toggle i { transition: transform 0.25s ease; }
