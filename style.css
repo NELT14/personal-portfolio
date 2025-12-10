@@ -13,6 +13,7 @@
     --accent-color: #60a5fa;
     --dark-color: #1e293b;
     --light-color: #f8fafc;
+    --page-bg: #ffffff;
     --text-dark: #334155;
     --text-muted: #64748b;
     --border-color: #e2e8f0;
@@ -26,7 +27,7 @@
 
 html {
     scroll-behavior: smooth;
-    background-color: #ffffff; /* ensures safe-area outside body is not black */
+    background-color: var(--page-bg); /* ensures safe-area outside body is not black */
     width: 100%;
     overflow-x: hidden; /* prevent horizontal white band in landscape */
 }
@@ -38,10 +39,31 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
-    background-color: #ffffff;
+        background-color: var(--page-bg);
     color-scheme: light dark;
     width: 100%;
     overflow-x: hidden; /* avoid sideways scroll that creates right gutter */
+}
+
+/* Paint safe-area edges (left/right/bottom) without shifting layout */
+body::before {
+        content: '';
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: 0;
+        background:
+            linear-gradient(to right,
+                var(--page-bg) 0,
+                var(--page-bg) env(safe-area-inset-left, 0px),
+                transparent env(safe-area-inset-left, 0px),
+                transparent calc(100% - env(safe-area-inset-right, 0px)),
+                var(--page-bg) calc(100% - env(safe-area-inset-right, 0px)),
+                var(--page-bg) 100%)
+            ,linear-gradient(to top,
+                var(--page-bg) 0,
+                var(--page-bg) env(safe-area-inset-bottom, 0px),
+                transparent env(safe-area-inset-bottom, 0px));
 }
 
 /* Skip Link */
