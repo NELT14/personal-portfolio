@@ -26,6 +26,7 @@
 
 html {
     scroll-behavior: smooth;
+    background-color: #ffffff; /* ensures safe-area outside body is not black */
 }
 
 /* Keep anchors visible below sticky navbar */
@@ -65,7 +66,8 @@ a:hover {
 .container {
     max-width: 1000px;
     margin: 0 auto;
-    padding: 0 24px;
+    padding-left: calc(24px + env(safe-area-inset-left, 0px));
+    padding-right: calc(24px + env(safe-area-inset-right, 0px));
 }
 
 /* ===========================
@@ -82,7 +84,11 @@ a:hover {
 }
 
 /* Respect device cutouts (hole‑punch, notches) */
-.navbar { padding-top: calc(1rem + env(safe-area-inset-top, 0px)); }
+.navbar { 
+    padding-top: calc(1rem + env(safe-area-inset-top, 0px));
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+}
 body { padding-top: env(safe-area-inset-top, 0px); }
 
 .navbar .container {
@@ -178,7 +184,7 @@ body { padding-top: env(safe-area-inset-top, 0px); }
         left: 0;
         right: 0;
         bottom: 0;
-        padding: 1rem 1.25rem 2rem;
+        padding: 1rem calc(1.25rem + env(safe-area-inset-right, 0px)) 2rem calc(1.25rem + env(safe-area-inset-left, 0px));
         overflow-y: auto;
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
