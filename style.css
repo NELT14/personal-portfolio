@@ -62,6 +62,14 @@ body {
 }
 .skip-link:focus { left: 1rem; top: 1rem; }
 
+/* Full-width utility for hero/sections without container padding */
+.width-full {
+    width: 100%;
+    max-width: calc(100vw - env(safe-area-inset-left, 0px) - env(safe-area-inset-right, 0px));
+    margin-left: auto;
+    margin-right: auto;
+}
+
 a {
     color: var(--primary-color);
     text-decoration: none;
@@ -119,10 +127,11 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     position: relative;
-    /* Make navbar span full width and reduce left/right padding */
-    max-width: 100%;
+    max-width: none;
+    width: 100%;
     padding-left: calc(var(--nav-gutter) + env(safe-area-inset-left, 0px));
     padding-right: calc(var(--nav-gutter) + env(safe-area-inset-right, 0px));
+    flex-wrap: nowrap;
 }
 
 .nav-brand {
@@ -130,6 +139,8 @@ a:hover {
     font-weight: 700;
     color: var(--accent-color);
     letter-spacing: -0.5px;
+    flex: 1 1 auto;
+    white-space: nowrap;
 }
 
 .nav-links {
@@ -146,6 +157,8 @@ a:hover {
     border-radius: 6px;
     padding: 0.4rem 0.6rem;
     font-size: 1.1rem;
+    flex: 0 0 auto;
+    cursor: pointer;
 }
 
 .nav-links a {
@@ -463,6 +476,22 @@ body.no-scroll { overflow: hidden; }
     .nav-links a { font-size: 0.95rem; }
     .nav-brand { font-size: 1.25rem; }
     .container { max-width: 100%; }
+}
+
+/* Ultra-wide landscape (tablets & landscape folding devices) */
+@media (orientation: landscape) and (min-width: 850px) {
+    :root { --page-gutter: 0px; }
+}
+
+/* Xiaomi 15 Ultra & similar high-DPR landscape phones (QHD+) */
+@media (orientation: landscape) and (min-width: 780px) and (max-height: 560px) and (min-resolution: 2.75dppx) {
+    :root { --page-gutter: 0px; }
+    .navbar .container {
+        padding-left: calc(6px + env(safe-area-inset-left, 0px));
+        padding-right: calc(6px + env(safe-area-inset-right, 0px));
+    }
+    .nav-links { gap: 0.5rem; }
+    .nav-links a, .nav-brand { font-size: 0.95rem; }
 }
 
 /* ===========================
