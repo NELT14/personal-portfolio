@@ -24,6 +24,8 @@
     --nav-height: 64px;
     /* Adaptive, symmetric page gutter so content stays centered on Android */
     --page-gutter: clamp(12px, 4vw, 24px);
+    /* Tighter gutters for the navbar so brand sits near the edge */
+    --nav-gutter: clamp(8px, 2vw, 16px);
 }
 
 html {
@@ -108,6 +110,10 @@ body {
     justify-content: space-between;
     align-items: center;
     position: relative;
+    /* Make navbar span full width and reduce left/right padding */
+    max-width: 100%;
+    padding-left: calc(var(--nav-gutter) + env(safe-area-inset-left, 0px));
+    padding-right: calc(var(--nav-gutter) + env(safe-area-inset-right, 0px));
 }
 
 .nav-brand {
