@@ -441,6 +441,14 @@ body.no-scroll { overflow: hidden; }
     margin-bottom: 0.35rem;
 }
 
+/* Force dates to wrap to a new line for readability */
+.edu-date {
+    display: block;
+    color: var(--text-muted);
+    margin-top: 0.25rem;
+    white-space: nowrap;
+}
+
 /* Slightly smaller hero icons row */
 .hero-social .social-icon { width: 44px; height: 44px; font-size: 1.1rem; }
 .hero-social { margin-top: 1rem; }
