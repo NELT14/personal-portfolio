@@ -46,6 +46,7 @@ body {
     color-scheme: light dark;
     width: 100%;
     overflow-x: hidden; /* avoid sideways scroll that creates right gutter */
+    box-sizing: border-box;
 }
 
 /* Skip Link */
@@ -77,8 +78,8 @@ a:hover {
     margin-left: auto;
     margin-right: auto;
     /* Symmetric gutters + safe-areas for Android/iOS */
-    padding-left: calc(var(--page-gutter) + env(safe-area-inset-left, 0px));
-    padding-right: calc(var(--page-gutter) + env(safe-area-inset-right, 0px));
+    padding-left: var(--page-gutter);
+    padding-right: var(--page-gutter);
 }
 
 /* ===========================
@@ -103,6 +104,16 @@ a:hover {
 }
 body {
     padding-top: env(safe-area-inset-top, 0px);
+}
+
+/* Apply safe-area padding globally in landscape to avoid cutouts */
+@media screen and (orientation: landscape) {
+    body {
+        padding-top: env(safe-area-inset-top, 0px);
+        padding-right: env(safe-area-inset-right, 0px);
+        padding-bottom: env(safe-area-inset-bottom, 0px);
+        padding-left: env(safe-area-inset-left, 0px);
+    }
 }
 
 .navbar .container {
