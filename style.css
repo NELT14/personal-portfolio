@@ -81,6 +81,10 @@ a:hover {
     box-shadow: var(--shadow-md);
 }
 
+/* Respect device cutouts (hole‑punch, notches) */
+.navbar { padding-top: calc(1rem + env(safe-area-inset-top, 0px)); }
+body { padding-top: env(safe-area-inset-top, 0px); }
+
 .navbar .container {
     display: flex;
     justify-content: space-between;
@@ -179,8 +183,25 @@ a:hover {
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
         z-index: 1000;
+        animation: navSlideDown 0.25s ease-out;
     }
     .nav-links a { padding: 0.25rem 0; }
+}
+
+/* Hamburger icon animation */
+.nav-toggle i { transition: transform 0.25s ease; }
+.nav-toggle[aria-expanded="true"] i { transform: rotate(90deg); }
+
+@keyframes navSlideDown {
+    from { opacity: 0; transform: translateY(-8px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Closing animation for mobile menu */
+.nav-links.active.closing { animation: navSlideUp 0.25s ease-in forwards; }
+@keyframes navSlideUp {
+    from { opacity: 1; transform: translateY(0); }
+    to   { opacity: 0; transform: translateY(-8px); }
 }
 
 /* Prevent background scroll when mobile menu is open */
