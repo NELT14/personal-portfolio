@@ -179,7 +179,7 @@ a:hover {
         width: 100%;
         gap: 12px;
         justify-content: flex-start;
-        padding: 6px 0; /* breathing room when wrapping */
+        padding: 6px 0 6px 8px; /* breathing room when wrapping, align with brand */
     }
 
     .nav-links a {
