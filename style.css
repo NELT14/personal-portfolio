@@ -162,12 +162,12 @@ a:hover {
 
 /* Desktop: smooth scaling navigation to prevent overflow at all zoom levels */
 .desktop-device .nav-links {
-    gap: clamp(0.5rem, 1.5vw, 2rem);
-    flex-wrap: wrap;
+    gap: clamp(0.3rem, 1.2vw, 2rem);
+    flex-wrap: nowrap;
 }
 
 .desktop-device .nav-links a {
-    font-size: clamp(0.75rem, 0.9vw, 1rem);
+    font-size: clamp(0.6rem, 0.85vw, 1rem);
     white-space: nowrap;
 }
 
