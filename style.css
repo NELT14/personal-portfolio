@@ -38,7 +38,7 @@ body {
     font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
     line-height: 1.6;
     color: var(--text-dark);
-    background-color: #ffffff;
+    background-color: var(--dark-color);
     color-scheme: light;
     min-height: 100vh;
     box-sizing: border-box;
@@ -98,7 +98,7 @@ a:hover {
     position: sticky;
     top: env(safe-area-inset-top, 0px); /* sit just below the cutout */
     z-index: 100;
-    box-shadow: var(--shadow-md);
+    box-shadow: none;
     overflow: visible; /* keep nav items visible at high zoom */
 }
 
