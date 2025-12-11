@@ -151,12 +151,25 @@ a:hover {
     margin-left: auto;
 }
 
-/* Desktop devices: never show hamburger, always show full nav */
-.desktop-device .nav-toggle {
+/* Desktop devices: never show hamburger at normal zoom levels */
+.desktop-device:not(.desktop-extreme-zoom) .nav-toggle {
     display: none !important;
 }
 
-.desktop-device .nav-links {
+.desktop-device:not(.desktop-extreme-zoom) .nav-links {
+    display: flex !important;
+}
+
+/* Desktop at extreme zoom (150%+): allow hamburger for usability */
+.desktop-device.desktop-extreme-zoom .nav-toggle {
+    display: inline-flex !important;
+}
+
+.desktop-device.desktop-extreme-zoom .nav-links {
+    display: none;
+}
+
+.desktop-device.desktop-extreme-zoom .nav-links.active {
     display: flex !important;
 }
 
@@ -218,6 +231,11 @@ a:hover {
     .nav-brand {
         font-size: 1.25rem;
     }
+
+    /* Keep desktop nav-brand at consistent size regardless of viewport/zoom */
+    .desktop-device .nav-brand {
+        font-size: 1.5rem !important;
+    }
     
     .nav-links {
         display: none;
@@ -250,6 +268,12 @@ a:hover {
     .nav-links a { 
         padding: 0.5rem 0;
         font-size: 1rem;
+    }
+
+    /* Desktop devices: maintain base nav-links styling at all zoom levels */
+    .desktop-device:not(.desktop-extreme-zoom) .nav-links a {
+        padding: 0 !important;
+        font-size: inherit !important;
     }
 
 }
@@ -349,16 +373,29 @@ section {
     align-items: center;
 }
 
-/* Desktop devices: always maintain side-by-side layout, even with zoom */
-.desktop-device .introduction-content {
+/* Desktop devices at normal zoom: maintain side-by-side layout */
+.desktop-device:not(.desktop-extreme-zoom) .introduction-content {
     grid-template-columns: auto 1fr !important;
     text-align: left !important;
 }
 
-.desktop-device .profile-pic {
+.desktop-device:not(.desktop-extreme-zoom) .profile-pic {
     width: 256px !important;
     height: 256px !important;
     margin: 0 !important;
+}
+
+/* Desktop at extreme zoom: allow mobile-like stacked layout */
+.desktop-device.desktop-extreme-zoom .introduction-content {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 2rem;
+}
+
+.desktop-device.desktop-extreme-zoom .profile-pic {
+    width: 200px !important;
+    height: 200px !important;
+    margin: 0 auto !important;
 }
 
 .profile-pic {
@@ -376,6 +413,11 @@ section {
     margin-bottom: 0.5rem;
     font-weight: 700;
     line-height: 1.2;
+}
+
+/* Desktop devices: use fixed font size to ensure consistent scaling with zoom */
+.desktop-device .introduction-text h1 {
+    font-size: 2.5rem !important;
 }
 
 .introduction-text .name {

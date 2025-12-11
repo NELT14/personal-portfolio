@@ -261,20 +261,38 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
         const screenHeight = window.screen.height;
         const smallestDimension = Math.min(screenWidth, screenHeight);
         
+        // Current viewport width (affected by zoom)
+        const viewportWidth = window.innerWidth;
+        
+        // Detect extreme zoom: viewport much smaller than screen indicates high zoom
+        const zoomRatio = screenWidth / viewportWidth;
+        const isExtremeZoom = zoomRatio > 1.4; // 150%+ zoom
+        
         // Actual mobile devices typically have screen width < 768px
         // Desktop/laptop screens are typically >= 1024px
         const isActualMobileDevice = (isMobileUA || (isTouchDevice && smallestDimension < 768));
         
         if (isActualMobileDevice) {
             html.classList.add('actual-mobile-device');
-            html.classList.remove('desktop-device');
-        } else {
-            html.classList.add('desktop-device');
+            html.classList.remove('desktop-device', 'desktop-extreme-zoom');
+        } else if (isExtremeZoom && viewportWidth < 900) {
+            // Desktop at extreme zoom with narrow viewport: use mobile-friendly layout
+            html.classList.add('desktop-device', 'desktop-extreme-zoom');
             html.classList.remove('actual-mobile-device');
+        } else {
+            // Normal desktop
+            html.classList.add('desktop-device');
+            html.classList.remove('actual-mobile-device', 'desktop-extreme-zoom');
         }
     }
     
     detectDeviceType();
+    // Re-check on resize (catches zoom changes)
+    let resizeTimeout;
+    window.addEventListener('resize', () => {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(detectDeviceType, 100);
+    });
     // Re-check on orientation change (mobile devices rotating)
     window.addEventListener('orientationchange', detectDeviceType);
 })();
