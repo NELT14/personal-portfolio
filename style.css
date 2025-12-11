@@ -44,6 +44,7 @@ body {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
+    overflow-x: hidden; /* avoid white strips from horizontal overflow */
 }
 
 /* Skip Link */
@@ -192,8 +193,13 @@ a:hover {
         align-items: flex-start;
         padding: 12px 18px;
         gap: 14px;
-        overflow: visible;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: none;
     }
+
+    .navbar .container::-webkit-scrollbar { display: none; }
 
     .nav-links {
         flex-wrap: wrap;
