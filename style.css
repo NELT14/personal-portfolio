@@ -98,7 +98,7 @@ a:hover {
     top: env(safe-area-inset-top, 0px); /* sit just below the cutout */
     z-index: 100;
     box-shadow: var(--shadow-md);
-    overflow: hidden; /* prevent link overflow artifacts */
+    overflow: visible; /* keep nav items visible at high zoom */
 }
 
 /* no safe-area padding on body – navbar container handles all safe-areas */
@@ -110,16 +110,16 @@ a:hover {
     gap: 20px;
     padding: 18px 24px;
     max-width: 100%;
-    flex-wrap: nowrap;
+    flex-wrap: wrap; /* allow wrapping instead of disappearing */
     box-sizing: border-box;
 }
 
 .nav-brand {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     font-weight: 700;
     color: var(--accent-color);
     letter-spacing: -0.5px;
-    flex: 1 1 auto;
+    flex: 0 0 auto;
     white-space: nowrap;
     text-align: left;
 }
@@ -165,6 +165,31 @@ a:hover {
     font-size: 0.95rem;
     white-space: nowrap;
     font-weight: 600;
+}
+
+@media (max-width: 1200px) {
+    .navbar .container {
+        align-items: flex-start;
+        padding: 12px 18px;
+        gap: 14px;
+    }
+
+    .nav-links {
+        flex-wrap: wrap;
+        width: 100%;
+        gap: 12px;
+        justify-content: flex-start;
+    }
+
+    .nav-links a {
+        font-size: 0.9rem;
+        padding: 8px 10px;
+    }
+
+    .nav-brand {
+        font-size: 1.05rem;
+        margin-bottom: 6px;
+    }
 }
 
 .nav-links a {
@@ -1213,18 +1238,14 @@ section {
    =========================== */
 @media (max-width: 768px) {
     .navbar {
-        padding: 0.75rem 0;
+        font-size: 1.2rem;
     }
 
-    .nav-brand {
-        font-size: 1.25rem;
+        letter-spacing: -0.5px;
+        flex: 0 0 auto;
     }
 
     .nav-links {
-        gap: 1rem;
-    }
-
-    .nav-links a {
         font-size: 0.9rem;
     }
 
