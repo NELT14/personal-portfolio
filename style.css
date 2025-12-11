@@ -199,6 +199,7 @@ a:hover {
     font-weight: 500;
     transition: var(--transition);
     position: relative;
+    padding: 4px 8px;
 }
 
 /* Active nav state */
@@ -225,7 +226,7 @@ a:hover {
     position: absolute;
     width: 0;
     height: 2px;
-    bottom: -4px;
+    bottom: 2px;
     left: 0;
     background-color: var(--accent-color);
     transition: width 0.3s ease;
