@@ -107,11 +107,9 @@ a:hover {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    position: relative;
-    max-width: none;
-    width: 100%;
-    padding-left: calc(var(--nav-gutter) + env(safe-area-inset-left, 0px));
-    padding-right: calc(var(--nav-gutter) + env(safe-area-inset-right, 0px));
+    gap: 20px;
+    padding: 18px 24px;
+    max-width: 100%;
     flex-wrap: nowrap;
     box-sizing: border-box;
 }
@@ -129,7 +127,9 @@ a:hover {
 .nav-links {
     display: flex;
     list-style: none;
-    gap: 2rem;
+    gap: 18px;
+    margin: 0;
+    padding: 0;
 }
 
 .nav-toggle {
@@ -155,15 +155,16 @@ a:hover {
     display: flex !important;
 }
 
-/* Desktop: simple fixed sizing */
+/* Desktop: compact sizing */
 .desktop-device .nav-links {
-    gap: 2rem;
+    gap: 18px;
     flex-wrap: nowrap;
 }
 
 .desktop-device .nav-links a {
-    font-size: 1rem;
+    font-size: 0.95rem;
     white-space: nowrap;
+    font-weight: 600;
 }
 
 .nav-links a {
@@ -529,25 +530,57 @@ section {
 
 /* Tablets and small laptops */
 /* Smaller desktop/laptop adjustments */
-@media (max-width: 1200px) {
+@media (max-width: 1400px) {
     .container {
         padding-left: 20px;
         padding-right: 20px;
     }
     
+    .navbar .container {
+        padding: 16px 20px;
+    }
+    
     .desktop-device .nav-links {
-        gap: 1.5rem;
+        gap: 16px;
     }
     
     .desktop-device .nav-links a {
         font-size: 0.95rem;
     }
+    
+    .desktop-device .nav-brand {
+        font-size: 1.15rem !important;
+    }
 }
 
-@media (max-width: 900px) {
+@media (max-width: 1200px) {
+    .navbar .container {
+        padding: 14px 18px;
+        gap: 16px;
+    }
+    
+    .desktop-device .nav-links {
+        gap: 14px;
+    }
+    
+    .desktop-device .nav-links a {
+        font-size: 0.9rem;
+    }
+    
+    .desktop-device .nav-brand {
+        font-size: 1.1rem !important;
+    }
+}
+
+@media (max-width: 1000px) {
     .container {
         padding-left: 18px;
         padding-right: 18px;
+    }
+    
+    .navbar .container {
+        padding: 12px 16px;
+        gap: 12px;
     }
     
     .desktop-device .introduction-text h1 {
@@ -555,11 +588,34 @@ section {
     }
     
     .desktop-device .nav-links {
-        gap: 1.2rem;
+        gap: 12px;
     }
     
     .desktop-device .nav-links a {
-        font-size: 0.9rem;
+        font-size: 0.85rem;
+    }
+    
+    .desktop-device .nav-brand {
+        font-size: 1.05rem !important;
+    }
+}
+
+@media (max-width: 900px) {
+    .navbar .container {
+        padding: 12px 16px;
+        gap: 10px;
+    }
+    
+    .desktop-device .nav-links {
+        gap: 10px;
+    }
+    
+    .desktop-device .nav-links a {
+        font-size: 0.8rem;
+    }
+    
+    .desktop-device .nav-brand {
+        font-size: 1rem !important;
     }
 }
 
