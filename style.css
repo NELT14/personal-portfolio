@@ -151,6 +151,15 @@ a:hover {
     margin-left: auto;
 }
 
+/* Desktop devices: never show hamburger, always show full nav */
+.desktop-device .nav-toggle {
+    display: none !important;
+}
+
+.desktop-device .nav-links {
+    display: flex !important;
+}
+
 .nav-links a {
     color: #e2e8f0;
     text-decoration: none;
@@ -197,6 +206,12 @@ a:hover {
    Mobile-Only Styles (Phones & Small Tablets)
    Hamburger menu ONLY on actual mobile devices
    =========================== */
+.actual-mobile-device .nav-toggle {
+    display: inline-flex !important;
+    align-items: center;
+    justify-content: center;
+}
+
 @media (max-width: 768px) {
     .nav-toggle { display: inline-flex; align-items: center; justify-content: center; }
     
@@ -237,27 +252,27 @@ a:hover {
         font-size: 1rem;
     }
 
-    /* Mobile hero layout: centered with stacked elements */
-    .introduction-content {
-        grid-template-columns: 1fr !important;
-        text-align: center;
-        gap: 2rem;
-    }
+}
 
-    .profile-pic {
-        width: 200px !important;
-        height: 200px !important;
-        margin: 0 auto !important;
-    }
+/* Mobile-only layout overrides for actual mobile devices */
+.actual-mobile-device .introduction-content {
+    grid-template-columns: 1fr !important;
+    text-align: center !important;
+    gap: 2rem;
+}
 
-    .btn-group {
-        justify-content: center;
-    }
+.actual-mobile-device .profile-pic {
+    width: 200px !important;
+    height: 200px !important;
+    margin: 0 auto !important;
+}
 
-    /* Mobile web-grid: allow responsive stacking */
-    .web-grid {
-        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
-    }
+.actual-mobile-device .btn-group {
+    justify-content: center;
+}
+
+.actual-mobile-device .web-grid {
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)) !important;
 }
 
 /* Desktop & Laptop styles - removed to maintain consistent sizing at all zoom levels */
@@ -332,6 +347,18 @@ section {
     grid-template-columns: auto 1fr;
     gap: 3rem;
     align-items: center;
+}
+
+/* Desktop devices: always maintain side-by-side layout, even with zoom */
+.desktop-device .introduction-content {
+    grid-template-columns: auto 1fr !important;
+    text-align: left !important;
+}
+
+.desktop-device .profile-pic {
+    width: 256px !important;
+    height: 256px !important;
+    margin: 0 !important;
 }
 
 .profile-pic {

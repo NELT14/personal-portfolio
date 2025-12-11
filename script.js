@@ -247,4 +247,34 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
     const ua = (navigator.userAgent || '').toLowerCase();
     if (/android/.test(ua)) document.documentElement.classList.add('os-android');
     if (/iphone|ipad|ipod/.test(ua)) document.documentElement.classList.add('os-ios');
+
+    // Device type detection: distinguish actual mobile from desktop with zoom
+    function detectDeviceType() {
+        const html = document.documentElement;
+        
+        // Check if it's an actual mobile/tablet device
+        const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
+        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
+        
+        // Screen physical width (not affected by zoom)
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const smallestDimension = Math.min(screenWidth, screenHeight);
+        
+        // Actual mobile devices typically have screen width < 768px
+        // Desktop/laptop screens are typically >= 1024px
+        const isActualMobileDevice = (isMobileUA || (isTouchDevice && smallestDimension < 768));
+        
+        if (isActualMobileDevice) {
+            html.classList.add('actual-mobile-device');
+            html.classList.remove('desktop-device');
+        } else {
+            html.classList.add('desktop-device');
+            html.classList.remove('actual-mobile-device');
+        }
+    }
+    
+    detectDeviceType();
+    // Re-check on orientation change (mobile devices rotating)
+    window.addEventListener('orientationchange', detectDeviceType);
 })();
