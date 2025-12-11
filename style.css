@@ -151,26 +151,24 @@ a:hover {
     margin-left: auto;
 }
 
-/* Desktop devices: never show hamburger at normal zoom levels */
-.desktop-device:not(.desktop-extreme-zoom) .nav-toggle {
+/* Desktop devices: never show hamburger menu, always full nav */
+.desktop-device .nav-toggle {
     display: none !important;
 }
 
-.desktop-device:not(.desktop-extreme-zoom) .nav-links {
+.desktop-device .nav-links {
     display: flex !important;
 }
 
-/* Desktop at extreme zoom (150%+): allow hamburger for usability */
-.desktop-device.desktop-extreme-zoom .nav-toggle {
-    display: inline-flex !important;
+/* Desktop: smooth scaling navigation to prevent overflow at all zoom levels */
+.desktop-device .nav-links {
+    gap: clamp(0.5rem, 1.5vw, 2rem);
+    flex-wrap: wrap;
 }
 
-.desktop-device.desktop-extreme-zoom .nav-links {
-    display: none;
-}
-
-.desktop-device.desktop-extreme-zoom .nav-links.active {
-    display: flex !important;
+.desktop-device .nav-links a {
+    font-size: clamp(0.75rem, 0.9vw, 1rem);
+    white-space: nowrap;
 }
 
 .nav-links a {
@@ -232,9 +230,9 @@ a:hover {
         font-size: 1.25rem;
     }
 
-    /* Keep desktop nav-brand at consistent size regardless of viewport/zoom */
+    /* Desktop nav-brand scales smoothly to prevent overflow */
     .desktop-device .nav-brand {
-        font-size: 1.5rem !important;
+        font-size: clamp(1.1rem, 1.8vw, 1.5rem) !important;
     }
     
     .nav-links {
@@ -270,11 +268,7 @@ a:hover {
         font-size: 1rem;
     }
 
-    /* Desktop devices: maintain base nav-links styling at all zoom levels */
-    .desktop-device:not(.desktop-extreme-zoom) .nav-links a {
-        padding: 0 !important;
-        font-size: inherit !important;
-    }
+
 
 }
 
@@ -373,29 +367,17 @@ section {
     align-items: center;
 }
 
-/* Desktop devices at normal zoom: maintain side-by-side layout */
-.desktop-device:not(.desktop-extreme-zoom) .introduction-content {
+/* Desktop devices: maintain side-by-side layout with responsive sizing */
+.desktop-device .introduction-content {
     grid-template-columns: auto 1fr !important;
     text-align: left !important;
+    gap: clamp(1.5rem, 3vw, 3rem);
 }
 
-.desktop-device:not(.desktop-extreme-zoom) .profile-pic {
-    width: 256px !important;
-    height: 256px !important;
+.desktop-device .profile-pic {
+    width: clamp(180px, 20vw, 256px) !important;
+    height: clamp(180px, 20vw, 256px) !important;
     margin: 0 !important;
-}
-
-/* Desktop at extreme zoom: allow mobile-like stacked layout */
-.desktop-device.desktop-extreme-zoom .introduction-content {
-    grid-template-columns: 1fr !important;
-    text-align: center !important;
-    gap: 2rem;
-}
-
-.desktop-device.desktop-extreme-zoom .profile-pic {
-    width: 200px !important;
-    height: 200px !important;
-    margin: 0 auto !important;
 }
 
 .profile-pic {
@@ -415,9 +397,9 @@ section {
     line-height: 1.2;
 }
 
-/* Desktop devices: use fixed font size to ensure consistent scaling with zoom */
+/* Desktop devices: use responsive font size that scales smoothly */
 .desktop-device .introduction-text h1 {
-    font-size: 2.5rem !important;
+    font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
 }
 
 .introduction-text .name {
