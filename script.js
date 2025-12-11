@@ -68,6 +68,20 @@ if (navToggleBtn && navLinksList) {
         if (isOpen) closeMenu(true); else openMenu();
     });
 
+    // When rotating to landscape on phones, ensure menu is closed and hamburger hidden via CSS
+    function resetMenuForLandscape() {
+        const html = document.documentElement;
+        const isLandscape = window.matchMedia('(orientation: landscape)').matches;
+        if (isLandscape && html.classList.contains('actual-mobile-device')) {
+            navLinksList.classList.remove('active', 'closing');
+            document.body.classList.remove('no-scroll');
+            navToggleBtn.setAttribute('aria-expanded', 'false');
+        }
+    }
+    window.addEventListener('orientationchange', resetMenuForLandscape);
+    window.addEventListener('resize', resetMenuForLandscape);
+    resetMenuForLandscape();
+
     // Close on Escape
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape' && navLinksList.classList.contains('active')) {

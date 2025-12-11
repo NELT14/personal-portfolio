@@ -179,6 +179,7 @@ a:hover {
         width: 100%;
         gap: 12px;
         justify-content: flex-start;
+        padding: 6px 0; /* breathing room when wrapping */
     }
 
     .nav-links a {
@@ -732,6 +733,22 @@ section {
     .nav-links { gap: 0.6rem; }
     .nav-links a { font-size: 0.9rem; }
     .nav-brand { font-size: 1.1rem; }
+
+    /* In landscape, show full nav and hide hamburger if links fit */
+    .actual-mobile-device .nav-toggle { display: none !important; }
+    .actual-mobile-device .nav-links,
+    .actual-mobile-device .nav-links.active {
+        display: flex !important;
+        position: static !important;
+        flex-direction: row !important;
+        flex-wrap: wrap !important;
+        gap: 0.75rem !important;
+        padding: 8px 0 !important;
+        background: transparent !important;
+        box-shadow: none !important;
+        overflow: visible !important;
+    }
+    .actual-mobile-device body.no-scroll { overflow: auto; }
 }
 
 /* ===========================
