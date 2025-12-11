@@ -47,6 +47,14 @@ body {
     overflow-x: hidden; /* avoid white strips from horizontal overflow */
 }
 
+.os-ios body {
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+.os-ios .navbar {
+    padding-top: calc(1rem + env(safe-area-inset-top, 0px));
+}
+
 /* Skip Link */
 .skip-link {
     position: absolute;
@@ -83,8 +91,8 @@ a:hover {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding-left: calc(24px + env(safe-area-inset-left, 0px));
+    padding-right: calc(24px + env(safe-area-inset-right, 0px));
     box-sizing: border-box;
 }
 
@@ -109,7 +117,7 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     gap: 20px;
-    padding: 18px 24px;
+    padding: 18px calc(24px + env(safe-area-inset-right, 0px)) 18px calc(24px + env(safe-area-inset-left, 0px));
     max-width: 100%;
     flex-wrap: wrap; /* allow wrapping instead of disappearing */
     box-sizing: border-box;
@@ -191,7 +199,7 @@ a:hover {
 @media (max-width: 1200px) {
     .navbar .container {
         align-items: flex-start;
-        padding: clamp(10px, 2vw, 14px) clamp(14px, 2.5vw, 22px);
+        padding: clamp(10px, 2vw, 14px) calc(clamp(14px, 2.5vw, 22px) + env(safe-area-inset-right, 0px)) clamp(10px, 2vw, 14px) calc(clamp(14px, 2.5vw, 22px) + env(safe-area-inset-left, 0px));
         gap: clamp(10px, 2vw, 16px);
         overflow-x: auto;
         overflow-y: hidden;

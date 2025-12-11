@@ -259,12 +259,12 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
 
     // OS detection
     const ua = (navigator.userAgent || '').toLowerCase();
-    if (/android/.test(ua)) document.documentElement.classList.add('os-android');
-    if (/iphone|ipad|ipod/.test(ua)) document.documentElement.classList.add('os-ios');
+    const html = document.documentElement;
+    if (/android/.test(ua)) html.classList.add('os-android');
+    if (/iphone|ipad|ipod/.test(ua)) html.classList.add('os-ios');
 
     // Device type detection: distinguish actual mobile from desktop
     function detectDeviceType() {
-        const html = document.documentElement;
         
         // Check if it's an actual mobile/tablet device
         const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
@@ -284,6 +284,13 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
         } else {
             html.classList.add('desktop-device');
             html.classList.remove('actual-mobile-device');
+        }
+
+        // Platform tags
+        if (!isActualMobileDevice) {
+            html.classList.add('platform-desktop');
+        } else {
+            html.classList.remove('platform-desktop');
         }
     }
     
