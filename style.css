@@ -172,6 +172,24 @@ a:hover {
         align-items: flex-start;
         padding: 12px 18px;
         gap: 14px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        -webkit-overflow-scrolling: touch;
+        scrollbar-width: thin;
+        scrollbar-color: var(--accent-color) var(--dark-color);
+    }
+
+    .navbar .container::-webkit-scrollbar {
+        height: 6px;
+    }
+
+    .navbar .container::-webkit-scrollbar-track {
+        background: var(--dark-color);
+    }
+
+    .navbar .container::-webkit-scrollbar-thumb {
+        background: var(--accent-color);
+        border-radius: 3px;
     }
 
     .nav-links {
