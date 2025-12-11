@@ -179,12 +179,12 @@ a:hover {
         width: 100%;
         gap: 12px;
         justify-content: flex-start;
-        padding: 6px 0 6px 8px; /* breathing room when wrapping, align with brand */
+        padding: 10px 0 10px 12px; /* breathing room when wrapping, align with brand */
     }
 
     .nav-links a {
         font-size: 0.9rem;
-        padding: 8px 10px;
+        padding: 10px 14px;
     }
 
     .nav-brand {
@@ -265,6 +265,8 @@ a:hover {
         flex-direction: column;
         gap: 0.75rem;
         box-shadow: var(--shadow-md);
+        max-height: calc(100vh - var(--nav-height) - env(safe-area-inset-top, 0px));
+        overflow-y: auto;
     }
     
     /* When open, become a fixed, scrollable drawer below the navbar */
@@ -275,6 +277,7 @@ a:hover {
         left: 0;
         right: 0;
         bottom: 0;
+        max-height: calc(100vh - var(--nav-height) - env(safe-area-inset-top, 0px));
         padding: 2rem calc(var(--page-gutter) + env(safe-area-inset-right, 0px)) 2rem calc(var(--page-gutter) + env(safe-area-inset-left, 0px));
         overflow-y: auto;
         overscroll-behavior: contain;
