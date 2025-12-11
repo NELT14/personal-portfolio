@@ -22,10 +22,6 @@
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     --nav-height: 64px;
-    /* Responsive gutters: small on mobile, larger on desktop */
-    --page-gutter: clamp(16px, 3vw, 48px);
-    /* Navbar gutters slightly smaller */
-    --nav-gutter: clamp(12px, 2vw, 32px);
 }
 
 html {
@@ -82,13 +78,12 @@ a:hover {
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1100px;
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    /* Symmetric gutters + safe-areas for Android/iOS */
-    padding-left: calc(var(--page-gutter) + env(safe-area-inset-left, 0px));
-    padding-right: calc(var(--page-gutter) + env(safe-area-inset-right, 0px));
+    padding-left: 24px;
+    padding-right: 24px;
     box-sizing: border-box;
 }
 
@@ -160,14 +155,14 @@ a:hover {
     display: flex !important;
 }
 
-/* Desktop: smooth scaling navigation to prevent overflow at all zoom levels */
+/* Desktop: simple fixed sizing */
 .desktop-device .nav-links {
-    gap: clamp(0.3rem, 1.2vw, 2rem);
+    gap: 2rem;
     flex-wrap: nowrap;
 }
 
 .desktop-device .nav-links a {
-    font-size: clamp(0.6rem, 0.85vw, 1rem);
+    font-size: 1rem;
     white-space: nowrap;
 }
 
@@ -230,10 +225,7 @@ a:hover {
         font-size: 1.25rem;
     }
 
-    /* Desktop nav-brand scales smoothly to prevent overflow */
-    .desktop-device .nav-brand {
-        font-size: clamp(1.1rem, 1.8vw, 1.5rem) !important;
-    }
+
     
     .nav-links {
         display: none;
@@ -367,16 +359,16 @@ section {
     align-items: center;
 }
 
-/* Desktop devices: maintain side-by-side layout with responsive sizing */
+/* Desktop devices: maintain side-by-side layout with fixed sizing */
 .desktop-device .introduction-content {
     grid-template-columns: auto 1fr !important;
     text-align: left !important;
-    gap: clamp(1.5rem, 3vw, 3rem);
+    gap: 3rem;
 }
 
 .desktop-device .profile-pic {
-    width: clamp(180px, 20vw, 256px) !important;
-    height: clamp(180px, 20vw, 256px) !important;
+    width: 256px !important;
+    height: 256px !important;
     margin: 0 !important;
 }
 
@@ -391,15 +383,15 @@ section {
 }
 
 .introduction-text h1 {
-    font-size: clamp(1.75rem, 1.5rem + 1.8vw, 2.5rem);
+    font-size: 2.5rem;
     margin-bottom: 0.5rem;
     font-weight: 700;
     line-height: 1.2;
 }
 
-/* Desktop devices: use responsive font size that scales smoothly */
+/* Desktop devices maintain fixed h1 size */
 .desktop-device .introduction-text h1 {
-    font-size: clamp(1.5rem, 3vw, 2.5rem) !important;
+    font-size: 2.5rem !important;
 }
 
 .introduction-text .name {
@@ -536,10 +528,38 @@ section {
 }
 
 /* Tablets and small laptops */
-@media (min-width: 768px) and (max-width: 1024px) {
-    :root {
-        --page-gutter: clamp(20px, 4vw, 40px);
-        --nav-gutter: clamp(16px, 3vw, 32px);
+/* Smaller desktop/laptop adjustments */
+@media (max-width: 1200px) {
+    .container {
+        padding-left: 20px;
+        padding-right: 20px;
+    }
+    
+    .desktop-device .nav-links {
+        gap: 1.5rem;
+    }
+    
+    .desktop-device .nav-links a {
+        font-size: 0.95rem;
+    }
+}
+
+@media (max-width: 900px) {
+    .container {
+        padding-left: 18px;
+        padding-right: 18px;
+    }
+    
+    .desktop-device .introduction-text h1 {
+        font-size: 2.2rem !important;
+    }
+    
+    .desktop-device .nav-links {
+        gap: 1.2rem;
+    }
+    
+    .desktop-device .nav-links a {
+        font-size: 0.9rem;
     }
 }
 
