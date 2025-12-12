@@ -195,7 +195,7 @@ a:hover {
         width: 100%;
         gap: 0.75rem;
         background: var(--dark-color);
-        padding: clamp(1.2rem, 2vw, 1.8rem) calc(clamp(1rem, 1.5vw, 1.5rem) + env(safe-area-inset-left, 0px)) clamp(1.2rem, 2vw, 1.8rem) calc(clamp(1rem, 1.5vw, 1.5rem) + env(safe-area-inset-right, 0px));
+        padding: clamp(1rem, 1.8vw, 1.5rem) calc(clamp(0.75rem, 1.2vw, 1.2rem) + env(safe-area-inset-left, 0px)) clamp(1rem, 1.8vw, 1.5rem) calc(clamp(0.75rem, 1.2vw, 1.2rem) + env(safe-area-inset-right, 0px));
         box-shadow: var(--shadow-md);
         max-height: calc(100vh - var(--nav-height) - env(safe-area-inset-top, 0px));
         overflow-y: auto;
@@ -1321,6 +1321,7 @@ section {
         font-size: 1.2rem;
     }
 
+    .nav-brand {
         letter-spacing: -0.5px;
         flex: 0 0 auto;
     }
