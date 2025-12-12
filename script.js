@@ -157,11 +157,18 @@ function highlightActiveLink() {
     const updateActive = () => {
         const current = getCurrentSectionId();
         let activeText = '';
+        // First remove all active states to prevent duplicates
         navLinks.forEach(link => {
-            const active = link.getAttribute('href') === `#${current}`;
-            link.classList.toggle('active', active);
-            if (active) link.setAttribute('aria-current', 'page'); else link.removeAttribute('aria-current');
-            if (active) activeText = (link.textContent || '').trim();
+            link.classList.remove('active');
+            link.removeAttribute('aria-current');
+        });
+        // Then set only the current one as active
+        navLinks.forEach(link => {
+            if (link.getAttribute('href') === `#${current}`) {
+                link.classList.add('active');
+                link.setAttribute('aria-current', 'page');
+                activeText = (link.textContent || '').trim();
+            }
         });
 
         // Update document title based on active section

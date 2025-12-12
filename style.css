@@ -236,14 +236,14 @@ a:hover {
     .nav-links {
         flex-wrap: wrap;
         width: 100%;
-        gap: clamp(8px, 1.5vw, 14px);
+        gap: clamp(10px, 1.8vw, 16px);
         justify-content: flex-start;
-        padding: clamp(8px, 1.5vw, 12px) 0 clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 14px); /* breathing room when wrapping, align with brand */
+        padding: clamp(10px, 1.8vw, 14px) 0 clamp(10px, 1.8vw, 14px) clamp(12px, 2.2vw, 16px); /* breathing room when wrapping, align with brand */
     }
 
     .nav-links a {
-        font-size: 0.9rem;
-        padding: clamp(8px, 1.5vw, 12px) clamp(10px, 2vw, 16px);
+        font-size: clamp(0.85rem, 1.6vw, 1rem);
+        padding: clamp(10px, 1.8vw, 14px) clamp(12px, 2.2vw, 18px);
     }
 
     .nav-brand {
