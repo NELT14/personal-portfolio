@@ -16,9 +16,25 @@
     // Check if viewport is narrow (for hide/show functionality)
     // Enable hide/show for narrow screens (zoomed in), but disable for very small mobile screens
     function shouldHideNav() {
-        const width = window.innerWidth;
-        // Enable for narrow screens (like zoomed desktop) but disable for very small mobile
-        return width > 480 && width < 1200;
+        const viewportWidth = window.innerWidth;
+        const screenWidth = window.screen.width;
+        const screenHeight = window.screen.height;
+        const smallestScreenDimension = Math.min(screenWidth, screenHeight);
+        
+        // Detect if it's a very small mobile device (physical screen < 480px)
+        const isVerySmallMobile = smallestScreenDimension < 480;
+        
+        // Calculate zoom level (approximate)
+        const zoomLevel = screenWidth / viewportWidth;
+        
+        // Enable hide/show when:
+        // 1. Not a very small mobile device
+        // 2. Viewport is narrow (zoomed in) OR actual narrow screen
+        // Use dynamic threshold: if screen is large but viewport is narrow (zoomed), enable it
+        const isNarrowViewport = viewportWidth < Math.min(1200, screenWidth * 0.8);
+        const isZoomedIn = zoomLevel > 1.2; // More than 20% zoom
+        
+        return !isVerySmallMobile && (isNarrowViewport || isZoomedIn);
     }
     
     let lastScrollY = window.scrollY;
