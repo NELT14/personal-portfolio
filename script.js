@@ -13,10 +13,21 @@
     setBodyPadding();
     window.addEventListener('resize', setBodyPadding);
     
+    // Check if device is mobile (disable hide/show on mobile)
+    function isMobile() {
+        return window.innerWidth <= 768 || 'ontouchstart' in window;
+    }
+    
     let lastScrollY = window.scrollY;
     let ticking = false;
     
     function updateNav() {
+        // Don't hide/show nav on mobile devices
+        if (isMobile()) {
+            nav.classList.remove('hidden');
+            return;
+        }
+        
         const currentScrollY = window.scrollY;
         
         // Always show at top of page
@@ -40,6 +51,13 @@
             ticking = true;
         }
     }, { passive: true });
+    
+    // Re-check on resize to handle orientation changes
+    window.addEventListener('resize', () => {
+        if (isMobile()) {
+            nav.classList.remove('hidden');
+        }
+    });
 })();
 
 // ============================================
