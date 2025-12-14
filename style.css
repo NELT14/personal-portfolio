@@ -153,6 +153,10 @@ ul {
 
 /* Mobile Navigation - Always visible, just wrap on small screens */
 @media (max-width: 768px) {
+    .nav {
+        position: relative !important;
+    }
+    
     .nav-content {
         flex-wrap: wrap;
         gap: var(--spacing);
@@ -164,11 +168,11 @@ ul {
     }
 }
 
-/* Very small mobile - always show nav */
+/* Very small mobile - navbar scrolls with page */
 @media (max-width: 480px) {
     .nav {
-        /* Disable hide/show animation on very small screens - always visible */
-        transform: translateY(0) !important;
+        position: relative !important;
+        transform: none !important;
         opacity: 1 !important;
         box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
     }
@@ -187,6 +191,7 @@ ul {
     }
     
     .nav {
+        position: relative !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
         left: 0 !important;
