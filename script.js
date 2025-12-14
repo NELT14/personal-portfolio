@@ -212,10 +212,14 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
         const isHidden = target.hasAttribute('hidden');
         
         if (isHidden) {
+            // Remove hidden attribute to trigger animation
             target.removeAttribute('hidden');
+            // Force reflow to ensure transition starts
+            target.offsetHeight;
             this.textContent = 'Hide Research Papers';
             this.setAttribute('aria-expanded', 'true');
         } else {
+            // Add hidden attribute to trigger close animation
             target.setAttribute('hidden', '');
             this.textContent = 'View Research Papers';
             this.setAttribute('aria-expanded', 'false');
