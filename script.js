@@ -1,349 +1,180 @@
-// ===========================
-// Smooth Scrolling Navigation
-// ===========================
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-    anchor.addEventListener('click', function (e) {
-        e.preventDefault();
-        const target = document.querySelector(this.getAttribute('href'));
-        if (target) {
-            target.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
-            // Close mobile menu with closing animation if open
-            const navLinks = document.querySelector('.nav-links');
-            const toggleBtn = document.querySelector('.nav-toggle');
-            if (navLinks && navLinks.classList.contains('active')) {
-                navLinks.classList.add('closing');
-                if (toggleBtn) toggleBtn.setAttribute('aria-expanded', 'false');
-                setTimeout(() => {
-                    navLinks.classList.remove('active', 'closing');
-                    document.body.classList.remove('no-scroll');
-                }, 250);
-            }
-        }
-    });
-});
-
-// ===========================
-// Mobile Navigation Toggle
-// ===========================
-const navToggleBtn = document.querySelector('.nav-toggle');
-const navLinksList = document.querySelector('.nav-links');
-const navbarEl = document.querySelector('.navbar');
-function setNavHeightVar() {
-    if (!navbarEl) return;
-    const h = navbarEl.offsetHeight;
-    document.documentElement.style.setProperty('--nav-height', h + 'px');
-}
-setNavHeightVar();
-window.addEventListener('resize', setNavHeightVar);
-if (navToggleBtn && navLinksList) {
-    const openMenu = () => {
-        navLinksList.classList.remove('closing');
-        navLinksList.classList.add('active');
-        document.body.classList.add('no-scroll');
-        navToggleBtn.setAttribute('aria-expanded', 'true');
-        const firstLink = navLinksList.querySelector('a');
-        if (firstLink) firstLink.focus();
-    };
-
-    const closeMenu = (animated = true) => {
-        if (!navLinksList.classList.contains('active')) return;
-        navToggleBtn.setAttribute('aria-expanded', 'false');
-        if (animated) {
-            navLinksList.classList.add('closing');
-            setTimeout(() => {
-                navLinksList.classList.remove('active', 'closing');
-                document.body.classList.remove('no-scroll');
-            }, 250);
-        } else {
-            navLinksList.classList.remove('active', 'closing');
-            document.body.classList.remove('no-scroll');
-        }
-    };
-
-    navToggleBtn.addEventListener('click', () => {
-        const isOpen = navLinksList.classList.contains('active');
-        if (isOpen) closeMenu(true); else openMenu();
-    });
-
-    // When rotating to landscape on phones, ensure menu is closed and hamburger hidden via CSS
-    function resetMenuForLandscape() {
-        const html = document.documentElement;
-        const isLandscape = window.matchMedia('(orientation: landscape)').matches;
-        if (isLandscape && html.classList.contains('actual-mobile-device')) {
-            navLinksList.classList.remove('active', 'closing');
-            document.body.classList.remove('no-scroll');
-            navToggleBtn.setAttribute('aria-expanded', 'false');
+// ============================================
+// NAVIGATION
+// ============================================
+(function() {
+    const navToggle = document.querySelector('.nav-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    const navbar = document.querySelector('.navbar');
+    
+    // Set navbar height CSS variable
+    function updateNavHeight() {
+        if (navbar) {
+            const height = navbar.offsetHeight;
+            document.documentElement.style.setProperty('--nav-height', height + 'px');
         }
     }
-    window.addEventListener('orientationchange', resetMenuForLandscape);
-    window.addEventListener('resize', resetMenuForLandscape);
-    resetMenuForLandscape();
-
-    // Close on Escape
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape' && navLinksList.classList.contains('active')) {
-            closeMenu(true);
-            navToggleBtn.focus();
-        }
-    });
-
-    // Close when clicking outside the menu
-    document.addEventListener('click', (e) => {
-        if (!navLinksList.classList.contains('active')) return;
-        const container = document.querySelector('.navbar .container');
-        if (container && !container.contains(e.target)) {
-            closeMenu(true);
-        }
-    });
-}
-
-// ===========================
-// Intersection Observer for Animations
-// ===========================
-const observerOptions = {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-};
-
-const observer = new IntersectionObserver(function(entries) {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            entry.target.style.opacity = '1';
-            entry.target.style.transform = 'translateY(0)';
-            observer.unobserve(entry.target);
-        }
-    });
-}, observerOptions);
-
-// Apply observer to elements
-document.querySelectorAll('.skill-item, .achievement, .social-card, .info-item').forEach(element => {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(20px)';
-    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    observer.observe(element);
-});
-
-// ===========================
-// Active Navigation Link Indicator
-// ===========================
-function highlightActiveLink() {
-    const sections = Array.from(document.querySelectorAll('section[id]'));
-    const navLinks = document.querySelectorAll('.nav-links a');
-    if (!sections.length || !navLinks.length) return;
-
-    const getCurrentSectionId = () => {
-        const scrollY = window.scrollY || window.pageYOffset;
-        const navH = (navbarEl ? navbarEl.offsetHeight : 0);
-        // Use a more reliable pivot point: navbar height + small offset
-        const pivot = scrollY + navH + 100; // 100px offset for better detection
-
-        let currentId = sections[0]?.id || '';
-        let bestMatch = { id: currentId, distance: Infinity };
-
-        for (const section of sections) {
-            if (!section.id) continue;
-            const rect = section.getBoundingClientRect();
-            const sectionTop = rect.top + scrollY;
-            const sectionBottom = sectionTop + rect.height;
-            
-            // Check if pivot point is within this section
-            if (pivot >= sectionTop && pivot <= sectionBottom) {
-                currentId = section.id;
-                break;
+    updateNavHeight();
+    window.addEventListener('resize', updateNavHeight);
+    
+    // Mobile menu toggle
+    if (navToggle && navLinks) {
+        navToggle.addEventListener('click', () => {
+            const isOpen = navLinks.classList.contains('active');
+            if (isOpen) {
+                navLinks.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('no-scroll');
+            } else {
+                navLinks.classList.add('active');
+                navToggle.setAttribute('aria-expanded', 'true');
+                document.body.classList.add('no-scroll');
             }
+        });
+        
+        // Close menu on escape key
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
+                navLinks.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('no-scroll');
+                navToggle.focus();
+            }
+        });
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (navLinks.classList.contains('active') && 
+                !navbar.contains(e.target)) {
+                navLinks.classList.remove('active');
+                navToggle.setAttribute('aria-expanded', 'false');
+                document.body.classList.remove('no-scroll');
+            }
+        });
+    }
+    
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            const href = this.getAttribute('href');
+            if (href === '#') return;
             
-            // Track the closest section above the pivot
-            if (sectionTop <= pivot) {
-                const distance = pivot - sectionTop;
-                if (distance < bestMatch.distance) {
-                    bestMatch = { id: section.id, distance };
+            e.preventDefault();
+            const target = document.querySelector(href);
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+                
+                // Close mobile menu if open
+                if (navLinks && navLinks.classList.contains('active')) {
+                    navLinks.classList.remove('active');
+                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
+                    document.body.classList.remove('no-scroll');
                 }
             }
-        }
-
-        // If no section found, use the best match
-        if (!currentId && bestMatch.id) {
-            currentId = bestMatch.id;
-        }
-
-        // At the very bottom, force last section
-        const atBottom = Math.ceil(window.innerHeight + scrollY) >= document.documentElement.scrollHeight - 50;
-        if (atBottom && sections.length > 0) {
-            currentId = sections[sections.length - 1].id || currentId;
-        }
-        
-        return currentId;
-    };
-
-    const updateActive = () => {
-        const current = getCurrentSectionId();
-        let activeText = '';
-        // First remove all active states to prevent duplicates
-        navLinks.forEach(link => {
-            link.classList.remove('active');
-            link.removeAttribute('aria-current');
         });
-        // Then set only the current one as active
-        navLinks.forEach(link => {
-            if (link.getAttribute('href') === `#${current}`) {
-                link.classList.add('active');
-                link.setAttribute('aria-current', 'page');
-                activeText = (link.textContent || '').trim();
+    });
+})();
+
+// ============================================
+// ACTIVE NAVIGATION LINK
+// ============================================
+(function() {
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('.nav-links a');
+    
+    if (!sections.length || !navLinks.length) return;
+    
+    // Map sections to their main navigation items
+    const sectionToNavMap = {
+        'home': 'home',
+        'about': 'about',
+        'skills': 'about',
+        'achievements': 'about',
+        'experience': 'about',
+        'projects': 'projects',
+        'activities': 'projects',
+        'connect': 'connect'
+    };
+    
+    function updateActiveLink() {
+        const scrollY = window.scrollY;
+        const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 64;
+        const offset = navHeight + 100;
+        
+        let currentSection = '';
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            if (scrollY + offset >= sectionTop && scrollY + offset < sectionTop + sectionHeight) {
+                currentSection = section.id;
             }
         });
-
-        // Update document title based on active section
-        const siteName = (document.querySelector('.nav-brand')?.textContent || 'Portfolio').trim();
-        if (activeText) {
-            document.title = `${activeText} | ${siteName}`;
-        }
-    };
-
-    window.addEventListener('scroll', updateActive, { passive: true });
-    window.addEventListener('resize', updateActive, { passive: true });
-    updateActive();
-}
-
-// Call on page load
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', highlightActiveLink);
-} else {
-    highlightActiveLink();
-}
-
-// ===========================
-// Mobile Menu Toggle (if needed in future)
-// ===========================
-function setupMobileMenu() {
-    const navbar = document.querySelector('.navbar');
-    const navLinks = document.querySelector('.nav-links');
-
-    // Add mobile menu functionality if needed
-    if (window.innerWidth <= 768) {
-        console.log('Mobile menu support ready');
-    }
-}
-
-setupMobileMenu();
-
-// ===========================
-// Social Links Tracking (optional analytics)
-// ===========================
-document.querySelectorAll('.social-card').forEach(card => {
-    card.addEventListener('click', function(e) {
-        const platform = this.querySelector('h3').textContent;
-        console.log(`Clicked on ${platform} link`);
-        // You can add analytics tracking here
-    });
-});
-
-// ===========================
-// Email handler removed; mailto link works as provided
-
-// ===========================
-// Add CSS for Active Nav Links
-// ===========================
-const style = document.createElement('style');
-style.textContent = `
-    .nav-links a.active {
-        color: var(--accent-color) !important;
-        font-weight: 700;
-    }
-`;
-document.head.appendChild(style);
-
-// ===========================
-// Expandable Research Papers Toggle
-// ===========================
-document.querySelectorAll('.papers-toggle').forEach(button => {
-    button.addEventListener('click', function() {
-        const targetId = this.getAttribute('data-target');
-        const targetElement = document.getElementById(targetId);
-        const isExpanded = this.getAttribute('aria-expanded') === 'true';
-        if (isExpanded) {
-            targetElement.hidden = true;
-            this.setAttribute('aria-expanded', 'false');
-            this.textContent = 'View Research Papers';
-        } else {
-            targetElement.hidden = false;
-            this.setAttribute('aria-expanded', 'true');
-            this.textContent = 'Hide Research Papers';
-        }
-    });
-});
-
-// ===========================
-// Project Image Error Handling
-// ===========================
-document.querySelectorAll('.project-image img').forEach(img => {
-    img.addEventListener('error', function() {
-        // Replace broken image with placeholder
-        const container = this.closest('.project-image');
-        if (container) {
-            container.innerHTML = '<div class="project-image-placeholder"><i class="fa-solid fa-image" aria-hidden="true"></i></div>';
-        }
-    });
-    
-    // Lazy loading support
-    if ('loading' in HTMLImageElement.prototype) {
-        img.loading = 'lazy';
-    }
-});
-
-// ===========================
-// Responsive helpers (vh unit + OS class)
-// ===========================
-(function () {
-    // Set custom --vh variable for viewport height issues on mobile
-    function setVhVar() {
-        const vh = window.innerHeight * 0.01;
-        document.documentElement.style.setProperty('--vh', vh + 'px');
-    }
-    setVhVar();
-    window.addEventListener('resize', setVhVar, { passive: true });
-    window.addEventListener('orientationchange', setVhVar);
-
-    // OS detection
-    const ua = (navigator.userAgent || '').toLowerCase();
-    const html = document.documentElement;
-    if (/android/.test(ua)) html.classList.add('os-android');
-    if (/iphone|ipad|ipod/.test(ua)) html.classList.add('os-ios');
-
-    // Device type detection: distinguish actual mobile from desktop
-    function detectDeviceType() {
         
-        // Check if it's an actual mobile/tablet device
-        const isMobileUA = /android|webos|iphone|ipad|ipod|blackberry|iemobile|opera mini/i.test(ua);
-        const isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0;
-        
-        // Screen physical width (not affected by zoom)
-        const screenWidth = window.screen.width;
-        const screenHeight = window.screen.height;
-        const smallestDimension = Math.min(screenWidth, screenHeight);
-        
-        // Actual mobile devices typically have screen width < 768px
-        const isActualMobileDevice = (isMobileUA || (isTouchDevice && smallestDimension < 768));
-        
-        if (isActualMobileDevice) {
-            html.classList.add('actual-mobile-device');
-            html.classList.remove('desktop-device');
-        } else {
-            html.classList.add('desktop-device');
-            html.classList.remove('actual-mobile-device');
+        // If at bottom, select last section
+        if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 50) {
+            currentSection = sections[sections.length - 1].id;
         }
-
-        // Platform tags
-        if (!isActualMobileDevice) {
-            html.classList.add('platform-desktop');
-        } else {
-            html.classList.remove('platform-desktop');
-        }
+        
+        // Map current section to navigation item
+        const currentNav = sectionToNavMap[currentSection] || currentSection;
+        
+        navLinks.forEach(link => {
+            link.classList.remove('active');
+            const href = link.getAttribute('href').substring(1); // Remove #
+            if (href === currentNav) {
+                link.classList.add('active');
+            }
+        });
     }
     
-    detectDeviceType();
-    // Re-check on orientation change (mobile devices rotating)
-    window.addEventListener('orientationchange', detectDeviceType);
+    window.addEventListener('scroll', updateActiveLink, { passive: true });
+    window.addEventListener('resize', updateActiveLink);
+    updateActiveLink();
 })();
+
+// ============================================
+// RESEARCH PAPERS TOGGLE
+// ============================================
+(function() {
+    document.querySelectorAll('.papers-toggle').forEach(button => {
+        button.addEventListener('click', function() {
+            const targetId = this.getAttribute('data-target');
+            const target = document.getElementById(targetId);
+            if (!target) return;
+            
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            
+            if (isExpanded) {
+                target.hidden = true;
+                this.setAttribute('aria-expanded', 'false');
+                this.textContent = 'View Research Papers';
+            } else {
+                target.hidden = false;
+                this.setAttribute('aria-expanded', 'true');
+                const count = target.querySelectorAll('.paper').length;
+                this.textContent = `Hide Research Papers${count > 0 ? ` (${count})` : ''}`;
+            }
+        });
+    });
+})();
+
+// ============================================
+// IMAGE ERROR HANDLING
+// ============================================
+(function() {
+    document.querySelectorAll('.project-image img').forEach(img => {
+        img.addEventListener('error', function() {
+            const container = this.closest('.project-image');
+            if (container) {
+                container.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #64748b;"><i class="fa-solid fa-image"></i></div>';
+            }
+        });
+    });
+})();
+
+// ============================================
+// PREVENT BODY SCROLL WHEN MENU OPEN
+// ============================================
+document.body.classList.remove('no-scroll');
