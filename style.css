@@ -649,6 +649,20 @@ ul {
     width: 100%;
 }
 
+/* Override btn-outline color for project cards (not on hero background) */
+.project-card .btn-outline {
+    background: var(--primary);
+    color: var(--white);
+    border-color: var(--primary);
+}
+
+.project-card .btn-outline:hover {
+    background: var(--secondary);
+    border-color: var(--secondary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
+}
+
 /* Research Papers */
 .papers {
     margin-top: var(--spacing-lg);

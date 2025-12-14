@@ -45,11 +45,11 @@
     
     function updateNav() {
         const canHide = shouldHideNav();
+        const currentScrollY = window.scrollY;
         
         // If hide/show capability changed (e.g., due to zoom), update nav state immediately
         if (previousCanHide !== null && previousCanHide !== canHide) {
             // Capability changed - re-evaluate current scroll position
-            const currentScrollY = window.scrollY;
             if (!canHide || currentScrollY < 50) {
                 nav.classList.remove('hidden');
             } else if (currentScrollY > 100) {
@@ -62,21 +62,28 @@
         // Only enable hide/show for narrow screens (zoomed desktop views)
         if (!canHide) {
             nav.classList.remove('hidden');
+            lastScrollY = currentScrollY;
+            ticking = false;
             return;
         }
         
-        const currentScrollY = window.scrollY;
-        
-        // Always show at top of page
-        if (currentScrollY < 50) {
+        // Always show at top of page - check this FIRST
+        if (currentScrollY <= 50) {
             nav.classList.remove('hidden');
-        } 
+            lastScrollY = currentScrollY;
+            ticking = false;
+            return;
+        }
+        
         // Hide when scrolling down, show when scrolling up
-        else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            // Scrolling down - hide nav
             nav.classList.add('hidden');
         } else if (currentScrollY < lastScrollY) {
+            // Scrolling up - show nav
             nav.classList.remove('hidden');
         }
+        // If scroll position hasn't changed much, maintain current state
         
         lastScrollY = currentScrollY;
         ticking = false;
@@ -192,12 +199,16 @@ window.addEventListener('load', updateActiveNav);
 // RESEARCH PAPERS TOGGLE
 // ============================================
 document.querySelectorAll('.papers-toggle').forEach(button => {
-    button.addEventListener('click', function() {
-        const targetId = this.getAttribute('data-target');
-        const target = document.getElementById(targetId);
+    button.addEventListener('click', function(e) {
+        e.stopPropagation(); // Prevent event bubbling
         
+        const targetId = this.getAttribute('data-target');
+        if (!targetId) return;
+        
+        const target = document.getElementById(targetId);
         if (!target) return;
         
+        // Only toggle the specific target element
         const isHidden = target.hasAttribute('hidden');
         
         if (isHidden) {
