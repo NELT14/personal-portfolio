@@ -334,6 +334,19 @@ body {
 .icon--codeforces { background: var(--color-white); border: 1px solid var(--color-border); }
 .icon--codecademy { background: var(--color-white); border: 1px solid var(--color-border); }
 
+.web-icon-img {
+    width: 22px;
+    height: 22px;
+    object-fit: contain;
+    display: block;
+}
+
+.icon--codecademy .web-icon-img {
+    width: 20px;
+    height: 20px;
+    padding: 2px;
+}
+
 .web-text strong {
     display: block;
     color: var(--color-dark);
