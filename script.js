@@ -13,17 +13,20 @@
     setBodyPadding();
     window.addEventListener('resize', setBodyPadding);
     
-    // Check if device is mobile (disable hide/show on mobile)
-    function isMobile() {
-        return window.innerWidth <= 768 || 'ontouchstart' in window;
+    // Check if viewport is narrow (for hide/show functionality)
+    // Enable hide/show for narrow screens (zoomed in), but disable for very small mobile screens
+    function shouldHideNav() {
+        const width = window.innerWidth;
+        // Enable for narrow screens (like zoomed desktop) but disable for very small mobile
+        return width > 480 && width < 1200;
     }
     
     let lastScrollY = window.scrollY;
     let ticking = false;
     
     function updateNav() {
-        // Don't hide/show nav on mobile devices
-        if (isMobile()) {
+        // Only enable hide/show for narrow screens (zoomed desktop views)
+        if (!shouldHideNav()) {
             nav.classList.remove('hidden');
             return;
         }
@@ -54,9 +57,10 @@
     
     // Re-check on resize to handle orientation changes
     window.addEventListener('resize', () => {
-        if (isMobile()) {
+        if (!shouldHideNav()) {
             nav.classList.remove('hidden');
         }
+        setBodyPadding(); // Recalculate padding on resize
     });
 })();
 

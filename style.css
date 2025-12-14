@@ -38,6 +38,12 @@ body {
     line-height: 1.6;
     color: var(--text);
     background: var(--light);
+    /* iOS safe area support */
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+    /* Prevent iOS bounce scrolling issues */
+    overscroll-behavior-y: none;
+    -webkit-overflow-scrolling: touch;
 }
 
 img {
@@ -62,6 +68,9 @@ ul {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 var(--spacing);
+    /* iOS safe area support */
+    padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0));
+    padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0));
 }
 
 /* ============================================
@@ -76,6 +85,8 @@ ul {
     right: 0;
     z-index: 100;
     padding: var(--spacing) 0;
+    /* iOS safe area support for notch */
+    padding-top: calc(var(--spacing) + env(safe-area-inset-top, 0));
     transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1), 
                 opacity 0.4s ease,
                 box-shadow 0.4s ease;
@@ -144,13 +155,6 @@ ul {
 
 /* Mobile Navigation - Always visible, just wrap on small screens */
 @media (max-width: 768px) {
-    .nav {
-        /* Disable hide/show animation on mobile - always visible */
-        transform: translateY(0) !important;
-        opacity: 1 !important;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
-    }
-    
     .nav-content {
         flex-wrap: wrap;
         gap: var(--spacing);
@@ -159,6 +163,16 @@ ul {
     .nav-menu {
         gap: var(--spacing);
         flex-wrap: wrap;
+    }
+}
+
+/* Very small mobile - always show nav */
+@media (max-width: 480px) {
+    .nav {
+        /* Disable hide/show animation on very small screens - always visible */
+        transform: translateY(0) !important;
+        opacity: 1 !important;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
     }
 }
 
@@ -675,6 +689,8 @@ ul {
     background: var(--dark);
     color: var(--white);
     padding: var(--spacing-xl) 0;
+    /* iOS safe area support for home indicator */
+    padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0));
     text-align: center;
 }
 
