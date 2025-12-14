@@ -13,6 +13,9 @@
     setBodyPadding();
     window.addEventListener('resize', setBodyPadding);
     
+    // Track previous zoom state to detect changes
+    let previousCanHide = null;
+    
     // Check if viewport is narrow (for hide/show functionality)
     // Enable hide/show for narrow screens (zoomed in), but disable for very small mobile screens
     function shouldHideNav() {
@@ -41,8 +44,23 @@
     let ticking = false;
     
     function updateNav() {
+        const canHide = shouldHideNav();
+        
+        // If hide/show capability changed (e.g., due to zoom), update nav state immediately
+        if (previousCanHide !== null && previousCanHide !== canHide) {
+            // Capability changed - re-evaluate current scroll position
+            const currentScrollY = window.scrollY;
+            if (!canHide || currentScrollY < 50) {
+                nav.classList.remove('hidden');
+            } else if (currentScrollY > 100) {
+                // Only hide if already scrolled down enough
+                nav.classList.add('hidden');
+            }
+        }
+        previousCanHide = canHide;
+        
         // Only enable hide/show for narrow screens (zoomed desktop views)
-        if (!shouldHideNav()) {
+        if (!canHide) {
             nav.classList.remove('hidden');
             return;
         }
@@ -64,6 +82,9 @@
         ticking = false;
     }
     
+    // Initialize previous state
+    previousCanHide = shouldHideNav();
+    
     window.addEventListener('scroll', () => {
         if (!ticking) {
             window.requestAnimationFrame(updateNav);
@@ -71,13 +92,37 @@
         }
     }, { passive: true });
     
-    // Re-check on resize to handle orientation changes
-    window.addEventListener('resize', () => {
-        if (!shouldHideNav()) {
-            nav.classList.remove('hidden');
+    // Re-check on resize to handle zoom changes and orientation changes
+    let resizeTicking = false;
+    function handleResize() {
+        if (!resizeTicking) {
+            window.requestAnimationFrame(() => {
+                const canHide = shouldHideNav();
+                
+                // If capability changed, update nav state
+                if (previousCanHide !== null && previousCanHide !== canHide) {
+                    const currentScrollY = window.scrollY;
+                    if (!canHide || currentScrollY < 50) {
+                        nav.classList.remove('hidden');
+                    } else if (currentScrollY > 100) {
+                        nav.classList.add('hidden');
+                    }
+                    previousCanHide = canHide;
+                }
+                
+                setBodyPadding(); // Recalculate padding on resize
+                resizeTicking = false;
+            });
+            resizeTicking = true;
         }
-        setBodyPadding(); // Recalculate padding on resize
-    });
+    }
+    
+    window.addEventListener('resize', handleResize);
+    
+    // Also listen for zoom changes (some browsers fire this)
+    if (window.visualViewport) {
+        window.visualViewport.addEventListener('resize', handleResize);
+    }
 })();
 
 // ============================================
