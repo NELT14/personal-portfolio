@@ -82,6 +82,7 @@ ul {
 
 .nav.hidden {
     transform: translateY(-100%);
+    display: block !important; /* Override generic .hidden utility for nav */
 }
 
 .nav-content {
