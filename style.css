@@ -126,13 +126,8 @@ ul {
     position: relative;
 }
 
-.nav-menu a:hover,
-.nav-menu a.active {
+.nav-menu a:hover {
     color: var(--accent);
-}
-
-.nav-menu a.active {
-    font-weight: 700;
 }
 
 .nav-menu a::after {
@@ -146,8 +141,7 @@ ul {
     transition: width var(--transition);
 }
 
-.nav-menu a:hover::after,
-.nav-menu a.active::after {
+.nav-menu a:hover::after {
     width: 100%;
 }
 
