@@ -70,10 +70,18 @@ ul {
 .nav {
     background: var(--dark);
     color: var(--white);
-    position: sticky;
+    position: fixed;
     top: 0;
+    left: 0;
+    right: 0;
     z-index: 100;
     padding: var(--spacing) 0;
+    transition: transform 0.3s ease;
+    transform: translateY(0);
+}
+
+.nav.hidden {
+    transform: translateY(-100%);
 }
 
 .nav-content {

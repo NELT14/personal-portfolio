@@ -1,4 +1,48 @@
 // ============================================
+// HIDE/SHOW NAVIGATION ON SCROLL
+// ============================================
+(function() {
+    const nav = document.querySelector('.nav');
+    if (!nav) return;
+    
+    // Set body padding to match navbar height
+    function setBodyPadding() {
+        const navHeight = nav.offsetHeight;
+        document.body.style.paddingTop = navHeight + 'px';
+    }
+    setBodyPadding();
+    window.addEventListener('resize', setBodyPadding);
+    
+    let lastScrollY = window.scrollY;
+    let ticking = false;
+    
+    function updateNav() {
+        const currentScrollY = window.scrollY;
+        
+        // Always show at top of page
+        if (currentScrollY < 50) {
+            nav.classList.remove('hidden');
+        } 
+        // Hide when scrolling down, show when scrolling up
+        else if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            nav.classList.add('hidden');
+        } else if (currentScrollY < lastScrollY) {
+            nav.classList.remove('hidden');
+        }
+        
+        lastScrollY = currentScrollY;
+        ticking = false;
+    }
+    
+    window.addEventListener('scroll', () => {
+        if (!ticking) {
+            window.requestAnimationFrame(updateNav);
+            ticking = true;
+        }
+    }, { passive: true });
+})();
+
+// ============================================
 // SMOOTH SCROLLING
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
