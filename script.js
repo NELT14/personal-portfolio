@@ -1,180 +1,153 @@
 // ============================================
 // NAVIGATION
 // ============================================
-(function() {
-    const navToggle = document.querySelector('.nav-toggle');
-    const navLinks = document.querySelector('.nav-links');
-    const navbar = document.querySelector('.navbar');
-    
-    // Set navbar height CSS variable
-    function updateNavHeight() {
-        if (navbar) {
-            const height = navbar.offsetHeight;
-            document.documentElement.style.setProperty('--nav-height', height + 'px');
+
+// Mobile menu toggle
+const navToggle = document.querySelector('.nav-toggle');
+const navMenu = document.querySelector('.nav-menu');
+
+if (navToggle && navMenu) {
+    navToggle.addEventListener('click', () => {
+        const isOpen = navMenu.classList.contains('active');
+        
+        if (isOpen) {
+            navMenu.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+        } else {
+            navMenu.classList.add('active');
+            navToggle.setAttribute('aria-expanded', 'true');
+            document.body.classList.add('no-scroll');
         }
-    }
-    updateNavHeight();
-    window.addEventListener('resize', updateNavHeight);
+    });
     
-    // Mobile menu toggle
-    if (navToggle && navLinks) {
-        navToggle.addEventListener('click', () => {
-            const isOpen = navLinks.classList.contains('active');
-            if (isOpen) {
-                navLinks.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('no-scroll');
-            } else {
-                navLinks.classList.add('active');
-                navToggle.setAttribute('aria-expanded', 'true');
-                document.body.classList.add('no-scroll');
-            }
-        });
-        
-        // Close menu on escape key
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && navLinks.classList.contains('active')) {
-                navLinks.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('no-scroll');
-                navToggle.focus();
-            }
-        });
-        
-        // Close menu when clicking outside
-        document.addEventListener('click', (e) => {
-            if (navLinks.classList.contains('active') && 
-                !navbar.contains(e.target)) {
-                navLinks.classList.remove('active');
-                navToggle.setAttribute('aria-expanded', 'false');
-                document.body.classList.remove('no-scroll');
-            }
-        });
-    }
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+            navToggle.focus();
+        }
+    });
     
-    // Smooth scroll for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            const href = this.getAttribute('href');
-            if (href === '#') return;
-            
-            e.preventDefault();
-            const target = document.querySelector(href);
-            if (target) {
-                target.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
-                
-                // Close mobile menu if open
-                if (navLinks && navLinks.classList.contains('active')) {
-                    navLinks.classList.remove('active');
-                    if (navToggle) navToggle.setAttribute('aria-expanded', 'false');
-                    document.body.classList.remove('no-scroll');
-                }
-            }
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (navMenu.classList.contains('active') && 
+            !navToggle.contains(e.target) && 
+            !navMenu.contains(e.target)) {
+            navMenu.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
+        }
+    });
+    
+    // Close menu when clicking a link
+    navMenu.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', () => {
+            navMenu.classList.remove('active');
+            navToggle.setAttribute('aria-expanded', 'false');
+            document.body.classList.remove('no-scroll');
         });
     });
-})();
+}
+
+// ============================================
+// SMOOTH SCROLLING
+// ============================================
+document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (href === '#') return;
+        
+        e.preventDefault();
+        const target = document.querySelector(href);
+        
+        if (target) {
+            const navHeight = document.querySelector('.nav').offsetHeight;
+            const targetPosition = target.offsetTop - navHeight;
+            
+            window.scrollTo({
+                top: targetPosition,
+                behavior: 'smooth'
+            });
+        }
+    });
+});
 
 // ============================================
 // ACTIVE NAVIGATION LINK
 // ============================================
-(function() {
+function updateActiveNav() {
     const sections = document.querySelectorAll('section[id]');
-    const navLinks = document.querySelectorAll('.nav-links a');
+    const navLinks = document.querySelectorAll('.nav-menu a');
     
     if (!sections.length || !navLinks.length) return;
     
-    // Map sections to their main navigation items
-    const sectionToNavMap = {
-        'home': 'home',
-        'about': 'about',
-        'skills': 'about',
-        'achievements': 'about',
-        'experience': 'about',
-        'projects': 'projects',
-        'activities': 'projects',
-        'connect': 'connect'
-    };
+    const scrollPosition = window.scrollY + 150; // Offset for better detection
     
-    function updateActiveLink() {
-        const scrollY = window.scrollY;
-        const navHeight = parseInt(getComputedStyle(document.documentElement).getPropertyValue('--nav-height')) || 64;
-        const offset = navHeight + 100;
+    sections.forEach(section => {
+        const sectionTop = section.offsetTop;
+        const sectionHeight = section.offsetHeight;
+        const sectionId = section.getAttribute('id');
         
-        let currentSection = '';
-        sections.forEach(section => {
-            const sectionTop = section.offsetTop;
-            const sectionHeight = section.offsetHeight;
-            if (scrollY + offset >= sectionTop && scrollY + offset < sectionTop + sectionHeight) {
-                currentSection = section.id;
-            }
-        });
-        
-        // If at bottom, select last section
-        if (window.innerHeight + scrollY >= document.documentElement.scrollHeight - 50) {
-            currentSection = sections[sections.length - 1].id;
+        if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === `#${sectionId}`) {
+                    link.classList.add('active');
+                }
+            });
         }
-        
-        // Map current section to navigation item
-        const currentNav = sectionToNavMap[currentSection] || currentSection;
-        
+    });
+    
+    // Handle bottom of page
+    if (window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 50) {
         navLinks.forEach(link => {
             link.classList.remove('active');
-            const href = link.getAttribute('href').substring(1); // Remove #
-            if (href === currentNav) {
+            if (link.getAttribute('href') === `#${sections[sections.length - 1].getAttribute('id')}`) {
                 link.classList.add('active');
             }
         });
     }
-    
-    window.addEventListener('scroll', updateActiveLink, { passive: true });
-    window.addEventListener('resize', updateActiveLink);
-    updateActiveLink();
-})();
+}
+
+window.addEventListener('scroll', updateActiveNav);
+window.addEventListener('load', updateActiveNav);
 
 // ============================================
 // RESEARCH PAPERS TOGGLE
 // ============================================
-(function() {
-    document.querySelectorAll('.papers-toggle').forEach(button => {
-        button.addEventListener('click', function() {
-            const targetId = this.getAttribute('data-target');
-            const target = document.getElementById(targetId);
-            if (!target) return;
-            
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            
-            if (isExpanded) {
-                target.hidden = true;
-                this.setAttribute('aria-expanded', 'false');
-                this.textContent = 'View Research Papers';
-            } else {
-                target.hidden = false;
-                this.setAttribute('aria-expanded', 'true');
-                const count = target.querySelectorAll('.paper').length;
-                this.textContent = `Hide Research Papers${count > 0 ? ` (${count})` : ''}`;
-            }
-        });
+document.querySelectorAll('.papers-toggle').forEach(button => {
+    button.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const target = document.getElementById(targetId);
+        
+        if (!target) return;
+        
+        const isHidden = target.hasAttribute('hidden');
+        
+        if (isHidden) {
+            target.removeAttribute('hidden');
+            this.textContent = 'Hide Research Papers';
+            this.setAttribute('aria-expanded', 'true');
+        } else {
+            target.setAttribute('hidden', '');
+            this.textContent = 'View Research Papers';
+            this.setAttribute('aria-expanded', 'false');
+        }
     });
-})();
+});
 
 // ============================================
 // IMAGE ERROR HANDLING
 // ============================================
-(function() {
-    document.querySelectorAll('.project-image img').forEach(img => {
-        img.addEventListener('error', function() {
-            const container = this.closest('.project-image');
-            if (container) {
-                container.innerHTML = '<div style="display: flex; align-items: center; justify-content: center; height: 100%; color: #64748b;"><i class="fa-solid fa-image"></i></div>';
-            }
-        });
+document.querySelectorAll('.project-image img').forEach(img => {
+    img.addEventListener('error', function() {
+        this.style.display = 'none';
+        const placeholder = document.createElement('div');
+        placeholder.className = 'project-image-placeholder';
+        placeholder.innerHTML = '<i class="fas fa-image"></i>';
+        this.parentElement.appendChild(placeholder);
     });
-})();
-
-// ============================================
-// PREVENT BODY SCROLL WHEN MENU OPEN
-// ============================================
-document.body.classList.remove('no-scroll');
+});

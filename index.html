@@ -6,151 +6,166 @@ layout: none
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="theme-color" content="#1e293b">
-    <title>Home | Ali Aliyev</title>
-    <!-- Open Graph / Twitter Cards -->
+    <title>{{ page.title | default: site.title }}</title>
+    
+    <!-- Meta tags -->
     <meta property="og:title" content="{{ page.title | default: site.title }}">
     <meta property="og:description" content="{{ site.description | default: 'Competitive Programmer and ML Enthusiast.' }}">
     <meta property="og:type" content="website">
     <meta property="og:url" content="{{ site.url }}{{ site.baseurl }}/">
-    <meta property="og:site_name" content="{{ site.title | default: 'Ali Aliyev — Portfolio' }}">
     <meta property="og:image" content="{{ site.url }}{{ site.baseurl }}/assets/images/profile.jpg">
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="{{ page.title | default: site.title }}">
-    <meta name="twitter:description" content="{{ site.description | default: 'Competitive Programmer and ML Enthusiast.' }}">
-    <meta name="twitter:image" content="{{ site.url }}{{ site.baseurl }}/assets/images/profile.jpg">
-    <link rel="canonical" href="{{ site.url }}{{ site.baseurl }}/">
+    
+    <!-- Styles -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <!-- Navigation -->
-    <a class="skip-link" href="#about">Skip to main content</a>
-    <nav class="navbar" role="navigation" aria-label="Primary">
+    <nav class="nav">
         <div class="container">
-            <div class="nav-brand">Ali Aliyev</div>
-            <button class="nav-toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="primary-nav"><i class="fa-solid fa-bars"></i></button>
-            <ul id="primary-nav" class="nav-links" role="menubar">
-                <li><a href="#home">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#connect">Contact</a></li>
-            </ul>
+            <div class="nav-content">
+                <div class="nav-brand">Ali Aliyev</div>
+                <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+                <ul class="nav-menu">
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#projects">Projects</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero section">
+    <!-- Hero -->
+    <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <img alt="Ali Aliyev" class="hero-image" src="assets/images/profile.jpg" width="256" height="256" loading="lazy" decoding="async"/>
+                <img src="assets/images/profile.jpg" alt="Ali Aliyev" class="hero-img">
                 <div class="hero-text">
                     <h1>Hi, I'm <span>Ali Aliyev</span>!</h1>
-                    <p>
-                        Competitive programmer passionate about Informatics Olympiads and algorithmic problem-solving.
-                    </p>
-                    <div class="btn-group">
-                        <a href="#connect" class="btn btn-primary">Contact Me</a>
-                        <a href="#projects" class="btn btn-secondary">View My Work</a>
+                    <p>Competitive programmer passionate about Informatics Olympiads and algorithmic problem-solving.</p>
+                    <div class="hero-buttons">
+                        <a href="#contact" class="btn btn-primary">Contact Me</a>
+                        <a href="#projects" class="btn btn-outline">View My Work</a>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Around the Web -->
-    <section id="around" class="section section-alt">
+    <!-- Social Links -->
+    <section class="social">
         <div class="container">
-            <h2 class="section-title">Around the Web</h2>
-            <div class="web-grid">
-                <a class="web-card" href="https://linkedin.com/in/ali-aliyev-1b24a6381" target="_blank" aria-label="LinkedIn">
-                    <span class="web-icon icon--linkedin"><i class="fa-brands fa-linkedin"></i></span>
-                    <div class="web-text"><strong>LinkedIn</strong><span>Professional</span></div>
+            <h2>Around the Web</h2>
+            <div class="social-grid">
+                <a href="https://linkedin.com/in/ali-aliyev-1b24a6381" target="_blank" class="social-card">
+                    <div class="social-icon linkedin"><i class="fab fa-linkedin"></i></div>
+                    <div class="social-text">
+                        <strong>LinkedIn</strong>
+                        <span>Professional</span>
+                    </div>
                 </a>
-                <a class="web-card" href="https://www.instagram.com/nelt_13" target="_blank" aria-label="Instagram">
-                    <span class="web-icon icon--instagram"><i class="fa-brands fa-instagram"></i></span>
-                    <div class="web-text"><strong>Instagram</strong><span>@nelt_13</span></div>
+                <a href="https://www.instagram.com/nelt_13" target="_blank" class="social-card">
+                    <div class="social-icon instagram"><i class="fab fa-instagram"></i></div>
+                    <div class="social-text">
+                        <strong>Instagram</strong>
+                        <span>@nelt_13</span>
+                    </div>
                 </a>
-                <a class="web-card" href="https://www.facebook.com/share/16ce5MZQc1/" target="_blank" aria-label="Facebook">
-                    <span class="web-icon icon--facebook"><i class="fa-brands fa-facebook"></i></span>
-                    <div class="web-text"><strong>Facebook</strong><span>Ali Aliyev</span></div>
+                <a href="https://www.facebook.com/share/16ce5MZQc1/" target="_blank" class="social-card">
+                    <div class="social-icon facebook"><i class="fab fa-facebook"></i></div>
+                    <div class="social-text">
+                        <strong>Facebook</strong>
+                        <span>Ali Aliyev</span>
+                    </div>
                 </a>
-                <a class="web-card" href="https://github.com/NELT14" target="_blank" aria-label="GitHub">
-                    <span class="web-icon icon--github"><i class="fa-brands fa-github"></i></span>
-                    <div class="web-text"><strong>GitHub</strong><span>My projects</span></div>
+                <a href="https://github.com/NELT14" target="_blank" class="social-card">
+                    <div class="social-icon github"><i class="fab fa-github"></i></div>
+                    <div class="social-text">
+                        <strong>GitHub</strong>
+                        <span>My projects</span>
+                    </div>
                 </a>
-                <a class="web-card" href="https://www.codecademy.com/profiles/net9134894948" target="_blank" aria-label="Codecademy">
-                    <span class="web-icon icon--codecademy" aria-hidden="true">
-                        <img src="assets/images/codecademy_icon.png" alt="" class="web-icon-img" loading="lazy" decoding="async"/>
-                    </span>
-                    <div class="web-text"><strong>Codecademy</strong><span>Learning profile</span></div>
+                <a href="https://www.codecademy.com/profiles/net9134894948" target="_blank" class="social-card">
+                    <div class="social-icon codecademy">
+                        <img src="assets/images/codecademy_icon.png" alt="Codecademy">
+                    </div>
+                    <div class="social-text">
+                        <strong>Codecademy</strong>
+                        <span>Learning profile</span>
+                    </div>
                 </a>
-                <a class="web-card" href="https://codeforces.com/profile/Nxxlt" target="_blank" aria-label="Codeforces">
-                    <span class="web-icon icon--codeforces" aria-hidden="true">
-                        <svg width="22" height="22" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <a href="https://codeforces.com/profile/Nxxlt" target="_blank" class="social-card">
+                    <div class="social-icon codeforces">
+                        <svg width="22" height="22" viewBox="0 0 24 24">
                             <rect x="2" y="9" width="5" height="11" rx="2" fill="#FFD400"/>
                             <rect x="9.5" y="3" width="5" height="17" rx="2" fill="#4E7EC1"/>
                             <rect x="17" y="11" width="5" height="9" rx="2" fill="#C21807"/>
                         </svg>
-                    </span>
-                    <div class="web-text"><strong>Codeforces</strong><span>Competitive programming</span></div>
+                    </div>
+                    <div class="social-text">
+                        <strong>Codeforces</strong>
+                        <span>Competitive programming</span>
+                    </div>
                 </a>
             </div>
         </div>
     </section>
-    
-    <!-- About Section -->
+
+    <!-- About -->
     <section id="about" class="section">
         <div class="container">
-            <h2 class="section-title">About Me</h2>
+            <h2>About Me</h2>
             <p class="bio">
                 I'm Ali Aliyev, an 18-year-old competitive programmer from Baku, Azerbaijan. 
                 I've developed a strong interest in computer science through participating in Informatics Olympiads 
                 and research projects on machine learning applications in education.
             </p>
-            
             <div class="info-grid">
-                    <div class="info-item">
-                        <h3>Education</h3>
-                        <ul class="edu-list">
-                            <li>High School: “Ankara‑school” school‑lyceum <span class="edu-date">(2014 – 2025)</span></li>
-                            <li>ADA University - Freshman <span class="edu-date">(2025 – present)</span></li>
-                        </ul>
-                    </div>
-                    <div class="info-item">
-                        <h3>Languages</h3>
-                        <ul class="list">
-                            <li>Azerbaijani - Native</li>
-                            <li>English - Proficient</li>
-                            <li>Russian - Proficient</li>
-                        </ul>
-                    </div>
+                <div class="info-card">
+                    <h3>Education</h3>
+                    <ul>
+                        <li>High School: "Ankara‑school" school‑lyceum <span>(2014 – 2025)</span></li>
+                        <li>ADA University - Freshman <span>(2025 – present)</span></li>
+                    </ul>
+                </div>
+                <div class="info-card">
+                    <h3>Languages</h3>
+                    <ul>
+                        <li>Azerbaijani - Native</li>
+                        <li>English - Proficient</li>
+                        <li>Russian - Proficient</li>
+                    </ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
+    <!-- Skills -->
     <section id="skills" class="section section-alt">
         <div class="container">
-            <h2 class="section-title">Technical Skills</h2>
+            <h2>Technical Skills</h2>
             <div class="skills-grid">
-                <div class="skill-item">
+                <div class="skill-card">
                     <h3>Programming Languages</h3>
                     <p>C++, Python, JavaScript</p>
                 </div>
-                <div class="skill-item">
+                <div class="skill-card">
                     <h3>Competitive Programming</h3>
                     <p>Data structures and Algorithms, Problem Solving</p>
                 </div>
-                <div class="skill-item">
+                <div class="skill-card">
                     <h3>Web Technologies</h3>
                     <p>HTML, CSS</p>
                 </div>
-                <div class="skill-item">
+                <div class="skill-card">
                     <h3>Tools & Platforms</h3>
                     <p>Git, VS Code, Codeforces</p>
                 </div>
@@ -158,76 +173,75 @@ layout: none
         </div>
     </section>
 
-    <!-- Achievements Section -->
+    <!-- Achievements -->
     <section id="achievements" class="section">
         <div class="container">
-            <h2 class="section-title">Achievements & Awards</h2>
-            <div class="achievements-list">
-                <div class="achievement">
+            <h2>Achievements & Awards</h2>
+            <div class="achievements-grid">
+                <div class="achievement-card">
                     <h3>🏆 Gold Medals</h3>
-                    <ul class="list">
+                    <ul>
                         <li>Azerbaijan Republican Olympiad in Informatics (2022)</li>
                         <li>Azerbaijan Republican Olympiad in Informatics (2023)</li>
                         <li>Azerbaijan Republican Olympiad in Informatics (2024)</li>
                         <li>Azerbaijan Republican Olympiad in Informatics (2025)</li>
                     </ul>
                 </div>
-                <div class="achievement">
+                <div class="achievement-card">
                     <h3>🥈 Silver Medals</h3>
-                    <ul class="list">
+                    <ul>
                         <li>International Advanced Tournament in Informatics 2024 (Bulgaria)</li>
                         <li>info(1)cup competition 2023 (Romania)</li>
                     </ul>
                 </div>
-                <div class="achievement">
+                <div class="achievement-card">
                     <h3>🥉 Bronze Medals</h3>
-                    <ul class="list">
+                    <ul>
                         <li>International Autumn Tournament in Informatics 2022 (Bulgaria)</li>
                         <li>Junior Balkan Olympiad in Informatics 2022 (Romania)</li>
                         <li>International Zhautykov Olympiad 2024 (Kazakhstan)</li>
                         <li>International Zhautykov Olympiad 2025 (Kazakhstan)</li>
                     </ul>
                 </div>
-                <div class="achievement">
+                <div class="achievement-card">
                     <h3>🎖️ Honorable Mentions</h3>
-                    <ul class="list">
+                    <ul>
                         <li>International Olympiad in Informatics (IOI 2025 - Bolivia)</li>
                     </ul>
                 </div>
-                
             </div>
         </div>
     </section>
 
-    <!-- Work Experience Section -->
+    <!-- Experience -->
     <section id="experience" class="section section-alt">
         <div class="container">
-            <h2 class="section-title">Work Experience</h2>
-            <div class="project-grid">
-                <article class="project-card">
+            <h2>Work Experience</h2>
+            <div class="projects-grid">
+                <div class="project-card">
                     <h3>Informatics Teaching and Tutoring</h3>
                     <p>
                         In addition to my research experience, I also enjoy teaching. My first step was locally tutoring
                         informatics and C++ for the "Azercell CUP 2025" programming competition participants. I currently
                         work as an Informatics tutor at ROOF Academy, an education company in Azerbaijan.
                     </p>
-                    <div class="project-meta">
-                        <span class="project-type">Teaching</span>
-                        <span class="project-year">2025–Present</span>
+                    <div class="project-tags">
+                        <span>Teaching</span>
+                        <span>2025–Present</span>
                     </div>
-                </article>
+                </div>
             </div>
         </div>
     </section>
 
-    <!-- Projects Section -->
+    <!-- Projects -->
     <section id="projects" class="section">
         <div class="container">
-            <h2 class="section-title">Featured Projects</h2>
-            <div class="project-grid">
-                <article class="project-card">
+            <h2>Featured Projects</h2>
+            <div class="projects-grid">
+                <div class="project-card">
                     <div class="project-image">
-                        <img src="assets/images/logic_gates.png" alt="Digital Logic Gates Implementation project showing breadboard circuit" loading="lazy" decoding="async"/>
+                        <img src="assets/images/logic_gates.png" alt="Digital Logic Gates Implementation">
                     </div>
                     <h3>Digital Logic Gates Implementation</h3>
                     <p>
@@ -235,18 +249,16 @@ layout: none
                         A hands-on exploration of digital logic and circuit design fundamentals. 
                         Team project in collaboration with peers.
                     </p>
-                    <div class="project-meta">
-                        <span class="project-type">Team Project (SITE 1101)</span>
-                        <span class="project-year">2025</span>
+                    <div class="project-tags">
+                        <span>Team Project (SITE 1101)</span>
+                        <span>2025</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu" class="btn btn-secondary" target="_blank" rel="noopener">Watch Demo</a>
-                    </div>
-                </article>
+                    <a href="https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu" target="_blank" class="btn btn-outline">Watch Demo</a>
+                </div>
 
-                <article class="project-card">
+                <div class="project-card">
                     <div class="project-image">
-                        <img src="assets/images/research_project.png" alt="Research on Machine Learning for Education project" loading="lazy" decoding="async"/>
+                        <img src="assets/images/research_project.png" alt="Research on Machine Learning for Education">
                     </div>
                     <h3>Research on Machine Learning for Education</h3>
                     <p>
@@ -254,40 +266,38 @@ layout: none
                         to predict student performance and improve educational outcomes. 
                         Presented findings at international conferences.
                     </p>
-                    <div class="project-meta">
-                        <span class="project-type">Research</span>
-                        <span class="project-year">2024</span>
+                    <div class="project-tags">
+                        <span>Research</span>
+                        <span>2024</span>
                     </div>
-                    <button class="papers-toggle" data-target="research-papers-1" aria-controls="research-papers-1" aria-expanded="false">
-                        View Research Papers
-                    </button>
-                    <div id="research-papers-1" class="research-papers" hidden>
+                    <button class="btn btn-outline papers-toggle" data-target="papers-1">View Research Papers</button>
+                    <div id="papers-1" class="papers" hidden>
                         <div class="paper">
                             <h4>6th International Black Sea Modern Scientific Research Congress</h4>
                             <p><strong>Thesis:</strong> "Predicting Student Performance Using Ensemble Learning to Improve Success Quality"</p>
                             <p><strong>Location:</strong> Trabzon, August 23-25, 2024</p>
                             <p><strong>Pages:</strong> 1250-1254</p>
-                            <a href="https://www.blackseacountries.org/_files/ugd/614b1f_484ed20333674aa5b2e634a5f443b278.pdf" target="_blank" rel="noopener" class="paper-link">View Paper →</a>
+                            <a href="https://www.blackseacountries.org/_files/ugd/614b1f_484ed20333674aa5b2e634a5f443b278.pdf" target="_blank">View Paper →</a>
                         </div>
                         <div class="paper">
                             <h4>10th International European Conference on Interdisciplinary Scientific Research</h4>
                             <p><strong>Thesis:</strong> "Predicting Final Exam Success in a Data Course Using Ensemble Learning Models"</p>
                             <p><strong>Location:</strong> Zurich, August 27-29, 2024</p>
                             <p><strong>Pages:</strong> 186-191</p>
-                            <a href="https://www.eucongress.org/_files/ugd/614b1f_090579f0cb3d4ced99d9cfd41ba8fc5b.pdf" target="_blank" rel="noopener" class="paper-link">View Paper →</a>
+                            <a href="https://www.eucongress.org/_files/ugd/614b1f_090579f0cb3d4ced99d9cfd41ba8fc5b.pdf" target="_blank">View Paper →</a>
                         </div>
                     </div>
-                </article>
+                </div>
             </div>
         </div>
     </section>
-    
-    <!-- Activities Section -->
+
+    <!-- Activities -->
     <section id="activities" class="section section-alt">
         <div class="container">
-            <h2 class="section-title">Activities</h2>
-            <div class="project-grid">
-                <article class="project-card">
+            <h2>Activities</h2>
+            <div class="projects-grid">
+                <div class="project-card">
                     <h3>Codeforces Enthusiast</h3>
                     <p>
                         Since 2021, I have actively trained and competed on Codeforces to prepare for National and
@@ -295,16 +305,14 @@ layout: none
                         and contribute to the community, continuing this practice to steadily improve algorithmic thinking
                         and speed.
                     </p>
-                    <div class="project-meta">
-                        <span class="project-type">Competitive Programming</span>
-                        <span class="project-year">2021–Present</span>
+                    <div class="project-tags">
+                        <span>Competitive Programming</span>
+                        <span>2021–Present</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://codeforces.com/profile/Nxxlt" class="btn btn-secondary" target="_blank" rel="noopener">View on Codeforces</a>
-                    </div>
-                </article>
+                    <a href="https://codeforces.com/profile/Nxxlt" target="_blank" class="btn btn-outline">View on Codeforces</a>
+                </div>
 
-                <article class="project-card">
+                <div class="project-card">
                     <h3>Voluntary Service at "Sevgi" Home for Orphaned Children</h3>
                     <p>
                         08/06/2024 - 08/07/2024 • Baku. During the month, I helped teachers care for children and introduced them to
@@ -312,42 +320,52 @@ layout: none
                         to develop cooperation skills. For older children, I taught basics of the Python programming
                         language and guided them to build simple programs.
                     </p>
-                    <div class="project-meta">
-                        <span class="project-type">Volunteering</span>
-                        <span class="project-year">Summer 2024</span>
+                    <div class="project-tags">
+                        <span>Volunteering</span>
+                        <span>Summer 2024</span>
                     </div>
-                </article>
+                </div>
 
-                <article class="project-card">
+                <div class="project-card">
                     <h3>Codecademy Learning Path</h3>
                     <p>
                         I practice fundamentals and complete guided projects on Codecademy to broaden my skills.
                         This includes programming exercises and web basics that complement olympiad training.
                     </p>
-                    <div class="project-meta">
-                        <span class="project-type">Self‑Learning</span>
-                        <span class="project-year">Ongoing</span>
+                    <div class="project-tags">
+                        <span>Self‑Learning</span>
+                        <span>Ongoing</span>
                     </div>
-                    <div class="project-links">
-                        <a href="https://www.codecademy.com/profiles/net9134894948" class="btn btn-secondary" target="_blank">View Codecademy</a>
-                    </div>
-                </article>
+                    <a href="https://www.codecademy.com/profiles/net9134894948" target="_blank" class="btn btn-outline">View Codecademy</a>
+                </div>
             </div>
         </div>
     </section>
-    
-    <!-- Contact Section -->
-    <section id="connect" class="connect section">
+
+    <!-- Contact -->
+    <section id="contact" class="contact">
         <div class="container">
-            <h2 class="section-title">Contact Me</h2>
+            <h2>Contact Me</h2>
             <p>Reach me via the channels below and let's collaborate!</p>
-            <div class="social-icons">
-                <a class="social-icon" href="https://linkedin.com/in/ali-aliyev-1b24a6381" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fa-brands fa-linkedin" aria-hidden="true"></i></a>
-                <a class="social-icon" href="https://www.instagram.com/nelt_13" target="_blank" rel="noopener" aria-label="Instagram"><i class="fa-brands fa-instagram" aria-hidden="true"></i></a>
-                <a class="social-icon" href="https://www.facebook.com/share/16ce5MZQc1/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fa-brands fa-facebook" aria-hidden="true"></i></a>
-                <a class="social-icon" href="https://t.me/fsgssfg" target="_blank" rel="noopener" aria-label="Telegram"><i class="fa-brands fa-telegram" aria-hidden="true"></i></a>
-                <a class="social-icon" href="mailto:ali__aliyev@outlook.com" aria-label="Email"><i class="fa-solid fa-envelope"></i></a>
-                <a class="social-icon" href="tel:+994507121680" aria-label="Phone"><i class="fa-solid fa-phone"></i></a>
+            <div class="contact-icons">
+                <a href="https://linkedin.com/in/ali-aliyev-1b24a6381" target="_blank" class="contact-icon" aria-label="LinkedIn">
+                    <i class="fab fa-linkedin"></i>
+                </a>
+                <a href="https://www.instagram.com/nelt_13" target="_blank" class="contact-icon" aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://www.facebook.com/share/16ce5MZQc1/" target="_blank" class="contact-icon" aria-label="Facebook">
+                    <i class="fab fa-facebook"></i>
+                </a>
+                <a href="https://t.me/fsgssfg" target="_blank" class="contact-icon" aria-label="Telegram">
+                    <i class="fab fa-telegram"></i>
+                </a>
+                <a href="mailto:ali__aliyev@outlook.com" class="contact-icon" aria-label="Email">
+                    <i class="fas fa-envelope"></i>
+                </a>
+                <a href="tel:+994507121680" class="contact-icon" aria-label="Phone">
+                    <i class="fas fa-phone"></i>
+                </a>
             </div>
         </div>
     </section>
@@ -357,7 +375,11 @@ layout: none
         <div class="container">
             <p>&copy; 2025 Ali Aliyev. All rights reserved.</p>
             <p>This is my personal portfolio website</p>
-            <p><a href="https://github.com/NELT14/personal-portfolio" target="_blank" rel="noopener" aria-label="GitHub Repository"><i class="fa-brands fa-github"></i> Source Code</a></p>
+            <p>
+                <a href="https://github.com/NELT14/personal-portfolio" target="_blank">
+                    <i class="fab fa-github"></i> Source Code
+                </a>
+            </p>
         </div>
     </footer>
 
