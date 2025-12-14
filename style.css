@@ -32,6 +32,9 @@ html {
     background-color: #ffffff; /* ensures safe-area outside body is not black */
     width: 100%;
     height: 100%;
+    /* Prevent horizontal scrolling on all devices */
+    overflow-x: hidden;
+    max-width: 100vw;
 }
 
 /* Keep anchors visible below sticky navbar */
@@ -48,14 +51,35 @@ body {
     margin: 0;
     padding: 0;
     overflow-x: hidden; /* avoid white strips from horizontal overflow */
+    width: 100%;
+    max-width: 100vw;
+    position: relative;
 }
 
-.os-ios body {
+/* Platform-specific safe area handling */
+.os-ios body,
+.os-android body {
     padding-bottom: env(safe-area-inset-bottom, 0px);
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
 }
 
-.os-ios .navbar {
+.os-ios .navbar,
+.os-android .navbar {
     padding-top: calc(1rem + env(safe-area-inset-top, 0px));
+}
+
+/* Ensure full-width sections respect safe areas on mobile */
+.os-ios section,
+.os-android section {
+    padding-left: env(safe-area-inset-left, 0px);
+    padding-right: env(safe-area-inset-right, 0px);
+}
+
+/* Fix for hole-punch displays - ensure content doesn't get cut */
+.os-android .navbar,
+.os-ios .navbar {
+    min-height: calc(64px + env(safe-area-inset-top, 0px));
 }
 
 /* Skip Link */
@@ -94,8 +118,8 @@ a:hover {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    padding-left: calc(24px + env(safe-area-inset-left, 0px));
-    padding-right: calc(24px + env(safe-area-inset-right, 0px));
+    padding-left: calc(clamp(16px, 2.5vw, 24px) + env(safe-area-inset-left, 0px));
+    padding-right: calc(clamp(16px, 2.5vw, 24px) + env(safe-area-inset-right, 0px));
     box-sizing: border-box;
 }
 
@@ -105,12 +129,16 @@ a:hover {
 .navbar {
     background-color: var(--dark-color);
     color: white;
-    padding: 1rem 0;
+    padding: 0;
     position: sticky;
     top: env(safe-area-inset-top, 0px); /* sit just below the cutout */
     z-index: 100;
     box-shadow: none;
     overflow: visible; /* keep nav items visible at high zoom */
+    /* Ensure navbar extends fully to edges */
+    margin: 0;
+    width: 100%;
+    max-width: 100%;
 }
 
 /* no safe-area padding on body – navbar container handles all safe-areas */
@@ -219,11 +247,11 @@ a:hover {
 
     .desktop-device .nav-links.active {
         display: flex !important;
-        animation: navSlideDown 0.35s cubic-bezier(0.22, 0.61, 0.36, 1);
+        animation: navSlideDown 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
     }
 
     .desktop-device .nav-links.active.closing {
-        animation: navSlideUp 0.25s ease-in forwards;
+        animation: navSlideUp 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) forwards;
     }
 
     .desktop-device .nav-links a {
@@ -391,15 +419,33 @@ a:hover {
 .nav-toggle[aria-expanded="true"] i { transform: rotate(90deg); }
 
 @keyframes navSlideDown {
-    from { opacity: 0; transform: translateY(-8px); }
-    to   { opacity: 1; transform: translateY(0); }
+    from { 
+        opacity: 0; 
+        transform: translateY(-12px); 
+        max-height: 0;
+    }
+    to   { 
+        opacity: 1; 
+        transform: translateY(0); 
+        max-height: calc(100vh - var(--nav-height) - env(safe-area-inset-top, 0px));
+    }
 }
 
 /* Closing animation for mobile menu */
-.nav-links.active.closing { animation: navSlideUp 0.25s ease-in forwards; }
+.nav-links.active.closing { 
+    animation: navSlideUp 0.35s cubic-bezier(0.22, 0.61, 0.36, 1) forwards; 
+}
 @keyframes navSlideUp {
-    from { opacity: 1; transform: translateY(0); }
-    to   { opacity: 0; transform: translateY(-8px); }
+    from { 
+        opacity: 1; 
+        transform: translateY(0); 
+        max-height: calc(100vh - var(--nav-height) - env(safe-area-inset-top, 0px));
+    }
+    to   { 
+        opacity: 0; 
+        transform: translateY(-12px); 
+        max-height: 0;
+    }
 }
 
 /* Prevent background scroll when mobile menu is open */
@@ -410,6 +456,17 @@ section {
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
+    /* Prevent white strips between sections */
+    margin: 0;
+    padding-left: 0;
+    padding-right: 0;
+    /* Ensure consistent background coverage */
+    background-clip: padding-box;
+}
+
+/* Fix section boundaries - ensure no gaps */
+section + section {
+    margin-top: 0;
 }
 
 /* Social icons */
@@ -630,8 +687,8 @@ section {
 /* Smaller desktop/laptop adjustments */
 @media (max-width: 1400px) {
     .container {
-        padding-left: 20px;
-        padding-right: 20px;
+        padding-left: calc(clamp(16px, 2.5vw, 20px) + env(safe-area-inset-left, 0px));
+        padding-right: calc(clamp(16px, 2.5vw, 20px) + env(safe-area-inset-right, 0px));
     }
     
     .navbar .container {
@@ -672,8 +729,8 @@ section {
 
 @media (max-width: 1000px) {
     .container {
-        padding-left: 18px;
-        padding-right: 18px;
+        padding-left: calc(clamp(14px, 2.5vw, 18px) + env(safe-area-inset-left, 0px));
+        padding-right: calc(clamp(14px, 2.5vw, 18px) + env(safe-area-inset-right, 0px));
     }
     
     .desktop-device .navbar .container {
@@ -774,8 +831,8 @@ section {
     .connect .container,
     section .container,
     .hero .container {
-        padding-left: 1rem !important;
-        padding-right: 1rem !important;
+        padding-left: calc(clamp(12px, 2vw, 16px) + env(safe-area-inset-left, 0px)) !important;
+        padding-right: calc(clamp(12px, 2vw, 16px) + env(safe-area-inset-right, 0px)) !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
         width: 100% !important;
@@ -919,6 +976,7 @@ section {
    =========================== */
 .skills {
     padding: 4rem 0;
+    background-color: #ffffff;
 }
 
 .skills h2 {
@@ -1018,6 +1076,17 @@ section {
    =========================== */
 .projects {
     padding: 4rem 0;
+    background-color: #ffffff;
+}
+
+/* Activities section background consistency */
+#activities.projects {
+    background-color: #ffffff;
+}
+
+/* Experience section background */
+#experience.projects {
+    background-color: var(--light-color);
 }
 
 .projects h2 {
@@ -1045,6 +1114,60 @@ section {
     display: flex;
     flex-direction: column;
     height: 100%;
+    overflow: hidden; /* Prevent content overflow */
+}
+
+/* Project image container */
+.project-image {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    background: var(--light-color);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.project-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: var(--border-radius);
+    transition: transform 0.3s ease;
+}
+
+.project-card:hover .project-image img {
+    transform: scale(1.05);
+}
+
+/* Fallback placeholder for missing images */
+.project-image-placeholder {
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+    border-radius: var(--border-radius);
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: clamp(2rem, 4vw, 3rem);
+    opacity: 0.8;
+}
+
+/* Responsive image adjustments for mobile */
+@media (max-width: 768px) {
+    .project-image {
+        aspect-ratio: 4 / 3; /* Slightly taller on mobile */
+        margin-bottom: 1rem;
+    }
+    
+    .project-image img {
+        object-fit: cover;
+    }
 }
 
 .project-card:hover {
@@ -1058,6 +1181,7 @@ section {
     margin-bottom: 1rem;
     font-size: 1.3rem;
     font-weight: 700;
+    margin-top: 0; /* Remove top margin since image is above */
 }
 
 .project-card p {
@@ -1386,7 +1510,8 @@ section {
 
 @media (max-width: 480px) {
     .container {
-        padding: 0 16px;
+        padding-left: calc(clamp(12px, 3vw, 16px) + env(safe-area-inset-left, 0px));
+        padding-right: calc(clamp(12px, 3vw, 16px) + env(safe-area-inset-right, 0px));
     }
 
     .nav-brand {

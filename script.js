@@ -137,20 +137,44 @@ function highlightActiveLink() {
     const getCurrentSectionId = () => {
         const scrollY = window.scrollY || window.pageYOffset;
         const navH = (navbarEl ? navbarEl.offsetHeight : 0);
-        // Pivot ~30% viewport below the navbar for earlier switching
-        const pivot = scrollY + navH + Math.floor(window.innerHeight * 0.30);
+        // Use a more reliable pivot point: navbar height + small offset
+        const pivot = scrollY + navH + 100; // 100px offset for better detection
 
-        let currentId = sections[0].id;
+        let currentId = sections[0]?.id || '';
+        let bestMatch = { id: currentId, distance: Infinity };
+
         for (const section of sections) {
-            const top = section.offsetTop;
-            const bottom = top + section.offsetHeight;
-            if (pivot >= top && pivot < bottom) { currentId = section.id; break; }
-            if (pivot >= top) currentId = section.id;
+            if (!section.id) continue;
+            const rect = section.getBoundingClientRect();
+            const sectionTop = rect.top + scrollY;
+            const sectionBottom = sectionTop + rect.height;
+            
+            // Check if pivot point is within this section
+            if (pivot >= sectionTop && pivot <= sectionBottom) {
+                currentId = section.id;
+                break;
+            }
+            
+            // Track the closest section above the pivot
+            if (sectionTop <= pivot) {
+                const distance = pivot - sectionTop;
+                if (distance < bestMatch.distance) {
+                    bestMatch = { id: section.id, distance };
+                }
+            }
+        }
+
+        // If no section found, use the best match
+        if (!currentId && bestMatch.id) {
+            currentId = bestMatch.id;
         }
 
         // At the very bottom, force last section
-        const atBottom = Math.ceil(window.innerHeight + scrollY) >= document.documentElement.scrollHeight;
-        if (atBottom) currentId = sections[sections.length - 1].id;
+        const atBottom = Math.ceil(window.innerHeight + scrollY) >= document.documentElement.scrollHeight - 50;
+        if (atBottom && sections.length > 0) {
+            currentId = sections[sections.length - 1].id || currentId;
+        }
+        
         return currentId;
     };
 
@@ -249,6 +273,24 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
             this.textContent = 'Hide Research Papers';
         }
     });
+});
+
+// ===========================
+// Project Image Error Handling
+// ===========================
+document.querySelectorAll('.project-image img').forEach(img => {
+    img.addEventListener('error', function() {
+        // Replace broken image with placeholder
+        const container = this.closest('.project-image');
+        if (container) {
+            container.innerHTML = '<div class="project-image-placeholder"><i class="fa-solid fa-image" aria-hidden="true"></i></div>';
+        }
+    });
+    
+    // Lazy loading support
+    if ('loading' in HTMLImageElement.prototype) {
+        img.loading = 'lazy';
+    }
 });
 
 // ===========================
