@@ -22,6 +22,9 @@
     --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.1);
     --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
     --nav-height: 64px;
+    /* Consistent horizontal rhythm for nav across zoom levels */
+    --nav-gutter: clamp(18px, 2.6vw, 26px);
+    --page-gutter: clamp(16px, 3vw, 48px);
 }
 
 html {
@@ -117,6 +120,7 @@ a:hover {
     justify-content: space-between;
     align-items: center;
     gap: clamp(16px, 2vw, 24px);
+    /* Use consistent padding for desktop devices to avoid zoom-level differences */
     padding: clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-right, 0px)) clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-left, 0px));
     max-width: 100%;
     flex-wrap: wrap; /* allow wrapping instead of disappearing */
@@ -138,7 +142,8 @@ a:hover {
     list-style: none;
     gap: clamp(14px, 2vw, 22px);
     margin: 0;
-    padding: clamp(6px, 1vw, 10px) 0 clamp(6px, 1vw, 10px) clamp(8px, 1.5vw, 12px);
+    /* unified padding to avoid jump between zoom levels */
+    padding: clamp(6px, 1vw, 10px) 0;
 }
 
 .nav-toggle {
@@ -176,6 +181,14 @@ a:hover {
     font-weight: 600;
 }
 
+/* Consistent navbar padding for desktop devices across zoom levels (150%, 175%, etc.) */
+@media (min-width: 901px) {
+    .desktop-device .navbar .container {
+        padding-left: calc(20px + env(safe-area-inset-left, 0px));
+        padding-right: calc(20px + env(safe-area-inset-right, 0px));
+    }
+}
+
 /* At tight viewports (including high zoom on desktop), switch to hamburger to keep navbar compact */
 @media (max-width: 900px) {
     .desktop-device .nav-toggle {
@@ -195,7 +208,7 @@ a:hover {
         width: 100%;
         gap: 0.75rem;
         background: var(--dark-color);
-        padding: clamp(1rem, 1.8vw, 1.5rem) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-right, 0px)) clamp(1rem, 1.8vw, 1.5rem) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-left, 0px));
+        padding: clamp(1rem, 1.8vw, 1.5rem) calc(20px + env(safe-area-inset-right, 0px)) clamp(1rem, 1.8vw, 1.5rem) calc(20px + env(safe-area-inset-left, 0px));
         box-shadow: var(--shadow-md);
         max-height: calc(100vh - var(--nav-height) - env(safe-area-inset-top, 0px));
         overflow-y: auto;
@@ -223,7 +236,7 @@ a:hover {
 @media (max-width: 1200px) {
     .navbar .container {
         align-items: flex-start;
-        padding: clamp(10px, 2vw, 14px) calc(clamp(14px, 2.5vw, 22px) + env(safe-area-inset-right, 0px)) clamp(10px, 2vw, 14px) calc(clamp(14px, 2.5vw, 22px) + env(safe-area-inset-left, 0px));
+        padding: clamp(10px, 2vw, 14px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-right, 0px)) clamp(10px, 2vw, 14px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-left, 0px));
         gap: clamp(10px, 2vw, 16px);
         overflow-x: auto;
         overflow-y: hidden;
@@ -238,7 +251,7 @@ a:hover {
         width: 100%;
         gap: clamp(8px, 1.2vw, 12px);
         justify-content: flex-start;
-        padding: clamp(6px, 1vw, 8px) 0 clamp(6px, 1vw, 8px) clamp(8px, 1.2vw, 10px); /* breathing room when wrapping, align with brand */
+        padding: clamp(6px, 1vw, 8px) 0;
     }
 
     .nav-links a {
@@ -312,8 +325,6 @@ a:hover {
         font-size: 1.25rem;
     }
 
-
-    
     .nav-links {
         display: none;
         position: absolute;
@@ -326,6 +337,7 @@ a:hover {
         box-shadow: var(--shadow-md);
         max-height: calc(100vh - var(--nav-height) - env(safe-area-inset-top, 0px));
         overflow-y: auto;
+        padding: clamp(10px, 2vw, 14px) calc(var(--nav-gutter) + env(safe-area-inset-right, 0px)) clamp(10px, 2vw, 14px) calc(var(--nav-gutter) + env(safe-area-inset-left, 0px));
     }
     
     /* When open, become a fixed, scrollable drawer below the navbar */
@@ -337,7 +349,7 @@ a:hover {
         right: 0;
         bottom: 0;
         max-height: calc(100vh - var(--nav-height) - env(safe-area-inset-top, 0px));
-        padding: 2rem calc(var(--page-gutter) + env(safe-area-inset-right, 0px)) 2rem calc(var(--page-gutter) + env(safe-area-inset-left, 0px));
+        padding: clamp(1.25rem, 3vw, 1.75rem) calc(var(--nav-gutter) + env(safe-area-inset-right, 0px)) clamp(1.25rem, 3vw, 1.75rem) calc(var(--nav-gutter) + env(safe-area-inset-left, 0px));
         overflow-y: auto;
         overscroll-behavior: contain;
         -webkit-overflow-scrolling: touch;
@@ -349,9 +361,6 @@ a:hover {
         padding: 0.5rem 0;
         font-size: 1rem;
     }
-
-
-
 }
 
 /* Mobile-only layout overrides for actual mobile devices */
@@ -626,7 +635,7 @@ section {
     }
     
     .navbar .container {
-        padding: 16px 20px;
+        padding: clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-right, 0px)) clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-left, 0px));
     }
     
     .desktop-device .nav-links {
@@ -643,8 +652,8 @@ section {
 }
 
 @media (max-width: 1200px) {
-    .navbar .container {
-        padding: 14px 18px;
+    .desktop-device .navbar .container {
+        padding: clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-right, 0px)) clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-left, 0px));
         gap: 16px;
     }
     
@@ -667,8 +676,8 @@ section {
         padding-right: 18px;
     }
     
-    .navbar .container {
-        padding: 12px 16px;
+    .desktop-device .navbar .container {
+        padding: clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-right, 0px)) clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-left, 0px));
         gap: 12px;
     }
     
@@ -690,8 +699,8 @@ section {
 }
 
 @media (max-width: 900px) {
-    .navbar .container {
-        padding: 12px 16px;
+    .desktop-device .navbar .container {
+        padding: clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-right, 0px)) clamp(14px, 2.4vw, 22px) calc(clamp(18px, 2.6vw, 26px) + env(safe-area-inset-left, 0px));
         gap: 10px;
     }
     
