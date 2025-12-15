@@ -239,6 +239,25 @@ ul {
         width: 100% !important;
         max-width: 100vw !important;
         overflow-x: hidden !important;
+        box-sizing: border-box !important;
+    }
+    
+    /* Ensure body background extends to edges */
+    body {
+        background-color: var(--light) !important;
+        background-size: 100% 100% !important;
+    }
+    
+    /* Remove all safe-area insets on left/right in landscape for specific elements */
+    .container,
+    .nav .container,
+    .nav-content,
+    section,
+    .hero,
+    .contact,
+    .social {
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
     
     .nav {
@@ -251,19 +270,27 @@ ul {
         max-width: 100vw !important;
         /* Remove safe-area padding in landscape */
         padding-top: var(--spacing) !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
     
     .nav .container {
-        padding-left: var(--spacing) !important;
-        padding-right: var(--spacing) !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
     
     .container {
         /* Remove safe-area padding in landscape - causes white strips */
-        padding-left: var(--spacing) !important;
-        padding-right: var(--spacing) !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
         width: 100% !important;
         max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
     }
     
     /* Ensure all sections span full width */
@@ -274,6 +301,7 @@ ul {
         margin-right: 0 !important;
         padding-left: 0 !important;
         padding-right: 0 !important;
+        box-sizing: border-box !important;
     }
     
     /* Ensure hero and contact sections span full width */
@@ -282,6 +310,23 @@ ul {
         max-width: 100vw !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
+    }
+    
+    /* Ensure all content containers span full width */
+    .nav-content,
+    .hero-content,
+    .social-grid,
+    .projects-grid,
+    .achievements-grid,
+    .contact-icons {
+        width: 100% !important;
+        max-width: 100% !important;
+        margin-left: 0 !important;
+        margin-right: 0 !important;
+        padding-left: 0 !important;
+        padding-right: 0 !important;
     }
 }
 
