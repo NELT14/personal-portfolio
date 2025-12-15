@@ -183,7 +183,7 @@ ul {
     display: block;
 }
 
-/* Current page indicator - always show underline */
+/* Current page indicator - always show blue text and underline */
 .nav-menu a.current {
     color: var(--accent) !important;
     font-weight: 700;
@@ -194,13 +194,18 @@ ul {
     background: var(--accent);
 }
 
-/* Hover effect for non-current links */
-.nav-menu a:not(.current):hover {
+/* Hover effect - make all links blue on hover (including current) */
+.nav-menu a:hover {
     color: var(--accent) !important;
 }
 
-.nav-menu a:not(.current):hover::after {
+.nav-menu a:hover::after {
     width: 100%;
+}
+
+/* Ensure current page stays blue even on hover */
+.nav-menu a.current:hover {
+    color: var(--accent) !important;
 }
 
 /* Remove all active/focus/visited/target states styling */
