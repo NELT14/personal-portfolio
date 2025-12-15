@@ -1,32 +1,56 @@
 // ============================================
-// NAVIGATION - Set current page indicator
+// NAVIGATION - Set current page indicator (unified function)
 // ============================================
-(function() {
-    function setCurrentPageIndicator() {
-        const currentPath = window.location.pathname;
-        const currentPage = currentPath.endsWith('/') ? 'index.html' : currentPath.split('/').pop();
-        
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.classList.remove('current');
-            const linkHref = link.getAttribute('href');
-            
-            // Match current page
-            if (linkHref === currentPage || 
-                (currentPage === 'index.html' && (linkHref === 'index.html' || linkHref === '/' || linkHref === '')) ||
-                (currentPage === 'about.html' && linkHref === 'about.html') ||
-                (currentPage === 'activities.html' && linkHref === 'activities.html')) {
-                link.classList.add('current');
-            }
-        });
+function setCurrentPageIndicator() {
+    // Get current page from URL
+    const currentPath = window.location.pathname;
+    let currentPage = '';
+    
+    if (!currentPath || currentPath === '/' || currentPath.endsWith('/')) {
+        currentPage = 'index.html';
+    } else {
+        // Extract filename from path, filtering out empty segments
+        const parts = currentPath.split('/').filter(part => part);
+        currentPage = parts[parts.length - 1] || 'index.html';
     }
     
-    // Set on page load
-    window.addEventListener('load', setCurrentPageIndicator);
-    window.addEventListener('DOMContentLoaded', setCurrentPageIndicator);
+    // Normalize currentPage - ensure it's a valid filename
+    if (currentPage === '' || currentPage === '/' || !currentPage) {
+        currentPage = 'index.html';
+    }
     
-    // Also set it immediately
+    // Update all navigation links
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.classList.remove('current');
+        const linkHref = link.getAttribute('href');
+        
+        // Normalize link href
+        let linkPage = '';
+        if (!linkHref || linkHref === '/' || linkHref === '' || linkHref === 'index.html') {
+            linkPage = 'index.html';
+        } else {
+            // Extract filename from href, filtering out empty segments
+            const parts = linkHref.split('/').filter(part => part);
+            linkPage = parts[parts.length - 1] || 'index.html';
+        }
+        
+        // Match and add current class
+        if (linkPage === currentPage) {
+            link.classList.add('current');
+        }
+    });
+}
+
+// Set on page load
+window.addEventListener('load', setCurrentPageIndicator);
+window.addEventListener('DOMContentLoaded', setCurrentPageIndicator);
+
+// Also set it immediately if DOM is already loaded
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', setCurrentPageIndicator);
+} else {
     setCurrentPageIndicator();
-})();
+}
 
 // ============================================
 // SMOOTH PAGE TRANSITIONS (SPA-like behavior)
@@ -34,43 +58,7 @@
 (function() {
     let isTransitioning = false;
     
-    function updateCurrentPageIndicator(href) {
-        // Normalize href to get the page name
-        let page = '';
-        if (href.includes('index.html') || href === '/' || href === '' || !href) {
-            page = 'index.html';
-        } else if (href.includes('about.html')) {
-            page = 'about.html';
-        } else if (href.includes('activities.html')) {
-            page = 'activities.html';
-        } else {
-            // Extract filename from path
-            const parts = href.split('/');
-            page = parts[parts.length - 1] || 'index.html';
-        }
-        
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.classList.remove('current');
-            const linkHref = link.getAttribute('href');
-            
-            // Normalize link href
-            let linkPage = '';
-            if (!linkHref || linkHref === '/' || linkHref === 'index.html' || linkHref === '') {
-                linkPage = 'index.html';
-            } else if (linkHref === 'about.html') {
-                linkPage = 'about.html';
-            } else if (linkHref === 'activities.html') {
-                linkPage = 'activities.html';
-            } else {
-                const parts = linkHref.split('/');
-                linkPage = parts[parts.length - 1] || 'index.html';
-            }
-            
-            if (linkPage === page) {
-                link.classList.add('current');
-            }
-        });
-    }
+    // Use the unified setCurrentPageIndicator function instead of separate updateCurrentPageIndicator
     
     function initAllEventListeners() {
         // Re-initialize smooth scrolling for anchor links
@@ -174,8 +162,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         }
                     });
                     
-                    // Update current page indicator
-                    updateCurrentPageIndicator(href);
+                    // Update current page indicator using unified function
+                    setCurrentPageIndicator();
                     
                     // Re-initialize all event listeners
                     initAllEventListeners();
@@ -258,7 +246,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         }
                     });
                     
-                    updateCurrentPageIndicator(page);
+                    setCurrentPageIndicator();
                     initAllEventListeners();
                     initScrollAnimations();
                     window.scrollTo({ top: 0, behavior: 'instant' });
