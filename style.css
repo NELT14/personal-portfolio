@@ -145,13 +145,23 @@ ul {
     text-decoration: none !important;
 }
 
+/* Force hide ::after for all non-hover states */
 .nav-menu a:focus::after,
 .nav-menu a:active::after,
 .nav-menu a:visited::after,
 .nav-menu a:target::after,
-.nav-menu a.active::after {
+.nav-menu a.active::after,
+.nav-menu a[aria-current]::after,
+.nav-menu a.no-underline::after,
+.nav-menu a:not(:hover)::after {
     width: 0 !important;
     display: none !important;
+    content: none !important;
+    height: 0 !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    background: transparent !important;
+    pointer-events: none !important;
 }
 
 .nav-menu a:hover {
@@ -164,23 +174,32 @@ ul {
     font-weight: 500 !important;
 }
 
-.nav-menu a.active::after {
-    width: 0 !important;
-}
-
 .nav-menu a::after {
     content: '';
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width var(--transition);
+    width: 0 !important;
+    height: 0 !important;
+    background: transparent !important;
+    transition: none;
+    display: none !important;
+    visibility: hidden !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
 }
 
-.nav-menu a:hover::after {
-    width: 100%;
+/* Only show underline on hover, and only on desktop (not mobile) */
+@media (hover: hover) and (pointer: fine) {
+    .nav-menu a:hover::after {
+        width: 100% !important;
+        height: 2px !important;
+        background: var(--accent) !important;
+        display: block !important;
+        visibility: visible !important;
+        opacity: 1 !important;
+        transition: width var(--transition);
+    }
 }
 
 /* Mobile Navigation - Always visible, just wrap on small screens */

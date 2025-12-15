@@ -19,12 +19,13 @@
 function removeAllActiveClasses() {
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.classList.remove('active');
+        link.removeAttribute('aria-current');
         link.blur(); // Remove focus as well
         // Force remove any inline styles that might be added
         link.style.color = '';
         link.style.fontWeight = '';
-        // Remove any pseudo-element styling by resetting
-        link.style.setProperty('--after-width', '0', 'important');
+        // Force hide pseudo-element by adding a class
+        link.classList.add('no-underline');
     });
 }
 
