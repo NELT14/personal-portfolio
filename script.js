@@ -1,31 +1,32 @@
 // ============================================
-// NAVIGATION - Scrolls with page (no hide/show)
+// NAVIGATION - Set current page indicator
 // ============================================
 (function() {
-    const nav = document.querySelector('.nav');
-    if (!nav) return;
+    function setCurrentPageIndicator() {
+        const currentPath = window.location.pathname;
+        const currentPage = currentPath.endsWith('/') ? 'index.html' : currentPath.split('/').pop();
+        
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.classList.remove('current');
+            const linkHref = link.getAttribute('href');
+            
+            // Match current page
+            if (linkHref === currentPage || 
+                (currentPage === 'index.html' && (linkHref === 'index.html' || linkHref === '/' || linkHref === '')) ||
+                (currentPage === 'about.html' && linkHref === 'about.html') ||
+                (currentPage === 'activities.html' && linkHref === 'activities.html')) {
+                link.classList.add('current');
+            }
+        });
+    }
     
-    // Navbar scrolls with page, so no body padding needed
-    document.body.style.paddingTop = '0px';
+    // Set on page load
+    window.addEventListener('load', setCurrentPageIndicator);
+    window.addEventListener('DOMContentLoaded', setCurrentPageIndicator);
     
-    // Remove any active classes from navigation links
-    const navLinks = nav.querySelectorAll('.nav-menu a');
-    navLinks.forEach(link => {
-        link.classList.remove('active');
-    });
+    // Also set it immediately
+    setCurrentPageIndicator();
 })();
-
-// Remove active classes on page load
-function removeAllActiveClasses() {
-    document.querySelectorAll('.nav-menu a').forEach(link => {
-        link.classList.remove('active');
-        link.removeAttribute('aria-current');
-        link.blur();
-    });
-}
-
-window.addEventListener('load', removeAllActiveClasses);
-window.addEventListener('DOMContentLoaded', removeAllActiveClasses);
 
 // ============================================
 // SMOOTH PAGE TRANSITIONS (SPA-like behavior)
@@ -34,13 +35,38 @@ window.addEventListener('DOMContentLoaded', removeAllActiveClasses);
     let isTransitioning = false;
     
     function updateCurrentPageIndicator(href) {
+        // Normalize href to get the page name
+        let page = '';
+        if (href.includes('index.html') || href === '/' || href === '' || !href) {
+            page = 'index.html';
+        } else if (href.includes('about.html')) {
+            page = 'about.html';
+        } else if (href.includes('activities.html')) {
+            page = 'activities.html';
+        } else {
+            // Extract filename from path
+            const parts = href.split('/');
+            page = parts[parts.length - 1] || 'index.html';
+        }
+        
         document.querySelectorAll('.nav-menu a').forEach(link => {
             link.classList.remove('current');
             const linkHref = link.getAttribute('href');
-            if (linkHref === href || 
-                (href.includes('index.html') && (linkHref === 'index.html' || linkHref === '/' || linkHref === '')) ||
-                (href.includes('about.html') && linkHref === 'about.html') ||
-                (href.includes('activities.html') && linkHref === 'activities.html')) {
+            
+            // Normalize link href
+            let linkPage = '';
+            if (!linkHref || linkHref === '/' || linkHref === 'index.html' || linkHref === '') {
+                linkPage = 'index.html';
+            } else if (linkHref === 'about.html') {
+                linkPage = 'about.html';
+            } else if (linkHref === 'activities.html') {
+                linkPage = 'activities.html';
+            } else {
+                const parts = linkHref.split('/');
+                linkPage = parts[parts.length - 1] || 'index.html';
+            }
+            
+            if (linkPage === page) {
                 link.classList.add('current');
             }
         });

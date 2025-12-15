@@ -170,23 +170,40 @@ ul {
     touch-action: manipulation;
 }
 
-/* Hover effect - works on both desktop and mobile, overrides clicked state */
-.nav-menu a:hover:not(.clicked) {
+/* Underline base styles */
+.nav-menu a::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width 0.3s ease;
+    display: block;
+}
+
+/* Current page indicator - always show underline */
+.nav-menu a.current {
+    color: var(--accent) !important;
+    font-weight: 700;
+}
+
+.nav-menu a.current::after {
+    width: 100% !important;
+    background: var(--accent);
+}
+
+/* Hover effect for non-current links */
+.nav-menu a:not(.current):hover {
     color: var(--accent) !important;
 }
 
-/* Remove active/focus/visited states after click (but allow hover to override) */
-.nav-menu a.clicked {
-    color: rgba(255, 255, 255, 0.9) !important;
-    -webkit-tap-highlight-color: transparent !important;
-    background: transparent !important;
+.nav-menu a:not(.current):hover::after {
+    width: 100%;
 }
 
-/* Allow hover to override clicked state */
-.nav-menu a.clicked:hover {
-    color: var(--accent) !important;
-}
-
+/* Remove all active/focus/visited/target states styling */
 .nav-menu a:focus,
 .nav-menu a:active,
 .nav-menu a:visited,
@@ -201,88 +218,13 @@ ul {
     -webkit-tap-highlight-color: transparent !important;
 }
 
-/* Hide underline for clicked state */
-.nav-menu a.clicked::after {
-    width: 0 !important;
-        display: none !important;
-}
-
-/* Allow hover to show underline even if clicked */
-.nav-menu a.clicked:hover::after {
-    width: 100% !important;
-    display: block !important;
-}
-
-/* Hide underline for active/focus states */
-.nav-menu a:focus::after,
-.nav-menu a:active::after,
-.nav-menu a:visited::after,
-.nav-menu a:target::after,
-.nav-menu a.active::after,
-.nav-menu a[aria-current]::after {
-    width: 0 !important;
-}
-
-.nav-menu a:hover {
-    color: var(--accent);
-}
-
-/* Current page indicator with animation */
-.nav-menu a.current {
-    color: var(--accent) !important;
-    font-weight: 700;
-    position: relative;
-}
-
-.nav-menu a.current::after {
-    width: 100% !important;
-    background: var(--accent);
-    animation: slideIn 0.3s ease;
-}
-
-@keyframes slideIn {
-    from {
-        width: 0;
-    }
-    to {
-        width: 100%;
-    }
-}
-
-/* Explicitly remove any active state styling */
-.nav-menu a.active {
-    color: rgba(255, 255, 255, 0.9) !important;
-    font-weight: 500 !important;
-}
-
-.nav-menu a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width var(--transition);
-}
-
-/* Show underline on hover (desktop and mobile) */
-.nav-menu a:hover::after {
-    width: 100%;
-}
-
-/* Hide underline for clicked/active states (but allow hover to show it) */
-.nav-menu a.clicked:not(:hover)::after {
-    width: 0 !important;
-}
-
-/* Hide underline for active/focus states */
-.nav-menu a:focus::after,
-.nav-menu a:active::after,
-.nav-menu a:visited::after,
-.nav-menu a:target::after,
-.nav-menu a.active::after,
-.nav-menu a[aria-current]::after {
+/* Hide underline for active/focus states (unless current) */
+.nav-menu a:not(.current):focus::after,
+.nav-menu a:not(.current):active::after,
+.nav-menu a:not(.current):visited::after,
+.nav-menu a:not(.current):target::after,
+.nav-menu a:not(.current).active::after,
+.nav-menu a:not(.current)[aria-current]::after {
     width: 0 !important;
 }
 
