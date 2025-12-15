@@ -84,6 +84,53 @@ document.querySelectorAll('.papers-toggle').forEach(button => {
 });
 
 // ============================================
+// SCROLL ANIMATIONS FOR SECTIONS
+// ============================================
+(function() {
+    const sections = document.querySelectorAll('.section, .section-alt, .hero, .contact');
+    
+    const observerOptions = {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver(function(entries) {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Stop observing once visible for performance
+                observer.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+    
+    // Observe all sections
+    sections.forEach(section => {
+        // Make visible immediately if already in viewport (for page load)
+        const rect = section.getBoundingClientRect();
+        if (rect.top < window.innerHeight && rect.bottom > 0) {
+            section.classList.add('visible');
+        } else {
+            observer.observe(section);
+        }
+    });
+    
+    // Also check on scroll for sections that might have been missed
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            sections.forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    section.classList.add('visible');
+                }
+            });
+        }, 100);
+    }, { passive: true });
+})();
+
+// ============================================
 // IMAGE ERROR HANDLING
 // ============================================
 document.querySelectorAll('.project-image img').forEach(img => {

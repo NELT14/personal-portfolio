@@ -125,6 +125,11 @@ ul {
     font-size: 1.2rem;
     font-weight: 700;
     color: var(--accent);
+    transition: var(--transition);
+}
+
+.nav-brand:hover {
+    transform: scale(1.05);
 }
 
 .nav-brand a {
@@ -219,14 +224,26 @@ ul {
     color: var(--accent);
 }
 
-/* Current page indicator */
+/* Current page indicator with animation */
 .nav-menu a.current {
-    color: var(--accent);
+    color: var(--accent) !important;
     font-weight: 700;
+    position: relative;
 }
 
 .nav-menu a.current::after {
-    width: 100%;
+    width: 100% !important;
+    background: var(--accent);
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100%;
+    }
 }
 
 /* Explicitly remove any active state styling */
@@ -417,6 +434,15 @@ ul {
     background: linear-gradient(135deg, var(--primary), var(--secondary));
     color: var(--white);
     padding: var(--spacing-xl) 0;
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.hero.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .hero-content {
@@ -516,6 +542,17 @@ ul {
     /* iOS safe area support */
     padding-left: env(safe-area-inset-left, 0);
     padding-right: env(safe-area-inset-right, 0);
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section.visible {
+    opacity: 1;
+    transform: translateY(0);
+    /* Subtle color accent when visible */
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.05);
 }
 
 .section-alt {
@@ -523,6 +560,17 @@ ul {
     /* iOS safe area support */
     padding-left: env(safe-area-inset-left, 0);
     padding-right: env(safe-area-inset-right, 0);
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.section-alt.visible {
+    opacity: 1;
+    transform: translateY(0);
+    /* Subtle color accent when visible */
+    box-shadow: 0 0 0 1px rgba(37, 99, 235, 0.05);
 }
 
 /* iOS-specific optimizations */
@@ -582,6 +630,25 @@ ul {
     text-align: center;
     margin-bottom: var(--spacing-xl);
     color: var(--dark);
+    position: relative;
+    padding-bottom: var(--spacing);
+}
+
+/* Animated underline for section headings */
+.section h2::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--primary), var(--accent));
+    transition: width 0.8s ease;
+}
+
+.section.visible h2::after {
+    width: 80px;
 }
 
 /* ============================================
@@ -963,6 +1030,15 @@ ul {
     color: var(--white);
     padding: var(--spacing-xl) 0;
     text-align: center;
+    /* Animation properties */
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+.contact.visible {
+    opacity: 1;
+    transform: translateY(0);
 }
 
 .contact .container {
