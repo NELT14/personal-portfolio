@@ -119,19 +119,29 @@ ul {
 }
 
 .nav-menu a {
-    color: rgba(255, 255, 255, 0.9) !important;
-    font-weight: 500 !important;
+    color: rgba(255, 255, 255, 0.9);
+    font-weight: 500;
     padding: 0.5rem;
     transition: var(--transition);
     position: relative;
-    /* Prevent active/focus states from showing */
-    -webkit-tap-highlight-color: transparent !important;
-    tap-highlight-color: transparent !important;
-    outline: none !important;
-    text-decoration: none !important;
+    /* Allow tap highlight but remove it after click */
+    -webkit-tap-highlight-color: rgba(96, 165, 250, 0.3);
+    tap-highlight-color: rgba(96, 165, 250, 0.3);
+    outline: none;
+    text-decoration: none;
 }
 
-/* Override ALL possible states that could cause highlighting */
+/* Hover effect - works on both desktop and mobile, overrides clicked state */
+.nav-menu a:hover {
+    color: var(--accent) !important;
+}
+
+/* Remove active/focus/visited states after click (but allow hover to override) */
+.nav-menu a.clicked:not(:hover) {
+    color: rgba(255, 255, 255, 0.9) !important;
+    -webkit-tap-highlight-color: transparent !important;
+}
+
 .nav-menu a:focus,
 .nav-menu a:active,
 .nav-menu a:visited,
@@ -143,25 +153,22 @@ ul {
     outline: none !important;
     background: transparent !important;
     text-decoration: none !important;
+    -webkit-tap-highlight-color: transparent !important;
 }
 
-/* Force hide ::after for all non-hover states */
+/* Hide underline for clicked state when not hovering */
+.nav-menu a.clicked:not(:hover)::after {
+    width: 0 !important;
+}
+
+/* Hide underline for active/focus states */
 .nav-menu a:focus::after,
 .nav-menu a:active::after,
 .nav-menu a:visited::after,
 .nav-menu a:target::after,
 .nav-menu a.active::after,
-.nav-menu a[aria-current]::after,
-.nav-menu a.no-underline::after,
-.nav-menu a:not(:hover)::after {
+.nav-menu a[aria-current]::after {
     width: 0 !important;
-    display: none !important;
-    content: none !important;
-    height: 0 !important;
-    opacity: 0 !important;
-    visibility: hidden !important;
-    background: transparent !important;
-    pointer-events: none !important;
 }
 
 .nav-menu a:hover {
@@ -179,27 +186,27 @@ ul {
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 0 !important;
-    height: 0 !important;
-    background: transparent !important;
-    transition: none;
-    display: none !important;
-    visibility: hidden !important;
-    opacity: 0 !important;
-    pointer-events: none !important;
+    width: 0;
+    height: 2px;
+    background: var(--accent);
+    transition: width var(--transition);
 }
 
-/* Only show underline on hover, and only on desktop (not mobile) */
-@media (hover: hover) and (pointer: fine) {
-    .nav-menu a:hover::after {
-        width: 100% !important;
-        height: 2px !important;
-        background: var(--accent) !important;
-        display: block !important;
-        visibility: visible !important;
-        opacity: 1 !important;
-        transition: width var(--transition);
-    }
+/* Show underline on hover (desktop and mobile) */
+.nav-menu a:hover::after {
+    width: 100%;
+}
+
+/* Hide underline for all non-hover states (after click) */
+.nav-menu a:focus::after,
+.nav-menu a:active::after,
+.nav-menu a:visited::after,
+.nav-menu a:target::after,
+.nav-menu a.active::after,
+.nav-menu a[aria-current]::after,
+.nav-menu a.clicked::after,
+.nav-menu a:not(:hover)::after {
+    width: 0 !important;
 }
 
 /* Mobile Navigation - Always visible, just wrap on small screens */

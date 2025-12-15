@@ -15,35 +15,17 @@
     });
 })();
 
-// Remove active classes on page load, scroll, and after any interaction
+// Remove active classes on page load
 function removeAllActiveClasses() {
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.classList.remove('active');
         link.removeAttribute('aria-current');
-        link.blur(); // Remove focus as well
-        // Force remove any inline styles that might be added
-        link.style.color = '';
-        link.style.fontWeight = '';
-        // Force hide pseudo-element by adding a class
-        link.classList.add('no-underline');
+        link.blur();
     });
 }
 
-// Remove active classes on multiple events to catch all scenarios
 window.addEventListener('load', removeAllActiveClasses);
 window.addEventListener('DOMContentLoaded', removeAllActiveClasses);
-window.addEventListener('scroll', removeAllActiveClasses, { passive: true });
-window.addEventListener('touchstart', removeAllActiveClasses, { passive: true });
-window.addEventListener('touchend', removeAllActiveClasses, { passive: true });
-window.addEventListener('click', function(e) {
-    // If clicking anywhere on the page, remove active classes
-    if (!e.target.closest('.nav-menu a')) {
-        removeAllActiveClasses();
-    }
-});
-
-// Also remove on hash change (in case browser navigates via hash)
-window.addEventListener('hashchange', removeAllActiveClasses);
 
 // ============================================
 // SMOOTH SCROLLING
@@ -55,11 +37,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         
         e.preventDefault();
         
-        // Remove active class from all nav links immediately
-        removeAllActiveClasses();
-        
-        // Remove focus to prevent browser from highlighting
-        this.blur();
+        // Add 'clicked' class to remove hover effect after click
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.classList.add('clicked');
+            link.classList.remove('active');
+            link.blur();
+        });
         
         // Clear URL hash to prevent browser from highlighting based on hash
         if (window.history && window.history.replaceState) {
@@ -77,12 +60,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth'
             });
             
-            // Remove active class multiple times to catch any delayed additions
-            setTimeout(removeAllActiveClasses, 100);
-            setTimeout(removeAllActiveClasses, 300);
-            setTimeout(removeAllActiveClasses, 500);
-            setTimeout(removeAllActiveClasses, 1000);
+            // Remove clicked class after a delay to allow hover again
+            setTimeout(() => {
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.classList.remove('clicked');
+                });
+            }, 300);
         }
+    });
+    
+    // Remove 'clicked' class on hover to restore hover effect
+    anchor.addEventListener('mouseenter', function() {
+        this.classList.remove('clicked');
+    });
+    
+    anchor.addEventListener('touchstart', function() {
+        // On mobile touch, allow hover effect
+        this.classList.remove('clicked');
     });
 });
 
