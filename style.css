@@ -170,37 +170,21 @@ ul {
     touch-action: manipulation;
 }
 
-/* Underline base styles */
+/* Remove underline - we only want blue text, not underline */
 .nav-menu a::after {
-    content: '';
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 0;
-    height: 2px;
-    background: var(--accent);
-    transition: width 0.3s ease;
-    display: block;
+    display: none !important;
+    content: none !important;
 }
 
-/* Current page indicator - always show blue text and underline */
+/* Current page indicator - blue text only, no underline */
 .nav-menu a.current {
     color: var(--accent) !important;
     font-weight: 700;
 }
 
-.nav-menu a.current::after {
-    width: 100% !important;
-    background: var(--accent);
-}
-
-/* Hover effect - make all links blue on hover (including current) */
+/* Hover effect - make all links blue text on hover (including current) */
 .nav-menu a:hover {
     color: var(--accent) !important;
-}
-
-.nav-menu a:hover::after {
-    width: 100%;
 }
 
 /* Ensure current page stays blue even on hover */
