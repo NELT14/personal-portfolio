@@ -119,26 +119,39 @@ ul {
 }
 
 .nav-menu a {
-    color: rgba(255, 255, 255, 0.9);
-    font-weight: 500;
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
     padding: 0.5rem;
     transition: var(--transition);
     position: relative;
     /* Prevent active/focus states from showing */
-    -webkit-tap-highlight-color: transparent;
-    outline: none;
+    -webkit-tap-highlight-color: transparent !important;
+    tap-highlight-color: transparent !important;
+    outline: none !important;
+    text-decoration: none !important;
 }
 
+/* Override ALL possible states that could cause highlighting */
 .nav-menu a:focus,
-.nav-menu a:active {
+.nav-menu a:active,
+.nav-menu a:visited,
+.nav-menu a:target,
+.nav-menu a[aria-current],
+.nav-menu a.active {
     color: rgba(255, 255, 255, 0.9) !important;
     font-weight: 500 !important;
     outline: none !important;
+    background: transparent !important;
+    text-decoration: none !important;
 }
 
 .nav-menu a:focus::after,
-.nav-menu a:active::after {
+.nav-menu a:active::after,
+.nav-menu a:visited::after,
+.nav-menu a:target::after,
+.nav-menu a.active::after {
     width: 0 !important;
+    display: none !important;
 }
 
 .nav-menu a:hover {

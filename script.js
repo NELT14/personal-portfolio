@@ -20,12 +20,29 @@ function removeAllActiveClasses() {
     document.querySelectorAll('.nav-menu a').forEach(link => {
         link.classList.remove('active');
         link.blur(); // Remove focus as well
+        // Force remove any inline styles that might be added
+        link.style.color = '';
+        link.style.fontWeight = '';
+        // Remove any pseudo-element styling by resetting
+        link.style.setProperty('--after-width', '0', 'important');
     });
 }
 
+// Remove active classes on multiple events to catch all scenarios
 window.addEventListener('load', removeAllActiveClasses);
+window.addEventListener('DOMContentLoaded', removeAllActiveClasses);
 window.addEventListener('scroll', removeAllActiveClasses, { passive: true });
 window.addEventListener('touchstart', removeAllActiveClasses, { passive: true });
+window.addEventListener('touchend', removeAllActiveClasses, { passive: true });
+window.addEventListener('click', function(e) {
+    // If clicking anywhere on the page, remove active classes
+    if (!e.target.closest('.nav-menu a')) {
+        removeAllActiveClasses();
+    }
+});
+
+// Also remove on hash change (in case browser navigates via hash)
+window.addEventListener('hashchange', removeAllActiveClasses);
 
 // ============================================
 // SMOOTH SCROLLING
@@ -38,12 +55,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         
         // Remove active class from all nav links immediately
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.classList.remove('active');
-        });
+        removeAllActiveClasses();
         
         // Remove focus to prevent browser from highlighting
         this.blur();
+        
+        // Clear URL hash to prevent browser from highlighting based on hash
+        if (window.history && window.history.replaceState) {
+            window.history.replaceState(null, null, ' ');
+        }
         
         const target = document.querySelector(href);
         
@@ -56,12 +76,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 behavior: 'smooth'
             });
             
-            // Remove active class again after scroll completes
-            setTimeout(() => {
-                document.querySelectorAll('.nav-menu a').forEach(link => {
-                    link.classList.remove('active');
-                });
-            }, 500);
+            // Remove active class multiple times to catch any delayed additions
+            setTimeout(removeAllActiveClasses, 100);
+            setTimeout(removeAllActiveClasses, 300);
+            setTimeout(removeAllActiveClasses, 500);
+            setTimeout(removeAllActiveClasses, 1000);
         }
     });
 });
