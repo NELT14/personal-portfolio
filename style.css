@@ -18,6 +18,9 @@
     
     --radius: 8px;
     --transition: 0.2s ease;
+    
+    /* iOS touch target minimum size */
+    --touch-target: 44px;
 }
 
 /* ============================================
@@ -34,6 +37,9 @@ html {
     overflow-x: hidden;
     width: 100%;
     max-width: 100vw;
+    /* iOS text size adjustment */
+    -webkit-text-size-adjust: 100%;
+    text-size-adjust: 100%;
 }
 
 body {
@@ -78,6 +84,15 @@ ul {
     padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0));
     padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0));
     box-sizing: border-box;
+    width: 100%;
+}
+
+/* iOS-specific container adjustments */
+@supports (-webkit-touch-callout: none) {
+    .container {
+        padding-left: max(var(--spacing), env(safe-area-inset-left, 0));
+        padding-right: max(var(--spacing), env(safe-area-inset-right, 0));
+    }
 }
 
 /* ============================================
@@ -121,7 +136,10 @@ ul {
 .nav-menu a {
     color: rgba(255, 255, 255, 0.9);
     font-weight: 500;
-    padding: 0.5rem;
+    padding: 0.75rem 1rem;
+    min-height: var(--touch-target);
+    display: flex;
+    align-items: center;
     transition: var(--transition);
     position: relative;
     /* Allow tap highlight but remove it after click */
@@ -129,6 +147,9 @@ ul {
     tap-highlight-color: rgba(96, 165, 250, 0.3);
     outline: none;
     text-decoration: none;
+    /* iOS touch optimization */
+    -webkit-touch-callout: none;
+    touch-action: manipulation;
 }
 
 /* Hover effect - works on both desktop and mobile, overrides clicked state */
@@ -197,15 +218,18 @@ ul {
     width: 100%;
 }
 
-/* Hide underline for all non-hover states (after click) */
+/* Hide underline for clicked/active states (but allow hover to show it) */
+.nav-menu a.clicked:not(:hover)::after {
+    width: 0 !important;
+}
+
+/* Hide underline for active/focus states */
 .nav-menu a:focus::after,
 .nav-menu a:active::after,
 .nav-menu a:visited::after,
 .nav-menu a:target::after,
 .nav-menu a.active::after,
-.nav-menu a[aria-current]::after,
-.nav-menu a.clicked::after,
-.nav-menu a:not(:hover)::after {
+.nav-menu a[aria-current]::after {
     width: 0 !important;
 }
 
@@ -213,6 +237,8 @@ ul {
 @media (max-width: 768px) {
     .nav {
         position: relative !important;
+        padding: var(--spacing) 0;
+        padding-top: calc(var(--spacing) + env(safe-area-inset-top, 0));
     }
     
     .nav-content {
@@ -223,6 +249,20 @@ ul {
     .nav-menu {
         gap: var(--spacing);
         flex-wrap: wrap;
+    }
+    
+    .nav-menu a {
+        padding: 0.75rem 1rem;
+        min-height: var(--touch-target);
+        font-size: 1rem;
+    }
+    
+    /* iOS-specific touch optimizations */
+    @supports (-webkit-touch-callout: none) {
+        .nav-menu a {
+            -webkit-tap-highlight-color: rgba(96, 165, 250, 0.2);
+            padding: 0.875rem 1.25rem;
+        }
     }
 }
 
@@ -440,10 +480,67 @@ ul {
 .section {
     padding: var(--spacing-xl) 0;
     background: var(--white);
+    /* iOS safe area support */
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
 }
 
 .section-alt {
     background: var(--light);
+    /* iOS safe area support */
+    padding-left: env(safe-area-inset-left, 0);
+    padding-right: env(safe-area-inset-right, 0);
+}
+
+/* iOS-specific optimizations */
+@supports (-webkit-touch-callout: none) {
+    .section,
+    .section-alt {
+        padding-top: calc(var(--spacing-xl) + env(safe-area-inset-top, 0));
+        padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0));
+    }
+    
+    @media (max-width: 768px) {
+        .section,
+        .section-alt {
+            padding-top: calc(var(--spacing-lg) + env(safe-area-inset-top, 0));
+            padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0));
+        }
+    }
+    
+    /* Better touch targets on iOS */
+    .nav-menu a {
+        padding: 0.875rem 1.25rem;
+        min-height: 44px;
+    }
+    
+    .btn {
+        min-height: 44px;
+        padding: 0.875rem 1.75rem;
+    }
+    
+    /* Improve text rendering on iOS */
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* iOS-specific section adjustments */
+@supports (-webkit-touch-callout: none) {
+    .section,
+    .section-alt {
+        padding-top: calc(var(--spacing-xl) + env(safe-area-inset-top, 0));
+        padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0));
+    }
+    
+    @media (max-width: 768px) {
+        .section,
+        .section-alt {
+            padding-top: calc(var(--spacing-lg) + env(safe-area-inset-top, 0));
+            padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0));
+        }
+    }
 }
 
 .section h2 {

@@ -74,10 +74,23 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         this.classList.remove('clicked');
     });
     
+    // On mobile touch, remove clicked class immediately to allow highlight
     anchor.addEventListener('touchstart', function() {
-        // On mobile touch, allow hover effect
         this.classList.remove('clicked');
-    });
+    }, { passive: true });
+    
+    // On mobile touch end, immediately add clicked class to remove highlight
+    anchor.addEventListener('touchend', function() {
+        const link = this;
+        // Add clicked class immediately to remove highlight after tap
+        setTimeout(() => {
+            link.classList.add('clicked');
+            // Keep clicked class longer to ensure highlight stays removed
+            setTimeout(() => {
+                link.classList.remove('clicked');
+            }, 500);
+        }, 50);
+    }, { passive: true });
 });
 
 // Active navigation link highlighting removed - navbar scrolls with page
