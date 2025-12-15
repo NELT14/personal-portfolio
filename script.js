@@ -28,72 +28,28 @@ window.addEventListener('load', removeAllActiveClasses);
 window.addEventListener('DOMContentLoaded', removeAllActiveClasses);
 
 // ============================================
-// SMOOTH SCROLLING
+// SMOOTH SCROLLING (only for anchor links on same page, like #contact)
 // ============================================
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
     anchor.addEventListener('click', function(e) {
         const href = this.getAttribute('href');
         if (href === '#') return;
         
+        // Only handle if target is on current page
+        const target = document.querySelector(href);
+        if (!target) return; // Let browser handle if target doesn't exist (different page)
+        
         e.preventDefault();
         
-        // Add 'clicked' class to remove hover effect after click
-        document.querySelectorAll('.nav-menu a').forEach(link => {
-            link.classList.add('clicked');
-            link.classList.remove('active');
-            link.blur();
+        // Navbar scrolls with page now, so no offset needed
+        const targetPosition = target.offsetTop;
+        
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
         });
-        
-        // Clear URL hash to prevent browser from highlighting based on hash
-        if (window.history && window.history.replaceState) {
-            window.history.replaceState(null, null, ' ');
-        }
-        
-        const target = document.querySelector(href);
-        
-        if (target) {
-            // Navbar scrolls with page now, so no offset needed
-            const targetPosition = target.offsetTop;
-            
-            window.scrollTo({
-                top: targetPosition,
-                behavior: 'smooth'
-            });
-            
-            // Remove clicked class after a delay to allow hover again
-            setTimeout(() => {
-                document.querySelectorAll('.nav-menu a').forEach(link => {
-                    link.classList.remove('clicked');
-                });
-            }, 300);
-        }
     });
-    
-    // Remove 'clicked' class on hover to restore hover effect
-    anchor.addEventListener('mouseenter', function() {
-        this.classList.remove('clicked');
-    });
-    
-    // On mobile touch, remove clicked class immediately to allow highlight
-    anchor.addEventListener('touchstart', function() {
-        this.classList.remove('clicked');
-    }, { passive: true });
-    
-    // On mobile touch end, immediately add clicked class to remove highlight
-    anchor.addEventListener('touchend', function() {
-        const link = this;
-        // Add clicked class immediately to remove highlight after tap
-        setTimeout(() => {
-            link.classList.add('clicked');
-            // Keep clicked class longer to ensure highlight stays removed
-            setTimeout(() => {
-                link.classList.remove('clicked');
-            }, 500);
-        }, 50);
-    }, { passive: true });
 });
-
-// Active navigation link highlighting removed - navbar scrolls with page
 
 // ============================================
 // RESEARCH PAPERS TOGGLE
