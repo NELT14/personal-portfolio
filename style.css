@@ -124,10 +124,35 @@ ul {
     padding: 0.5rem;
     transition: var(--transition);
     position: relative;
+    /* Prevent active/focus states from showing */
+    -webkit-tap-highlight-color: transparent;
+    outline: none;
+}
+
+.nav-menu a:focus,
+.nav-menu a:active {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+    outline: none !important;
+}
+
+.nav-menu a:focus::after,
+.nav-menu a:active::after {
+    width: 0 !important;
 }
 
 .nav-menu a:hover {
     color: var(--accent);
+}
+
+/* Explicitly remove any active state styling */
+.nav-menu a.active {
+    color: rgba(255, 255, 255, 0.9) !important;
+    font-weight: 500 !important;
+}
+
+.nav-menu a.active::after {
+    width: 0 !important;
 }
 
 .nav-menu a::after {

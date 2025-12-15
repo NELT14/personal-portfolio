@@ -7,7 +7,25 @@
     
     // Navbar scrolls with page, so no body padding needed
     document.body.style.paddingTop = '0px';
+    
+    // Remove any active classes from navigation links
+    const navLinks = nav.querySelectorAll('.nav-menu a');
+    navLinks.forEach(link => {
+        link.classList.remove('active');
+    });
 })();
+
+// Remove active classes on page load, scroll, and after any interaction
+function removeAllActiveClasses() {
+    document.querySelectorAll('.nav-menu a').forEach(link => {
+        link.classList.remove('active');
+        link.blur(); // Remove focus as well
+    });
+}
+
+window.addEventListener('load', removeAllActiveClasses);
+window.addEventListener('scroll', removeAllActiveClasses, { passive: true });
+window.addEventListener('touchstart', removeAllActiveClasses, { passive: true });
 
 // ============================================
 // SMOOTH SCROLLING
@@ -18,6 +36,15 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (href === '#') return;
         
         e.preventDefault();
+        
+        // Remove active class from all nav links immediately
+        document.querySelectorAll('.nav-menu a').forEach(link => {
+            link.classList.remove('active');
+        });
+        
+        // Remove focus to prevent browser from highlighting
+        this.blur();
+        
         const target = document.querySelector(href);
         
         if (target) {
@@ -28,6 +55,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 top: targetPosition,
                 behavior: 'smooth'
             });
+            
+            // Remove active class again after scroll completes
+            setTimeout(() => {
+                document.querySelectorAll('.nav-menu a').forEach(link => {
+                    link.classList.remove('active');
+                });
+            }, 500);
         }
     });
 });
