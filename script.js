@@ -19,8 +19,16 @@ function setCurrentPageIndicator() {
         currentPage = 'index.html';
     }
     
+    // Get nav links - if not ready, retry
+    const navLinks = document.querySelectorAll('.nav-menu a');
+    if (navLinks.length === 0) {
+        // Nav not ready yet, try again after a short delay
+        setTimeout(setCurrentPageIndicator, 50);
+        return;
+    }
+    
     // Update all navigation links
-    document.querySelectorAll('.nav-menu a').forEach(link => {
+    navLinks.forEach(link => {
         link.classList.remove('current');
         const linkHref = link.getAttribute('href');
         
@@ -148,7 +156,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                 );
                 
                 // Wait for fade-out, then replace content
-                setTimeout(() => {
+            setTimeout(() => {
                     // Replace body content (keep nav)
                     const currentContent = Array.from(document.body.children).filter(el => 
                         el.tagName !== 'SCRIPT' && !el.classList.contains('nav')
@@ -162,7 +170,10 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         }
                     });
                     
-                    // Update current page indicator using unified function
+                    // Update URL without refresh FIRST
+                    window.history.pushState({ path: href }, '', href);
+                    
+                    // Update current page indicator using unified function (after URL update)
                     setCurrentPageIndicator();
                     
                     // Re-initialize all event listeners
@@ -178,10 +189,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                     setTimeout(() => {
                         document.body.style.opacity = '1';
                         isTransitioning = false;
+                        // Ensure indicator is set after fade-in completes
+                        setCurrentPageIndicator();
                     }, 50);
-                    
-                    // Update URL without refresh
-                    window.history.pushState({ path: href }, '', href);
                 }, 300);
             })
             .catch(err => {
@@ -246,6 +256,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         }
                     });
                     
+                    // Update URL first (if needed)
+                    if (window.location.pathname !== '/' + page) {
+                        window.history.replaceState({ path: page }, '', page);
+                    }
+                    
                     setCurrentPageIndicator();
                     initAllEventListeners();
                     initScrollAnimations();
@@ -255,6 +270,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         document.body.style.opacity = '1';
                         isTransitioning = false;
                         attachNavigationListeners();
+                        // Ensure indicator is set after everything completes
+                        setCurrentPageIndicator();
                     }, 50);
                 }, 300);
             })
