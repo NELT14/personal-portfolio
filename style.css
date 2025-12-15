@@ -56,6 +56,9 @@ body {
     -webkit-overflow-scrolling: touch;
     /* Prevent horizontal overflow */
     overflow-x: hidden;
+    /* Smooth page transitions */
+    transition: opacity 0.3s ease;
+    opacity: 1;
 }
 
 img {
@@ -201,7 +204,7 @@ ul {
 /* Hide underline for clicked state */
 .nav-menu a.clicked::after {
     width: 0 !important;
-    display: none !important;
+        display: none !important;
 }
 
 /* Allow hover to show underline even if clicked */
@@ -391,7 +394,7 @@ ul {
     }
     
     /* Ensure all sections span full width */
-    section {
+section {
         width: 100% !important;
         max-width: 100vw !important;
         margin-left: 0 !important;
@@ -981,7 +984,7 @@ ul {
 .papers[hidden] {
     display: block !important; /* Override default hidden behavior */
     max-height: 0;
-    opacity: 0;
+        opacity: 0;
     margin-top: 0;
     padding-top: 0;
     border-top-color: transparent;
@@ -1137,11 +1140,11 @@ ul {
     .projects-grid {
         grid-template-columns: 1fr;
     }
-    
+
     .hero-buttons {
         flex-direction: column;
     }
-    
+
     .btn {
         width: 100%;
     }
