@@ -4,9 +4,10 @@
 // Helper function to normalize page name (remove .html for comparison)
 function normalizePageName(page) {
     if (!page) return 'index';
-    if (page === 'index.html' || page === 'index' || page === '/' || page === '') return 'index';
-    // Remove .html extension if present
-    return page.replace('.html', '');
+    // Remove leading/trailing slashes and .html extension
+    let normalized = page.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+    if (!normalized || normalized === 'index') return 'index';
+    return normalized;
 }
 
 function setCurrentPageIndicator() {
@@ -51,9 +52,10 @@ function setCurrentPageIndicator() {
 // Helper function to clean initial URL on page load
 function cleanInitialUrl() {
     const path = window.location.pathname;
-    // If URL ends with .html, replace with clean URL
-    if (path.endsWith('.html')) {
-        const cleanPath = path.replace('.html', '') || '/';
+    // Convert current path to clean URL
+    const cleanPath = path === '/' || path === '' ? '/' : path.replace(/\.html$/, '') || '/';
+    // Only update if different
+    if (path !== cleanPath && path.endsWith('.html')) {
         window.history.replaceState({ path: cleanPath }, '', cleanPath);
     }
 }
@@ -139,22 +141,43 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     }
     
-    // Helper function to convert file path to clean URL (remove .html)
+    // Direct mapping: clean URL -> HTML file
+    const urlToFileMap = {
+        '/': 'index.html',
+        '/index': 'index.html',
+        'index': 'index.html',
+        'index.html': 'index.html',
+        '/about': 'about.html',
+        'about': 'about.html',
+        'about.html': 'about.html',
+        '/activities': 'activities.html',
+        'activities': 'activities.html',
+        'activities.html': 'activities.html'
+    };
+    
+    // Helper function to convert any URL/path to clean URL for browser
     function toCleanUrl(path) {
-        if (!path) return '';
-        if (path === 'index.html' || path === '/' || path === '') return '/';
-        if (path.endsWith('.html')) {
-            return path.replace('.html', '');
-        }
-        return path;
+        if (!path) return '/';
+        // Remove leading/trailing slashes and .html extension
+        let clean = path.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
+        if (!clean || clean === 'index') return '/';
+        return '/' + clean;
     }
     
-    // Helper function to convert clean URL to file path (add .html if needed)
+    // Helper function to convert any URL/path to file path for fetching
     function toFilePath(path) {
         if (!path) return 'index.html';
-        if (path === '/' || path === '' || path === 'index') return 'index.html';
-        if (path.endsWith('.html')) return path;
-        return path + '.html';
+        // Normalize path: remove leading/trailing slashes
+        let normalized = path.replace(/^\/+|\/+$/g, '');
+        if (!normalized || normalized === 'index') return 'index.html';
+        
+        // Check if it already has .html
+        if (normalized.endsWith('.html')) {
+            return normalized;
+        }
+        
+        // Use mapping if available, otherwise add .html
+        return urlToFileMap[normalized] || urlToFileMap['/' + normalized] || (normalized + '.html');
     }
     
     function handleNavigationClick(e) {
@@ -162,6 +185,9 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (!href || href.includes('#') || isTransitioning) return;
         
         e.preventDefault();
+        
+        // Prevent multiple rapid clicks
+        if (isTransitioning) return;
         isTransitioning = true;
         
         // Convert href to file path for fetching
@@ -231,15 +257,19 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             })
             .catch(err => {
                 console.error('Error loading page:', err);
-                // Fallback to normal navigation
+                // Reset transition state
                 isTransitioning = false;
+                document.body.style.opacity = '1';
+                // Fallback to normal navigation only if fetch completely fails
+                console.warn('Falling back to full page reload');
                 window.location.href = filePath;
             });
     }
     
     // Attach navigation listeners
     function attachNavigationListeners() {
-        document.querySelectorAll('.nav-menu a[href$=".html"], .nav-brand a[href$=".html"]').forEach(link => {
+        // Listen to all navigation links (with or without .html)
+        document.querySelectorAll('.nav-menu a[href], .nav-brand a[href]').forEach(link => {
             // Remove old listeners by cloning
             const newLink = link.cloneNode(true);
             link.parentNode.replaceChild(newLink, link);
@@ -259,11 +289,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (isTransitioning) return;
         
         const path = window.location.pathname;
-        // Get clean URL path (without .html)
-        let cleanPath = path.endsWith('/') ? '/' : path.split('/').pop();
+        // Get clean URL path
+        let cleanPath = path.endsWith('/') ? '/' : path;
         if (!cleanPath || cleanPath === '') cleanPath = '/';
         
-        // Convert to file path for fetching
+        // Convert to file path for fetching using mapping
         const filePath = toFilePath(cleanPath);
         
         isTransitioning = true;
@@ -318,7 +348,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             })
             .catch(err => {
                 console.error('Error loading page:', err);
+                // Reset transition state
                 isTransitioning = false;
+                document.body.style.opacity = '1';
+                // Fallback to normal navigation
+                console.warn('Falling back to full page reload');
                 window.location.href = filePath;
             });
     });
