@@ -1,6 +1,7 @@
 ---
 title: Activities - Ali Aliyev
 layout: none
+permalink: /activities/
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -15,18 +16,18 @@ layout: none
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
 </head>
 <body>
     <!-- Navigation -->
     <nav class="nav">
         <div class="container">
             <div class="nav-content">
-                <div class="nav-brand"><a href="index.html">Ali Aliyev</a></div>
+                <div class="nav-brand"><a href="{{ '/' | relative_url }}">Ali Aliyev</a></div>
                 <ul class="nav-menu">
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="activities.html" class="current">Activities</a></li>
+                    <li><a href="{{ '/' | relative_url }}">Home</a></li>
+                    <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+                    <li><a href="{{ '/activities/' | relative_url }}" class="current">Activities</a></li>
                 </ul>
             </div>
         </div>
@@ -94,7 +95,7 @@ layout: none
             <div class="projects-grid">
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="assets/images/logic_gates.png" alt="Digital Logic Gates Implementation">
+                        <img src="{{ '/assets/images/logic_gates.png' | relative_url }}" alt="Digital Logic Gates Implementation">
                     </div>
                     <h3>Digital Logic Gates Implementation</h3>
                     <p>
@@ -111,7 +112,7 @@ layout: none
 
                 <div class="project-card">
                     <div class="project-image">
-                        <img src="assets/images/research_project.png" alt="Research on Machine Learning for Education">
+                        <img src="{{ '/assets/images/research_project.png' | relative_url }}" alt="Research on Machine Learning for Education">
                     </div>
                     <h3>Research on Machine Learning for Education</h3>
                     <p>
@@ -231,7 +232,7 @@ layout: none
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="{{ '/script.js' | relative_url }}"></script>
 </body>
 </html>
 

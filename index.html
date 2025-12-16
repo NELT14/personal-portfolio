@@ -1,6 +1,7 @@
 ---
 title: Ali Aliyev
 layout: none
+permalink: /
 ---
 <!DOCTYPE html>
 <html lang="en">
@@ -22,7 +23,7 @@ layout: none
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ '/style.css' | relative_url }}">
 </head>
 <body>
     <!-- Navigation -->
@@ -31,9 +32,9 @@ layout: none
             <div class="nav-content">
             <div class="nav-brand">Ali Aliyev</div>
                 <ul class="nav-menu">
-                    <li><a href="index.html" class="current">Home</a></li>
-                    <li><a href="about.html">About</a></li>
-                    <li><a href="activities.html">Activities</a></li>
+                    <li><a href="{{ '/' | relative_url }}" class="current">Home</a></li>
+                    <li><a href="{{ '/about/' | relative_url }}">About</a></li>
+                    <li><a href="{{ '/activities/' | relative_url }}">Activities</a></li>
             </ul>
             </div>
         </div>
@@ -43,13 +44,13 @@ layout: none
     <section id="home" class="hero">
         <div class="container">
             <div class="hero-content">
-                <img src="assets/images/profile.jpg" alt="Ali Aliyev" class="hero-img">
+                <img src="{{ '/assets/images/profile.jpg' | relative_url }}" alt="Ali Aliyev" class="hero-img">
                 <div class="hero-text">
                     <h1>Hi, I'm <span>Ali Aliyev</span>!</h1>
                     <p>Competitive programmer passionate about Informatics Olympiads and algorithmic problem-solving.</p>
                     <div class="hero-buttons">
                         <a href="#contact" class="btn btn-primary">Contact Me</a>
-                        <a href="activities.html" class="btn btn-outline">View My Activities</a>
+                        <a href="{{ '/activities/' | relative_url }}" class="btn btn-outline">View My Activities</a>
                     </div>
                 </div>
             </div>
@@ -91,7 +92,7 @@ layout: none
                 </a>
                 <a href="https://www.codecademy.com/profiles/net9134894948" target="_blank" class="social-card">
                     <div class="social-icon codecademy">
-                        <img src="assets/images/codecademy_icon.png" alt="Codecademy">
+                        <img src="{{ '/assets/images/codecademy_icon.png' | relative_url }}" alt="Codecademy">
                     </div>
                     <div class="social-text">
                         <strong>Codecademy</strong>
@@ -156,6 +157,6 @@ layout: none
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="{{ '/script.js' | relative_url }}"></script>
 </body>
 </html>

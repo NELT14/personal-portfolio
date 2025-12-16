@@ -31,6 +31,9 @@ github_username:  NELT14
 theme: minima
 plugins: []
 
+# Use "pretty" URLs (e.g. /about/ instead of /about.html)
+permalink: pretty
+
 # Exclude from processing.
 # The following items will not be processed, by default.
 # Any item listed under the `exclude:` key here will be automatically added to
@@ -54,3 +57,4 @@ plugins: []
 # Only build the custom HTML homepage
 exclude:
   - index.markdown
+  - about.markdown
