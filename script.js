@@ -1,23 +1,29 @@
 // ============================================
 // NAVIGATION - Set current page indicator (unified function)
 // ============================================
+// Helper function to normalize page name (remove .html for comparison)
+function normalizePageName(page) {
+    if (!page) return 'index';
+    if (page === 'index.html' || page === 'index' || page === '/' || page === '') return 'index';
+    // Remove .html extension if present
+    return page.replace('.html', '');
+}
+
 function setCurrentPageIndicator() {
     // Get current page from URL
     const currentPath = window.location.pathname;
     let currentPage = '';
     
     if (!currentPath || currentPath === '/' || currentPath.endsWith('/')) {
-        currentPage = 'index.html';
+        currentPage = 'index';
     } else {
         // Extract filename from path, filtering out empty segments
         const parts = currentPath.split('/').filter(part => part);
-        currentPage = parts[parts.length - 1] || 'index.html';
+        currentPage = parts[parts.length - 1] || 'index';
     }
     
-    // Normalize currentPage - ensure it's a valid filename
-    if (currentPage === '' || currentPage === '/' || !currentPage) {
-        currentPage = 'index.html';
-    }
+    // Normalize currentPage - remove .html if present
+    currentPage = normalizePageName(currentPage);
     
     // Get nav links - if not ready, retry
     const navLinks = document.querySelectorAll('.nav-menu a');
@@ -32,22 +38,28 @@ function setCurrentPageIndicator() {
         link.classList.remove('current');
         const linkHref = link.getAttribute('href');
         
-        // Normalize link href
-        let linkPage = '';
-        if (!linkHref || linkHref === '/' || linkHref === '' || linkHref === 'index.html') {
-            linkPage = 'index.html';
-        } else {
-            // Extract filename from href, filtering out empty segments
-            const parts = linkHref.split('/').filter(part => part);
-            linkPage = parts[parts.length - 1] || 'index.html';
-        }
+        // Normalize link href - remove .html for comparison
+        const linkPage = normalizePageName(linkHref);
         
-        // Match and add current class
+        // Match and add current class (compare normalized names)
         if (linkPage === currentPage) {
             link.classList.add('current');
         }
     });
 }
+
+// Helper function to clean initial URL on page load
+function cleanInitialUrl() {
+    const path = window.location.pathname;
+    // If URL ends with .html, replace with clean URL
+    if (path.endsWith('.html')) {
+        const cleanPath = path.replace('.html', '') || '/';
+        window.history.replaceState({ path: cleanPath }, '', cleanPath);
+    }
+}
+
+// Clean URL on page load
+cleanInitialUrl();
 
 // Set on page load
 window.addEventListener('load', setCurrentPageIndicator);
@@ -127,6 +139,24 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         });
     }
     
+    // Helper function to convert file path to clean URL (remove .html)
+    function toCleanUrl(path) {
+        if (!path) return '';
+        if (path === 'index.html' || path === '/' || path === '') return '/';
+        if (path.endsWith('.html')) {
+            return path.replace('.html', '');
+        }
+        return path;
+    }
+    
+    // Helper function to convert clean URL to file path (add .html if needed)
+    function toFilePath(path) {
+        if (!path) return 'index.html';
+        if (path === '/' || path === '' || path === 'index') return 'index.html';
+        if (path.endsWith('.html')) return path;
+        return path + '.html';
+    }
+    
     function handleNavigationClick(e) {
         const href = this.getAttribute('href');
         if (!href || href.includes('#') || isTransitioning) return;
@@ -134,12 +164,17 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         e.preventDefault();
         isTransitioning = true;
         
-        // Add fade-out animation
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.3s ease';
+        // Convert href to file path for fetching
+        const filePath = toFilePath(href);
+        // Convert to clean URL for browser
+        const cleanUrl = toCleanUrl(href);
         
-        // Load new page
-        fetch(href)
+        // Add fade-out animation (faster transition)
+        document.body.style.opacity = '0';
+        document.body.style.transition = 'opacity 0.15s ease';
+        
+        // Load new page using file path
+        fetch(filePath)
             .then(response => {
                 if (!response.ok) throw new Error('Failed to load page');
                 return response.text();
@@ -155,7 +190,7 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                     el.tagName !== 'SCRIPT' && !el.classList.contains('nav')
                 );
                 
-                // Wait for fade-out, then replace content
+                // Wait for fade-out, then replace content (reduced delay)
             setTimeout(() => {
                     // Replace body content (keep nav)
                     const currentContent = Array.from(document.body.children).filter(el => 
@@ -170,8 +205,8 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         }
                     });
                     
-                    // Update URL without refresh FIRST
-                    window.history.pushState({ path: href }, '', href);
+                    // Update URL with clean format (no .html)
+                    window.history.pushState({ path: cleanUrl }, '', cleanUrl);
                     
                     // Update current page indicator using unified function (after URL update)
                     setCurrentPageIndicator();
@@ -192,13 +227,13 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         // Ensure indicator is set after fade-in completes
                         setCurrentPageIndicator();
                     }, 50);
-                }, 300);
+                }, 150); // Reduced from 300ms to 150ms
             })
             .catch(err => {
                 console.error('Error loading page:', err);
                 // Fallback to normal navigation
                 isTransitioning = false;
-                window.location.href = href;
+                window.location.href = filePath;
             });
     }
     
@@ -224,14 +259,18 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         if (isTransitioning) return;
         
         const path = window.location.pathname;
-        let page = path.endsWith('/') ? 'index.html' : path.split('/').pop();
-        if (!page || page === '') page = 'index.html';
+        // Get clean URL path (without .html)
+        let cleanPath = path.endsWith('/') ? '/' : path.split('/').pop();
+        if (!cleanPath || cleanPath === '') cleanPath = '/';
+        
+        // Convert to file path for fetching
+        const filePath = toFilePath(cleanPath);
         
         isTransitioning = true;
         document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.3s ease';
+        document.body.style.transition = 'opacity 0.15s ease'; // Faster transition
         
-        fetch(page)
+        fetch(filePath)
             .then(response => {
                 if (!response.ok) throw new Error('Failed to load page');
                 return response.text();
@@ -256,9 +295,11 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         }
                     });
                     
-                    // Update URL first (if needed)
-                    if (window.location.pathname !== '/' + page) {
-                        window.history.replaceState({ path: page }, '', page);
+                    // Ensure URL is clean (no .html)
+                    const currentPath = window.location.pathname;
+                    const expectedCleanPath = cleanPath === '/' ? '/' : '/' + cleanPath;
+                    if (currentPath !== expectedCleanPath) {
+                        window.history.replaceState({ path: cleanPath }, '', cleanPath);
                     }
                     
                     setCurrentPageIndicator();
@@ -273,12 +314,12 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
                         // Ensure indicator is set after everything completes
                         setCurrentPageIndicator();
                     }, 50);
-                }, 300);
+                }, 150); // Reduced from 300ms to 150ms
             })
             .catch(err => {
                 console.error('Error loading page:', err);
                 isTransitioning = false;
-                window.location.href = page;
+                window.location.href = filePath;
             });
     });
 })();

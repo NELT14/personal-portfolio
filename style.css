@@ -163,18 +163,24 @@ ul {
     touch-action: manipulation;
 }
 
-/* Hover state - blue text */
-.nav-menu a:hover {
-    color: var(--accent);
-}
-
 /* Current page - blue text and bold */
 .nav-menu a.current {
     color: var(--accent);
     font-weight: 700;
 }
 
-/* Remove focus/active/visited states */
+/* Hover state - blue text (must override other states) */
+.nav-menu a:hover {
+    color: var(--accent);
+}
+
+/* Hover on current page - keep blue */
+.nav-menu a.current:hover {
+    color: var(--accent);
+    font-weight: 700;
+}
+
+/* Remove focus/active/visited states - but hover should still work */
 .nav-menu a:focus,
 .nav-menu a:active,
 .nav-menu a:visited {
@@ -182,9 +188,20 @@ ul {
     outline: none;
 }
 
+/* Hover should override focus/active/visited */
+.nav-menu a:hover:focus,
+.nav-menu a:hover:active {
+    color: var(--accent);
+}
+
 .nav-menu a.current:focus,
 .nav-menu a.current:active,
 .nav-menu a.current:visited {
+    color: var(--accent);
+}
+
+/* Ensure hover works even on visited links */
+.nav-menu a:hover:visited {
     color: var(--accent);
 }
 
