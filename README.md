@@ -1,8 +1,3 @@
-Update notes (2025-12-10):
-- Navbar scrollspy tweaked for earlier activation (pivot = 0.30).
-- Added Skills to the navbar.
-- Dynamic document title set to "<Section> | Ali Aliyev".
-- "Connect" renamed to "Contact"; tagline clarified to "Reach me via the channels below".
 # Ali Aliyev — Personal Portfolio
 
 This repository contains the source of my personal website. The live site is available at:
@@ -17,6 +12,14 @@ The portfolio itself holds all content (projects, achievements, contacts). This 
 - HTML, CSS, and vanilla JavaScript
 - GitHub Pages for hosting
 
+## Pages / URLs
+
+This site uses **Jekyll pretty permalinks**, so pages do **not** end with `.html` in the browser:
+
+- Home: `/personal-portfolio/`
+- About: `/personal-portfolio/about/`
+- Activities: `/personal-portfolio/activities/`
+
 ## Local development
 
 Prerequisites: Ruby and Bundler.
@@ -30,7 +33,7 @@ bundle exec jekyll serve --livereload
 
 Then open:
 
-- http://127.0.0.1:4000 (project page)
+- http://127.0.0.1:4000/personal-portfolio/
 
 Note: Opening `index.html` directly will show the YAML front matter. Always run through Jekyll.
 
@@ -39,6 +42,7 @@ Note: Opening `index.html` directly will show the YAML front matter. Always run 
 - `_config.yml` is set for a project page:
 	- `url: https://nelt14.github.io`
 	- `baseurl: /personal-portfolio`
+	- `permalink: pretty`
 - To publish via GitHub Pages, push to `main` and enable Pages in the repository settings (Actions workflow or Branch source).
 - If you fork this repo under a different path, update `url`/`baseurl` accordingly.
 
@@ -46,8 +50,10 @@ Note: Opening `index.html` directly will show the YAML front matter. Always run 
 
 ```
 index.html      # homepage with front matter
+about.html      # /about/
+activities.html # /activities/
 style.css       # styles
-script.js       # interactions
+script.js       # interactions (no JS URL rewriting; navigation uses real links)
 _config.yml     # site config
 assets/images/  # images
 ```

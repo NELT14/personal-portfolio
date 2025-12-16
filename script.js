@@ -1,13 +1,71 @@
 // ============================================
-// NAVIGATION - Set current page indicator (unified function)
+// NAVIGATION - Set current page indicator
 // ============================================
-// Helper function to normalize page name (remove .html for comparison)
-function normalizePageName(page) {
-    if (!page) return 'index';
-    // Remove leading/trailing slashes and .html extension
-    let normalized = page.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
-    if (!normalized || normalized === 'index') return 'index';
-    return normalized;
+// Detect the site's base path (Jekyll `baseurl`) at runtime.
+// On GitHub Pages this is typically "/repo-name", while locally it may be "".
+function getBasePath() {
+    // Prefer the canonical home link if present (we generate it via `relative_url`)
+    const homeLink = document.querySelector('.nav-menu a[href], .nav-brand a[href]');
+    if (homeLink) {
+        try {
+            const p = new URL(homeLink.getAttribute('href') || '/', window.location.origin).pathname || '';
+            // Normalize trailing slash: "/personal-portfolio/" -> "/personal-portfolio"
+            return p.replace(/\/+$/, '');
+        } catch {
+            // fall through
+        }
+    }
+
+    // Fallback: infer from the stylesheet URL (also generated via `relative_url`)
+    const cssLink = document.querySelector('link[rel="stylesheet"][href]');
+    if (cssLink) {
+        try {
+            const cssPath = new URL(cssLink.getAttribute('href') || '/', window.location.origin).pathname || '';
+            // "/personal-portfolio/style.css" -> "/personal-portfolio"
+            return cssPath.replace(/\/style\.css$/i, '').replace(/\/+$/, '');
+        } catch {
+            // fall through
+        }
+    }
+
+    return '';
+}
+
+// Normalize a link/path into a page key: "index" | "about" | "activities" | ...
+// Works with pretty URLs (e.g. /personal-portfolio/about/) and legacy .html (e.g. about.html).
+function normalizePageName(input) {
+    if (!input) return 'index';
+
+    // Turn href into an absolute URL so we can reliably read pathname.
+    // This handles absolute links, root-relative links, and relative links.
+    let pathname = '';
+    try {
+        pathname = new URL(input, window.location.origin).pathname || '';
+    } catch {
+        pathname = String(input);
+    }
+
+    // Remove query/hash if any (defensive when input isn't a proper URL)
+    pathname = pathname.split('?')[0].split('#')[0];
+
+    // Handle legacy direct filenames
+    pathname = pathname.replace(/\.html$/i, '');
+
+    // Treat baseurl root (e.g. "/personal-portfolio/" or "/personal-portfolio") as index
+    const basePath = getBasePath();
+    const normalizedPath = pathname.replace(/\/+$/, '');
+    if (basePath && normalizedPath === basePath) return 'index';
+
+    // Split into segments, drop empties
+    const parts = pathname.split('/').filter(Boolean);
+
+    // If we're at site root (or baseurl root), treat as index
+    if (parts.length === 0) return 'index';
+
+    // Use the last segment as the page key (e.g. ["personal-portfolio","about"] -> "about")
+    const last = parts[parts.length - 1];
+    if (!last || last.toLowerCase() === 'index') return 'index';
+    return last.toLowerCase();
 }
 
 function setCurrentPageIndicator() {
@@ -15,16 +73,8 @@ function setCurrentPageIndicator() {
     const currentPath = window.location.pathname;
     let currentPage = '';
     
-    if (!currentPath || currentPath === '/' || currentPath.endsWith('/')) {
-        currentPage = 'index';
-    } else {
-        // Extract filename from path, filtering out empty segments
-        const parts = currentPath.split('/').filter(part => part);
-        currentPage = parts[parts.length - 1] || 'index';
-    }
-    
-    // Normalize currentPage - remove .html if present
-    currentPage = normalizePageName(currentPage);
+    // Normalize current page from full path (supports baseurl + pretty URLs)
+    currentPage = normalizePageName(currentPath);
     
     // Get nav links - if not ready, retry
     const navLinks = document.querySelectorAll('.nav-menu a');
@@ -49,20 +99,6 @@ function setCurrentPageIndicator() {
     });
 }
 
-// Helper function to clean initial URL on page load
-function cleanInitialUrl() {
-    const path = window.location.pathname;
-    // Convert current path to clean URL
-    const cleanPath = path === '/' || path === '' ? '/' : path.replace(/\.html$/, '') || '/';
-    // Only update if different
-    if (path !== cleanPath && path.endsWith('.html')) {
-        window.history.replaceState({ path: cleanPath }, '', cleanPath);
-    }
-}
-
-// Clean URL on page load
-cleanInitialUrl();
-
 // Set on page load
 window.addEventListener('load', setCurrentPageIndicator);
 window.addEventListener('DOMContentLoaded', setCurrentPageIndicator);
@@ -75,292 +111,32 @@ if (document.readyState === 'loading') {
 }
 
 // ============================================
-// SMOOTH PAGE TRANSITIONS (SPA-like behavior)
+// IN-PAGE INTERACTIONS (no URL rewriting / no SPA navigation)
 // ============================================
-(function() {
-    let isTransitioning = false;
-    
-    // Use the unified setCurrentPageIndicator function instead of separate updateCurrentPageIndicator
-    
-    function initAllEventListeners() {
-        // Re-initialize smooth scrolling for anchor links
+// Smooth scrolling for in-page anchors
 document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function(e) {
-                const href = this.getAttribute('href');
-                if (href === '#') return;
-                
-                const target = document.querySelector(href);
-                if (!target) return;
-                
+    anchor.addEventListener('click', function(e) {
+        const href = this.getAttribute('href');
+        if (!href || href === '#') return;
+
+        const target = document.querySelector(href);
+        if (!target) return;
+
         e.preventDefault();
-                const targetPosition = target.offsetTop;
-                window.scrollTo({
-                    top: targetPosition,
-                    behavior: 'smooth'
-                });
-            });
+        const targetPosition = target.offsetTop;
+        window.scrollTo({
+            top: targetPosition,
+            behavior: 'smooth'
         });
-        
-        // Re-initialize research papers toggle
-        document.querySelectorAll('.papers-toggle').forEach(button => {
-            // Remove old listeners by cloning
-            const newButton = button.cloneNode(true);
-            button.parentNode.replaceChild(newButton, button);
-            
-            newButton.addEventListener('click', function(e) {
-                e.stopPropagation();
-                const targetId = this.getAttribute('data-target');
-                if (!targetId) return;
-                
-                const target = document.getElementById(targetId);
-                if (!target) return;
-                
-                const isHidden = target.hasAttribute('hidden');
-                if (isHidden) {
-                    target.removeAttribute('hidden');
-                    target.offsetHeight;
-                    this.textContent = 'Hide Research Papers';
-                    this.setAttribute('aria-expanded', 'true');
-                } else {
-                    target.setAttribute('hidden', '');
-                    this.textContent = 'View Research Papers';
-                    this.setAttribute('aria-expanded', 'false');
-        }
     });
 });
-
-        // Re-initialize image error handling
-        document.querySelectorAll('.project-image img').forEach(img => {
-            img.addEventListener('error', function() {
-                this.style.display = 'none';
-                const placeholder = document.createElement('div');
-                placeholder.className = 'project-image-placeholder';
-                placeholder.innerHTML = '<i class="fas fa-image"></i>';
-                this.parentElement.appendChild(placeholder);
-            });
-        });
-    }
-    
-    // Direct mapping: clean URL -> HTML file
-    const urlToFileMap = {
-        '/': 'index.html',
-        '/index': 'index.html',
-        'index': 'index.html',
-        'index.html': 'index.html',
-        '/about': 'about.html',
-        'about': 'about.html',
-        'about.html': 'about.html',
-        '/activities': 'activities.html',
-        'activities': 'activities.html',
-        'activities.html': 'activities.html'
-    };
-    
-    // Helper function to convert any URL/path to clean URL for browser
-    function toCleanUrl(path) {
-        if (!path) return '/';
-        // Remove leading/trailing slashes and .html extension
-        let clean = path.replace(/^\/+|\/+$/g, '').replace(/\.html$/, '');
-        if (!clean || clean === 'index') return '/';
-        return '/' + clean;
-    }
-    
-    // Helper function to convert any URL/path to file path for fetching
-    function toFilePath(path) {
-        if (!path) return 'index.html';
-        // Normalize path: remove leading/trailing slashes
-        let normalized = path.replace(/^\/+|\/+$/g, '');
-        if (!normalized || normalized === 'index') return 'index.html';
-        
-        // Check if it already has .html
-        if (normalized.endsWith('.html')) {
-            return normalized;
-        }
-        
-        // Use mapping if available, otherwise add .html
-        return urlToFileMap[normalized] || urlToFileMap['/' + normalized] || (normalized + '.html');
-    }
-    
-    function handleNavigationClick(e) {
-        const href = this.getAttribute('href');
-        if (!href || href.includes('#') || isTransitioning) return;
-        
-        e.preventDefault();
-        
-        // Prevent multiple rapid clicks
-        if (isTransitioning) return;
-        isTransitioning = true;
-        
-        // Convert href to file path for fetching
-        const filePath = toFilePath(href);
-        // Convert to clean URL for browser
-        const cleanUrl = toCleanUrl(href);
-        
-        // Add fade-out animation (faster transition)
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.15s ease';
-        
-        // Load new page using file path
-        fetch(filePath)
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to load page');
-                return response.text();
-            })
-            .then(html => {
-                // Parse the HTML
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                
-                // Get new content (everything except script tags and nav)
-                const newBody = doc.body;
-                const newContent = Array.from(newBody.children).filter(el => 
-                    el.tagName !== 'SCRIPT' && !el.classList.contains('nav')
-                );
-                
-                // Wait for fade-out, then replace content (reduced delay)
-            setTimeout(() => {
-                    // Replace body content (keep nav)
-                    const currentContent = Array.from(document.body.children).filter(el => 
-                        el.tagName !== 'SCRIPT' && !el.classList.contains('nav')
-                    );
-                    currentContent.forEach(el => el.remove());
-                    
-                    // Add new content
-                    newContent.forEach(el => {
-                        if (el.tagName !== 'SCRIPT' && !el.classList.contains('nav')) {
-                            document.body.appendChild(el);
-                        }
-                    });
-                    
-                    // Update URL with clean format (no .html)
-                    window.history.pushState({ path: cleanUrl }, '', cleanUrl);
-                    
-                    // Update current page indicator using unified function (after URL update)
-                    setCurrentPageIndicator();
-                    
-                    // Re-initialize all event listeners
-                    initAllEventListeners();
-                    
-                    // Re-initialize scroll animations
-                    initScrollAnimations();
-                    
-                    // Scroll to top
-                    window.scrollTo({ top: 0, behavior: 'instant' });
-                    
-                    // Fade in new content
-                    setTimeout(() => {
-                        document.body.style.opacity = '1';
-                        isTransitioning = false;
-                        // Ensure indicator is set after fade-in completes
-                        setCurrentPageIndicator();
-                    }, 50);
-                }, 150); // Reduced from 300ms to 150ms
-            })
-            .catch(err => {
-                console.error('Error loading page:', err);
-                // Reset transition state
-                isTransitioning = false;
-                document.body.style.opacity = '1';
-                // Fallback to normal navigation only if fetch completely fails
-                console.warn('Falling back to full page reload');
-                window.location.href = filePath;
-            });
-    }
-    
-    // Attach navigation listeners
-    function attachNavigationListeners() {
-        // Listen to all navigation links (with or without .html)
-        document.querySelectorAll('.nav-menu a[href], .nav-brand a[href]').forEach(link => {
-            // Remove old listeners by cloning
-            const newLink = link.cloneNode(true);
-            link.parentNode.replaceChild(newLink, link);
-            newLink.addEventListener('click', handleNavigationClick);
-        });
-    }
-    
-    // Initial attachment
-    attachNavigationListeners();
-    
-    // Re-attach after page transitions
-    const originalAttachNavigationListeners = attachNavigationListeners;
-    window.attachNavigationListeners = originalAttachNavigationListeners;
-    
-    // Handle browser back/forward
-    window.addEventListener('popstate', function(e) {
-        if (isTransitioning) return;
-        
-        const path = window.location.pathname;
-        // Get clean URL path
-        let cleanPath = path.endsWith('/') ? '/' : path;
-        if (!cleanPath || cleanPath === '') cleanPath = '/';
-        
-        // Convert to file path for fetching using mapping
-        const filePath = toFilePath(cleanPath);
-        
-        isTransitioning = true;
-        document.body.style.opacity = '0';
-        document.body.style.transition = 'opacity 0.15s ease'; // Faster transition
-        
-        fetch(filePath)
-            .then(response => {
-                if (!response.ok) throw new Error('Failed to load page');
-                return response.text();
-            })
-            .then(html => {
-                const parser = new DOMParser();
-                const doc = parser.parseFromString(html, 'text/html');
-                const newBody = doc.body;
-                const newContent = Array.from(newBody.children).filter(el => 
-                    el.tagName !== 'SCRIPT' && !el.classList.contains('nav')
-                );
-                
-                setTimeout(() => {
-                    const currentContent = Array.from(document.body.children).filter(el => 
-                        el.tagName !== 'SCRIPT' && !el.classList.contains('nav')
-                    );
-                    currentContent.forEach(el => el.remove());
-                    
-                    newContent.forEach(el => {
-                        if (el.tagName !== 'SCRIPT' && !el.classList.contains('nav')) {
-                            document.body.appendChild(el);
-                        }
-                    });
-                    
-                    // Ensure URL is clean (no .html)
-                    const currentPath = window.location.pathname;
-                    const expectedCleanPath = cleanPath === '/' ? '/' : '/' + cleanPath;
-                    if (currentPath !== expectedCleanPath) {
-                        window.history.replaceState({ path: cleanPath }, '', cleanPath);
-                    }
-                    
-                    setCurrentPageIndicator();
-                    initAllEventListeners();
-                    initScrollAnimations();
-                    window.scrollTo({ top: 0, behavior: 'instant' });
-                    
-                    setTimeout(() => {
-                        document.body.style.opacity = '1';
-                        isTransitioning = false;
-                        attachNavigationListeners();
-                        // Ensure indicator is set after everything completes
-                        setCurrentPageIndicator();
-                    }, 50);
-                }, 150); // Reduced from 300ms to 150ms
-            })
-            .catch(err => {
-                console.error('Error loading page:', err);
-                // Reset transition state
-                isTransitioning = false;
-                document.body.style.opacity = '1';
-                // Fallback to normal navigation
-                console.warn('Falling back to full page reload');
-                window.location.href = filePath;
-            });
-    });
-})();
 
 // ============================================
 // SCROLL ANIMATIONS FOR SECTIONS
 // ============================================
+let scrollHandlerRef = null;
+let scrollTimeoutRef = null;
+
 function initScrollAnimations() {
     const sections = document.querySelectorAll('.section, .section-alt, .hero, .contact');
     
@@ -395,10 +171,9 @@ const observer = new IntersectionObserver(function(entries) {
     });
     
     // Also check on scroll for sections that might have been missed
-    let scrollTimeout;
     const scrollHandler = function() {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
+        clearTimeout(scrollTimeoutRef);
+        scrollTimeoutRef = setTimeout(() => {
             sections.forEach(section => {
                 const rect = section.getBoundingClientRect();
                 if (rect.top < window.innerHeight && rect.bottom > 0) {
@@ -408,9 +183,12 @@ const observer = new IntersectionObserver(function(entries) {
         }, 100);
     };
     
-    // Remove old scroll listeners and add new one
-    window.removeEventListener('scroll', scrollHandler);
-    window.addEventListener('scroll', scrollHandler, { passive: true });
+    // Remove old scroll listener (stable function reference) and add a new one
+    if (scrollHandlerRef) {
+        window.removeEventListener('scroll', scrollHandlerRef);
+    }
+    scrollHandlerRef = scrollHandler;
+    window.addEventListener('scroll', scrollHandlerRef, { passive: true });
 }
 
 // Initialize animations on page load
