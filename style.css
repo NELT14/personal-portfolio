@@ -252,17 +252,8 @@ ul {
         background-size: 100% 100% !important;
     }
     
-    /* Remove all safe-area insets on left/right in landscape for specific elements */
-    .container,
-    .nav .container,
-    .nav-content,
-    section,
-    .hero,
-    .contact,
-    .social {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
-    }
+    /* In landscape, keep full-width backgrounds but still preserve a readable gutter
+       for actual content (handled via `.container`). */
     
     .nav {
         position: relative !important;
@@ -279,25 +270,18 @@ ul {
     }
     
     .nav .container {
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        padding-left: max(var(--spacing), env(safe-area-inset-left, 0)) !important;
+        padding-right: max(var(--spacing), env(safe-area-inset-right, 0)) !important;
         max-width: 100% !important;
         width: 100% !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
     }
-
-    /* Keep a small, consistent gutter for the navbar in landscape so the brand
-       doesn't stick to the very edge on phones. */
-    .nav .container {
-        padding-left: max(var(--spacing), env(safe-area-inset-left, 0)) !important;
-        padding-right: max(var(--spacing), env(safe-area-inset-right, 0)) !important;
-    }
     
     .container {
-        /* Remove safe-area padding in landscape - causes white strips */
-        padding-left: 0 !important;
-        padding-right: 0 !important;
+        /* Keep content off the edges on phones/tablets */
+        padding-left: max(var(--spacing), env(safe-area-inset-left, 0)) !important;
+        padding-right: max(var(--spacing), env(safe-area-inset-right, 0)) !important;
         width: 100% !important;
         max-width: 100% !important;
         margin-left: 0 !important;
@@ -305,11 +289,12 @@ ul {
     }
     
     /* Ensure all sections span full width */
-section {
+    section {
         width: 100% !important;
         max-width: 100vw !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
+        /* Horizontal padding comes from `.container` inside the section */
         padding-left: 0 !important;
         padding-right: 0 !important;
         box-sizing: border-box !important;
@@ -321,6 +306,7 @@ section {
         max-width: 100vw !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
+        /* Horizontal padding comes from `.container` inside the section */
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
@@ -336,6 +322,7 @@ section {
         max-width: 100% !important;
         margin-left: 0 !important;
         margin-right: 0 !important;
+        /* No extra padding here; `.container` controls gutters */
         padding-left: 0 !important;
         padding-right: 0 !important;
     }
