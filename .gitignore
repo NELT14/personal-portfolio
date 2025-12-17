@@ -3,3 +3,9 @@ _site
 .jekyll-cache
 .jekyll-metadata
 vendor
+
+# Editor / OS junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
