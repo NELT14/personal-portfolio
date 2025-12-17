@@ -83,18 +83,20 @@ ul {
     max-width: 1100px;
     margin: 0 auto;
     padding: 0 var(--spacing);
-    /* iOS safe area support - only apply in portrait or when needed */
+    /* Safe area support (iOS notch, etc.) */
     padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0));
     padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0));
     box-sizing: border-box;
     width: 100%;
 }
 
-/* iOS-specific container adjustments */
+/* iOS-specific container adjustments
+   Keep the same gutter logic as other browsers; do NOT switch to `max()` which can
+   create asymmetric gutters in landscape. */
 @supports (-webkit-touch-callout: none) {
     .container {
-        padding-left: max(var(--spacing), env(safe-area-inset-left, 0));
-        padding-right: max(var(--spacing), env(safe-area-inset-right, 0));
+        padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0));
+        padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0));
     }
 }
 
@@ -270,8 +272,8 @@ ul {
     }
     
     .nav .container {
-        padding-left: max(var(--spacing), env(safe-area-inset-left, 0)) !important;
-        padding-right: max(var(--spacing), env(safe-area-inset-right, 0)) !important;
+        padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0)) !important;
+        padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0)) !important;
         max-width: 100% !important;
         width: 100% !important;
         margin-left: 0 !important;
@@ -280,8 +282,8 @@ ul {
     
     .container {
         /* Keep content off the edges on phones/tablets */
-        padding-left: max(var(--spacing), env(safe-area-inset-left, 0)) !important;
-        padding-right: max(var(--spacing), env(safe-area-inset-right, 0)) !important;
+        padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0)) !important;
+        padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0)) !important;
         width: 100% !important;
         max-width: 100% !important;
         margin-left: 0 !important;
@@ -440,9 +442,6 @@ ul {
 .section {
     padding: var(--spacing-xl) 0;
     background: var(--white);
-    /* iOS safe area support */
-    padding-left: env(safe-area-inset-left, 0);
-    padding-right: env(safe-area-inset-right, 0);
     /* Animation properties */
     opacity: 0;
     transform: translateY(30px);
@@ -458,9 +457,6 @@ ul {
 
 .section-alt {
     background: var(--light);
-    /* iOS safe area support */
-    padding-left: env(safe-area-inset-left, 0);
-    padding-right: env(safe-area-inset-right, 0);
     /* Animation properties */
     opacity: 0;
     transform: translateY(30px);
@@ -1020,7 +1016,8 @@ ul {
    ============================================ */
 @media (max-width: 768px) {
     .container {
-        padding: 0 var(--spacing);
+        padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0));
+        padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0));
     }
     
     .section {
