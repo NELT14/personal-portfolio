@@ -972,15 +972,19 @@ ul {
 .footer {
     background: var(--dark);
     color: var(--white);
-    padding: var(--spacing-xl) 0;
+    padding: var(--spacing-lg) 0;
     /* iOS safe area support for home indicator */
-    padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0));
+    padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0));
     text-align: center;
 }
 
 .footer p {
     margin-bottom: var(--spacing);
     opacity: 0.8;
+}
+
+.footer p:last-child {
+    margin-bottom: 0;
 }
 
 .footer a {
