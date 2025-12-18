@@ -1,0 +1,12 @@
+{% comment %}
+  Reusable skill card component
+  
+  Parameters:
+    - title: The skill category title
+    - skills: Array of skills (will be joined with ", ")
+{% endcomment %}
+<div class="skill-card">
+  <h3>{{ include.title }}</h3>
+  <p>{{ include.skills | join: ", " }}</p>
+</div>
+

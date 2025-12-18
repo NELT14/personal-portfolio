@@ -1,0 +1,23 @@
+{% comment %}
+  Reusable info card component (for education, languages, etc.)
+  
+  Parameters:
+    - title: The card title
+    - items: Array of items to display
+    - format: Format type - "education" or "languages" (default: "list")
+{% endcomment %}
+<div class="info-card">
+  <h3>{{ include.title }}</h3>
+  <ul>
+    {% for item in include.items %}
+      {% if include.format == "education" %}
+        <li>{{ item.type }}: {{ item.institution }} <span>({{ item.period }})</span></li>
+      {% elsif include.format == "languages" %}
+        <li>{{ item.name }} - {{ item.level }}</li>
+      {% else %}
+        <li>{{ item }}</li>
+      {% endif %}
+    {% endfor %}
+  </ul>
+</div>
+

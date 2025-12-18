@@ -1,0 +1,49 @@
+{% comment %}
+  Reusable project/work/activity card component
+  
+  Parameters:
+    - item: The project/work/activity object from data files
+    - show_image: Boolean, whether to show the image (default: true for projects)
+    - index: Optional index for generating unique IDs (for papers toggle)
+{% endcomment %}
+<div class="project-card">
+  {% if include.show_image and include.item.image %}
+    <div class="project-image">
+      <img src="{{ '/assets/images/' | append: include.item.image | relative_url }}" alt="{{ include.item.image_alt | default: include.item.title }}">
+    </div>
+  {% endif %}
+  <h3>{{ include.item.title }}</h3>
+  <p>{{ include.item.description }}</p>
+  {% if include.item.tags %}
+    <div class="project-tags">
+      {% for tag in include.item.tags %}
+        <span>{{ tag }}</span>
+      {% endfor %}
+    </div>
+  {% endif %}
+  {% if include.item.links %}
+    {% for link in include.item.links %}
+      <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">{{ link.text }}</a>
+    {% endfor %}
+  {% endif %}
+  {% if include.item.papers %}
+    {% if include.index %}
+      {% assign paper_id = 'papers-' | append: include.index %}
+    {% else %}
+      {% assign paper_id = 'papers-' | append: forloop.index %}
+    {% endif %}
+    <button class="btn btn-outline papers-toggle" data-target="{{ paper_id }}">View Research Papers</button>
+    <div id="{{ paper_id }}" class="papers" hidden>
+      {% for paper in include.item.papers %}
+        <div class="paper">
+          <h4>{{ paper.title }}</h4>
+          <p><strong>Thesis:</strong> "{{ paper.thesis }}"</p>
+          <p><strong>Location:</strong> {{ paper.location }}</p>
+          <p><strong>Pages:</strong> {{ paper.pages }}</p>
+          <a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">View Paper →</a>
+        </div>
+      {% endfor %}
+    </div>
+  {% endif %}
+</div>
+

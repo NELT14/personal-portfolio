@@ -5,86 +5,28 @@ permalink: /activities/
 ---
 <section id="activities" class="section section-alt">
   <div class="container">
-    <h2>Activities</h2>
-    <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">Work experience and extracurricular activities</p>
+    {% include page-header.html title="Activities" description="Work experience and extracurricular activities" %}
             
-    <h3 style="font-size: 1.5rem; margin-top: 2rem; margin-bottom: 1.5rem; color: var(--dark);">Work Experience</h3>
+    {% include subsection-header.html title="Work Experience" %}
     <div class="projects-grid">
       {% for work in site.data.activities.work_experience %}
-        <div class="project-card">
-          <h3>{{ work.title }}</h3>
-          <p>{{ work.description }}</p>
-          <div class="project-tags">
-            {% for tag in work.tags %}
-              <span>{{ tag }}</span>
-            {% endfor %}
-          </div>
-        </div>
+        {% include project-card.html item=work show_image=false %}
       {% endfor %}
     </div>
             
-    <h3 style="font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--dark);">Achievements & Awards</h3>
-    <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">My accomplishments in competitive programming and academic competitions</p>
+    {% include subsection-header.html title="Achievements & Awards" %}
+    {% include subsection-description.html text="My accomplishments in competitive programming and academic competitions" %}
     <div class="achievements-grid">
-      {% if site.data.achievements.gold %}
-        <div class="achievement-card">
-          <h3>🏆 Gold Medals</h3>
-          <ul>
-            {% for achievement in site.data.achievements.gold %}
-              <li>{{ achievement.title }} ({{ achievement.year }})</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-      {% if site.data.achievements.silver %}
-        <div class="achievement-card">
-          <h3>🥈 Silver Medals</h3>
-          <ul>
-            {% for achievement in site.data.achievements.silver %}
-              <li>{{ achievement.title }} {{ achievement.year }}{% if achievement.location %} ({{ achievement.location }}){% endif %}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-      {% if site.data.achievements.bronze %}
-        <div class="achievement-card">
-          <h3>🥉 Bronze Medals</h3>
-          <ul>
-            {% for achievement in site.data.achievements.bronze %}
-              <li>{{ achievement.title }} {{ achievement.year }}{% if achievement.location %} ({{ achievement.location }}){% endif %}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
-      {% if site.data.achievements.honorable_mentions %}
-        <div class="achievement-card">
-          <h3>🎖️ Honorable Mentions</h3>
-          <ul>
-            {% for achievement in site.data.achievements.honorable_mentions %}
-              <li>{{ achievement.title }}{% if achievement.acronym %} ({{ achievement.acronym }} {{ achievement.year }}{% if achievement.location %} - {{ achievement.location }}{% endif %}){% else %} ({{ achievement.year }}{% if achievement.location %} - {{ achievement.location }}{% endif %}){% endif %}</li>
-            {% endfor %}
-          </ul>
-        </div>
-      {% endif %}
+      {% include achievement-card.html category="gold" title="🏆 Gold Medals" achievements=site.data.achievements.gold %}
+      {% include achievement-card.html category="silver" title="🥈 Silver Medals" achievements=site.data.achievements.silver %}
+      {% include achievement-card.html category="bronze" title="🥉 Bronze Medals" achievements=site.data.achievements.bronze %}
+      {% include achievement-card.html category="honorable_mentions" title="🎖️ Honorable Mentions" achievements=site.data.achievements.honorable_mentions %}
     </div>
             
-    <h3 style="font-size: 1.5rem; margin-top: 3rem; margin-bottom: 1.5rem; color: var(--dark);">Extracurricular Activities</h3>
+    {% include subsection-header.html title="Extracurricular Activities" %}
     <div class="projects-grid">
       {% for activity in site.data.activities.extracurricular %}
-        <div class="project-card">
-          <h3>{{ activity.title }}</h3>
-          <p>{{ activity.description }}</p>
-          <div class="project-tags">
-            {% for tag in activity.tags %}
-              <span>{{ tag }}</span>
-            {% endfor %}
-          </div>
-          {% if activity.links %}
-            {% for link in activity.links %}
-              <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">{{ link.text }}</a>
-            {% endfor %}
-          {% endif %}
-        </div>
+        {% include project-card.html item=activity show_image=false %}
       {% endfor %}
     </div>
   </div>

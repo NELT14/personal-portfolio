@@ -1,0 +1,28 @@
+{% comment %}
+  Reusable achievement card component
+  
+  Parameters:
+    - category: The achievement category (gold, silver, bronze, honorable_mentions)
+    - title: The card title (e.g., "🏆 Gold Medals")
+    - achievements: Array of achievement objects
+{% endcomment %}
+{% if include.achievements.size > 0 %}
+  <div class="achievement-card">
+    <h3>{{ include.title }}</h3>
+    <ul>
+      {% for achievement in include.achievements %}
+        <li>
+          {{ achievement.title }}
+          {% if include.category == 'honorable_mentions' %}
+            {% if achievement.acronym %} ({{ achievement.acronym }} {{ achievement.year }}{% if achievement.location %} - {{ achievement.location }}{% endif %}){% else %} ({{ achievement.year }}{% if achievement.location %} - {{ achievement.location }}{% endif %}){% endif %}
+          {% elsif include.category == 'gold' %}
+            ({{ achievement.year }})
+          {% else %}
+            {{ achievement.year }}{% if achievement.location %} ({{ achievement.location }}){% endif %}
+          {% endif %}
+        </li>
+      {% endfor %}
+    </ul>
+  </div>
+{% endif %}
+

@@ -6,25 +6,11 @@ permalink: /about/
 <!-- About -->
 <section id="about" class="section">
   <div class="container">
-    <h2>About Me</h2>
+    {% include page-header.html title="About Me" %}
     <p class="bio">{{ site.data.personal.bio }}</p>
     <div class="info-grid">
-      <div class="info-card">
-        <h3>Education</h3>
-        <ul>
-          {% for edu in site.data.personal.education %}
-            <li>{{ edu.type }}: {{ edu.institution }} <span>({{ edu.period }})</span></li>
-          {% endfor %}
-        </ul>
-      </div>
-      <div class="info-card">
-        <h3>Languages</h3>
-        <ul>
-          {% for lang in site.data.personal.languages %}
-            <li>{{ lang.name }} - {{ lang.level }}</li>
-          {% endfor %}
-        </ul>
-      </div>
+      {% include info-card.html title="Education" items=site.data.personal.education format="education" %}
+      {% include info-card.html title="Languages" items=site.data.personal.languages format="languages" %}
     </div>
   </div>
 </section>
@@ -32,24 +18,12 @@ permalink: /about/
 <!-- Skills -->
 <section id="skills" class="section section-alt">
   <div class="container">
-    <h2>Technical Skills</h2>
+    {% include page-header.html title="Technical Skills" %}
     <div class="skills-grid">
-      <div class="skill-card">
-        <h3>Programming Languages</h3>
-        <p>{{ site.data.personal.skills.programming_languages | join: ", " }}</p>
-      </div>
-      <div class="skill-card">
-        <h3>Competitive Programming</h3>
-        <p>{{ site.data.personal.skills.competitive_programming | join: ", " }}</p>
-      </div>
-      <div class="skill-card">
-        <h3>Web Technologies</h3>
-        <p>{{ site.data.personal.skills.web_technologies | join: ", " }}</p>
-      </div>
-      <div class="skill-card">
-        <h3>Tools &amp; Platforms</h3>
-        <p>{{ site.data.personal.skills.tools_platforms | join: ", " }}</p>
-      </div>
+      {% include skill-card.html title="Programming Languages" skills=site.data.personal.skills.programming_languages %}
+      {% include skill-card.html title="Competitive Programming" skills=site.data.personal.skills.competitive_programming %}
+      {% include skill-card.html title="Web Technologies" skills=site.data.personal.skills.web_technologies %}
+      {% include skill-card.html title="Tools & Platforms" skills=site.data.personal.skills.tools_platforms %}
     </div>
   </div>
 </section>
