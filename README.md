@@ -1,10 +1,10 @@
 # Ali Aliyev — Personal Portfolio
 
-This repository contains the source of my personal website. The live site is available at:
+This repository contains the source code for my personal portfolio website.
 
-https://nelt14.github.io/personal-portfolio/
+**Live site:** https://nelt14.github.io/personal-portfolio/
 
-The portfolio itself holds all content (projects, achievements, contacts). This README focuses only on how to work with the codebase.
+> This README focuses on the codebase structure and development workflow. For portfolio content, visit the live site.
 
 ## Stack
 
@@ -12,54 +12,61 @@ The portfolio itself holds all content (projects, achievements, contacts). This 
 - HTML, CSS, and vanilla JavaScript
 - GitHub Pages for hosting
 
-## Jekyll Features Used
+## Jekyll Features
 
-This site demonstrates comprehensive use of Jekyll's features:
+This site demonstrates comprehensive use of Jekyll's core features:
 
-- **Data Files** (`_data/`): Content stored in YAML files for easy management
-  - `social.yml` - Social media links and contact information
-  - `contact.yml` - Contact details
-  - `personal.yml` - Personal information, education, languages, skills
-  - `projects.yml` - Project data with metadata
-  - `activities.yml` - Work experience and extracurricular activities
-  - `achievements.yml` - Awards and achievements
+### Data Files (`_data/`)
+Content stored in YAML files for easy management:
+- `social.yml` — Social media links and contact information
+- `contact.yml` — Contact details
+- `personal.yml` — Personal information, education, languages, skills
+- `projects.yml` — Project data with metadata
+- `activities.yml` — Work experience and extracurricular activities
+- `achievements.yml` — Awards and achievements
 
-- **Includes** (`_includes/`): Reusable, modular components
-  - **Layout Components**: `head.html`, `nav.html`, `footer.html` - Core layout structure
-  - **Content Components**: 
-    - `social-links.html` - Dynamic social media links grid
-    - `project-card.html` - Reusable card for projects, work experience, and activities
-    - `achievement-card.html` - Reusable achievement/award cards
-    - `skill-card.html` - Reusable skill category cards
-    - `info-card.html` - Reusable info cards (education, languages, etc.)
-  - **UI Components**:
-    - `page-header.html` - Page title and description header
-    - `subsection-header.html` - Subsection title headers
-    - `subsection-description.html` - Subsection description text
+### Includes (`_includes/`)
+Reusable, modular HTML components:
 
-- **Layouts** (`_layouts/`): Template system
-  - `default.html` - Base layout for all pages
+**Layout Components:**
+- `head.html` — Page head (meta tags, styles, fonts)
+- `nav.html` — Navigation bar
+- `footer.html` — Site footer (includes contact section)
 
-- **Liquid Templating**: Dynamic content generation
-  - Loops (`{% for %}`) for iterating over data
-  - Conditionals (`{% if %}`) for conditional rendering
-  - Filters (`| relative_url`, `| join`) for data manipulation
-  - Site variables (`site.data.*`, `site.title`, etc.)
+**Content Components:**
+- `social-links.html` — Social media links grid
+- `project-card.html` — Reusable card for projects, work experience, and activities
+- `achievement-card.html` — Reusable achievement/award cards
+- `skill-card.html` — Reusable skill category cards
+- `info-card.html` — Reusable info cards (education, languages, etc.)
 
-- **Pretty Permalinks**: Clean URLs without `.html` extension
+**UI Components:**
+- `page-header.html` — Page title and description header
+- `subsection-header.html` — Subsection title headers
+- `subsection-description.html` — Subsection description text
 
-## Pages / URLs
+### Layouts (`_layouts/`)
+- `default.html` — Base layout for all pages (includes nav and footer automatically)
 
-This site uses **Jekyll pretty permalinks**, so pages do **not** end with `.html` in the browser:
+### Liquid Templating
+- Loops (`{% for %}`) for iterating over data
+- Conditionals (`{% if %}`) for conditional rendering
+- Filters (`| relative_url`, `| join`) for data manipulation
+- Site variables (`site.data.*`, `site.title`, etc.)
 
-- Home: `/personal-portfolio/`
-- About: `/personal-portfolio/about/`
-- Projects: `/personal-portfolio/projects/`
-- Activities: `/personal-portfolio/activities/`
+### Pretty Permalinks
+Clean URLs without `.html` extension (e.g., `/about/` instead of `/about.html`)
 
-## Local development
+## Pages
 
-Prerequisites: Ruby and Bundler.
+- **Home:** `/personal-portfolio/`
+- **About:** `/personal-portfolio/about/`
+- **Projects:** `/personal-portfolio/projects/`
+- **Activities:** `/personal-portfolio/activities/`
+
+## Local Development
+
+**Required:** Ruby and Bundler must be installed
 
 ```bash
 git clone https://github.com/NELT14/personal-portfolio.git
@@ -68,79 +75,81 @@ bundle install
 bundle exec jekyll serve --livereload
 ```
 
-Then open:
+Open: http://127.0.0.1:4000/personal-portfolio/
 
-- http://127.0.0.1:4000/personal-portfolio/
+> **Note:** Always run through Jekyll. Opening `index.html` directly will show YAML front matter instead of rendered content.
 
-Note: Opening `index.html` directly will show the YAML front matter. Always run through Jekyll.
+## Configuration & Deployment
 
-## Configuration & deploy
+### Configuration (`_config.yml`)
+- `url: https://nelt14.github.io`
+- `baseurl: /personal-portfolio`
+- `permalink: pretty`
 
-- `_config.yml` is set for a project page:
-	- `url: https://nelt14.github.io`
-	- `baseurl: /personal-portfolio`
-	- `permalink: pretty`
-- To publish via GitHub Pages, push to `main` and enable Pages in the repository settings (Actions workflow or Branch source).
-- If you fork this repo under a different path, update `url`/`baseurl` accordingly.
+### Deployment
+1. Push to `main` branch
+2. Enable GitHub Pages in repository settings (Actions workflow or Branch source)
 
-## Structure
+> **Forking:** If you fork this repo under a different path, update `url` and `baseurl` in `_config.yml`.
+
+## Project Structure
 
 ```
-index.html          # homepage with front matter
-about.html          # /about/ (uses modular includes)
-projects.html       # /projects/ (uses modular includes)
-activities.html     # /activities/ (uses modular includes)
-style.css           # styles (responsive, mobile-optimized)
-script.js           # interactions (smooth scrolling, animations, no URL rewriting)
-_config.yml         # site config
-assets/images/      # images
-
-_layouts/           # Jekyll layout templates
-  default.html      # base layout (includes nav, footer automatically)
-
-_includes/          # reusable, modular HTML components
-  # Layout Components
-  head.html         # page head (meta, styles, fonts)
-  nav.html          # navigation bar
-  footer.html       # site footer (includes contact section)
-  
-  # Content Components
-  social-links.html      # social media links grid
-  project-card.html      # reusable project/work/activity card
-  achievement-card.html  # reusable achievement/award card
-  skill-card.html        # reusable skill category card
-  info-card.html         # reusable info card (education, languages)
-  
-  # UI Components
-  page-header.html           # page title and description
-  subsection-header.html     # subsection title
-  subsection-description.html # subsection description
-
-_data/              # Jekyll data files (YAML)
-  social.yml        # social media links
-  contact.yml       # contact information
-  personal.yml      # personal info, education, languages, skills
-  projects.yml      # projects data
-  activities.yml    # work experience and extracurricular activities
-  achievements.yml  # awards and achievements
+personal-portfolio/
+├── index.html              # Homepage
+├── about.html              # About page (uses modular includes)
+├── projects.html           # Projects page (uses modular includes)
+├── activities.html         # Activities page (uses modular includes)
+├── style.css               # Styles (responsive, mobile-optimized)
+├── script.js               # Interactions (smooth scrolling, animations)
+├── _config.yml             # Site configuration
+│
+├── _layouts/
+│   └── default.html        # Base layout (includes nav, footer automatically)
+│
+├── _includes/              # Reusable HTML components
+│   ├── head.html           # Page head
+│   ├── nav.html            # Navigation bar
+│   ├── footer.html         # Footer (includes contact section)
+│   ├── social-links.html   # Social media links grid
+│   ├── project-card.html   # Reusable project/work/activity card
+│   ├── achievement-card.html
+│   ├── skill-card.html
+│   ├── info-card.html
+│   ├── page-header.html
+│   ├── subsection-header.html
+│   └── subsection-description.html
+│
+├── _data/                  # Content data (YAML)
+│   ├── social.yml
+│   ├── contact.yml
+│   ├── personal.yml
+│   ├── projects.yml
+│   ├── activities.yml
+│   └── achievements.yml
+│
+└── assets/
+    └── images/             # Image assets
 ```
 
 ## Code Architecture
 
 This codebase follows **DRY (Don't Repeat Yourself)** principles with a highly modular structure:
 
-- **No code duplication**: All repetitive HTML structures are extracted into reusable includes
-- **Single source of truth**: Content is stored in data files, presentation in include files
-- **Easy maintenance**: Update a component once, changes apply everywhere it's used
-- **Consistent styling**: All cards and sections use the same components, ensuring visual consistency
+- **No code duplication:** All repetitive HTML structures are extracted into reusable includes
+- **Single source of truth:** Content is stored in data files, and presentation is stored in include files
+- **Easy maintenance:** Update a component once, changes apply everywhere it's used
+- **Consistent styling:** All cards and sections use the same components, ensuring visual consistency
 
-For example, the `project-card.html` include is used for:
+**Example:** The `project-card.html` include is reused for:
 - Projects on the Projects page
 - Work experience on the Activities page
 - Extracurricular activities on the Activities page
 
 This means any styling or structural changes to cards only need to be made in one place.
 
-## License / contact
+## License
 
-Copyright © Ali Aliyev. See the live site for contact links.
+Copyright © Ali Aliyev. All rights reserved.
+
+For contact information, visit the [live site](https://nelt14.github.io/personal-portfolio/).
