@@ -130,7 +130,7 @@ _data/              # Jekyll data files (YAML)
 This codebase follows **DRY (Don't Repeat Yourself)** principles with a highly modular structure:
 
 - **No code duplication**: All repetitive HTML structures are extracted into reusable includes
-- **Single source of truth**: Content is stored in data files, presentation in includes
+- **Single source of truth**: Content is stored in data files, presentation in include files
 - **Easy maintenance**: Update a component once, changes apply everywhere it's used
 - **Consistent styling**: All cards and sections use the same components, ensuring visual consistency
 
