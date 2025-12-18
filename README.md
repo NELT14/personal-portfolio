@@ -24,10 +24,18 @@ This site demonstrates comprehensive use of Jekyll's features:
   - `activities.yml` - Work experience and extracurricular activities
   - `achievements.yml` - Awards and achievements
 
-- **Includes** (`_includes/`): Reusable components
-  - `social-links.html` - Dynamic social media links grid
-  - `contact-section.html` - Reusable contact section
-  - `nav.html`, `head.html`, `footer.html` - Layout components
+- **Includes** (`_includes/`): Reusable, modular components
+  - **Layout Components**: `head.html`, `nav.html`, `footer.html` - Core layout structure
+  - **Content Components**: 
+    - `social-links.html` - Dynamic social media links grid
+    - `project-card.html` - Reusable card for projects, work experience, and activities
+    - `achievement-card.html` - Reusable achievement/award cards
+    - `skill-card.html` - Reusable skill category cards
+    - `info-card.html` - Reusable info cards (education, languages, etc.)
+  - **UI Components**:
+    - `page-header.html` - Page title and description header
+    - `subsection-header.html` - Subsection title headers
+    - `subsection-description.html` - Subsection description text
 
 - **Layouts** (`_layouts/`): Template system
   - `default.html` - Base layout for all pages
@@ -79,29 +87,59 @@ Note: Opening `index.html` directly will show the YAML front matter. Always run 
 
 ```
 index.html          # homepage with front matter
-about.html          # /about/
-projects.html       # /projects/
-activities.html     # /activities/
-style.css           # styles
-script.js           # interactions (no JS URL rewriting; navigation uses real links)
+about.html          # /about/ (uses modular includes)
+projects.html       # /projects/ (uses modular includes)
+activities.html     # /activities/ (uses modular includes)
+style.css           # styles (responsive, mobile-optimized)
+script.js           # interactions (smooth scrolling, animations, no URL rewriting)
 _config.yml         # site config
 assets/images/      # images
+
 _layouts/           # Jekyll layout templates
-  default.html      # base layout
-_includes/          # reusable HTML includes
-  head.html        # page head (meta, styles)
-  nav.html         # navigation bar
-  footer.html      # site footer
-  social-links.html # social media links component
-  contact-section.html # contact section component
+  default.html      # base layout (includes nav, footer automatically)
+
+_includes/          # reusable, modular HTML components
+  # Layout Components
+  head.html         # page head (meta, styles, fonts)
+  nav.html          # navigation bar
+  footer.html       # site footer (includes contact section)
+  
+  # Content Components
+  social-links.html      # social media links grid
+  project-card.html      # reusable project/work/activity card
+  achievement-card.html  # reusable achievement/award card
+  skill-card.html        # reusable skill category card
+  info-card.html         # reusable info card (education, languages)
+  
+  # UI Components
+  page-header.html           # page title and description
+  subsection-header.html     # subsection title
+  subsection-description.html # subsection description
+
 _data/              # Jekyll data files (YAML)
-  social.yml       # social media links
-  contact.yml      # contact information
-  personal.yml     # personal info, education, skills
-  projects.yml     # projects data
-  activities.yml   # activities data
-  achievements.yml # achievements data
+  social.yml        # social media links
+  contact.yml       # contact information
+  personal.yml      # personal info, education, languages, skills
+  projects.yml      # projects data
+  activities.yml    # work experience and extracurricular activities
+  achievements.yml  # awards and achievements
 ```
+
+## Code Architecture
+
+This codebase follows **DRY (Don't Repeat Yourself)** principles with a highly modular structure:
+
+- **No code duplication**: All repetitive HTML structures are extracted into reusable includes
+- **Single source of truth**: Content is stored in data files, presentation in includes
+- **Easy maintenance**: Update a component once, changes apply everywhere it's used
+- **Consistent styling**: All cards and sections use the same components, ensuring visual consistency
+
+For example, the `project-card.html` include is used for:
+- Projects on the Projects page
+- Work experience on the Activities page
+- Extracurricular activities on the Activities page
+
+This means any styling or structural changes to cards only need to be made in one place.
 
 ## License / contact
 
