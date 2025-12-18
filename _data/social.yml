@@ -1,0 +1,59 @@
+# Social media links for "Around the Web" section
+- name: LinkedIn
+  url: https://linkedin.com/in/ali-aliyev-1b24a6381
+  icon: fab fa-linkedin
+  icon_class: linkedin
+  description: Professional
+  show_in_social: true
+  show_in_contact: true
+
+- name: Instagram
+  url: https://www.instagram.com/nelt_13
+  icon: fab fa-instagram
+  icon_class: instagram
+  description: "@nelt_13"
+  show_in_social: true
+  show_in_contact: true
+
+- name: Facebook
+  url: https://www.facebook.com/share/16ce5MZQc1/
+  icon: fab fa-facebook
+  icon_class: facebook
+  description: Ali Aliyev
+  show_in_social: true
+  show_in_contact: true
+
+- name: GitHub
+  url: https://github.com/NELT14
+  icon: fab fa-github
+  icon_class: github
+  description: My projects
+  show_in_social: true
+  show_in_contact: false
+
+- name: Codecademy
+  url: https://www.codecademy.com/profiles/net9134894948
+  icon: codecademy
+  icon_class: codecademy
+  icon_image: /assets/images/codecademy_icon.png
+  description: Learning profile
+  show_in_social: true
+  show_in_contact: false
+
+- name: Codeforces
+  url: https://codeforces.com/profile/Nxxlt
+  icon: codeforces
+  icon_class: codeforces
+  icon_svg: true
+  description: Competitive programming
+  show_in_social: true
+  show_in_contact: false
+
+- name: Telegram
+  url: https://t.me/fsgssfg
+  icon: fab fa-telegram
+  icon_class: telegram
+  description: Telegram
+  show_in_social: false
+  show_in_contact: true
+

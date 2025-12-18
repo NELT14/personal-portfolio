@@ -1,0 +1,34 @@
+# Projects data
+- title: "Digital Logic Gates Implementation"
+  description: "Built AND, OR, NOT, and NAND gates using breadboard and transistors. A hands-on exploration of digital logic and circuit design fundamentals. Team project in collaboration with peers."
+  image: logic_gates.png
+  image_alt: "Digital Logic Gates Implementation"
+  tags:
+    - "Team Project (SITE 1101)"
+    - "2025"
+  links:
+    - type: demo
+      url: https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu
+      text: "Watch Demo"
+  papers: null
+
+- title: "Research on Machine Learning for Education"
+  description: "Research on applying machine learning and ensemble learning methods to predict student performance and improve educational outcomes. Presented findings at international conferences."
+  image: research_project.png
+  image_alt: "Research on Machine Learning for Education"
+  tags:
+    - "Research"
+    - "2024"
+  links: []
+  papers:
+    - title: "6th International Black Sea Modern Scientific Research Congress"
+      thesis: "Predicting Student Performance Using Ensemble Learning to Improve Success Quality"
+      location: "Trabzon, August 23-25, 2024"
+      pages: "1250-1254"
+      url: https://www.blackseacountries.org/_files/ugd/614b1f_484ed20333674aa5b2e634a5f443b278.pdf
+    - title: "10th International European Conference on Interdisciplinary Scientific Research"
+      thesis: "Predicting Final Exam Success in a Data Course Using Ensemble Learning Models"
+      location: "Zurich, August 27-29, 2024"
+      pages: "186-191"
+      url: https://www.eucongress.org/_files/ugd/614b1f_090579f0cb3d4ced99d9cfd41ba8fc5b.pdf
+

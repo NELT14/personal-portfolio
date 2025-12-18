@@ -1,0 +1,33 @@
+{% comment %}
+  Social links component - displays social media links in a grid
+  Usage: {% include social-links.html %}
+{% endcomment %}
+<div class="social-grid">
+  {% for social in site.data.social %}
+    {% if social.show_in_social %}
+      <a href="{{ social.url }}" target="_blank" class="social-card" rel="noopener noreferrer">
+        <div class="social-icon {{ social.icon_class }}">
+          {% if social.icon_svg %}
+            {% comment %} Codeforces SVG icon {% endcomment %}
+            <svg width="22" height="22" viewBox="0 0 24 24">
+              <rect x="2" y="9" width="5" height="11" rx="2" fill="#FFD400"/>
+              <rect x="9.5" y="3" width="5" height="17" rx="2" fill="#4E7EC1"/>
+              <rect x="17" y="11" width="5" height="9" rx="2" fill="#C21807"/>
+            </svg>
+          {% elsif social.icon_image %}
+            {% comment %} Custom icon image (e.g., Codecademy) {% endcomment %}
+            <img src="{{ social.icon_image | relative_url }}" alt="{{ social.name }}">
+          {% else %}
+            {% comment %} Font Awesome icon {% endcomment %}
+            <i class="{{ social.icon }}"></i>
+          {% endif %}
+        </div>
+        <div class="social-text">
+          <strong>{{ social.name }}</strong>
+          <span>{{ social.description }}</span>
+        </div>
+      </a>
+    {% endif %}
+  {% endfor %}
+</div>
+

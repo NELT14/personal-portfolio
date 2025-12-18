@@ -1,0 +1,39 @@
+# Achievements and Awards
+gold:
+  - title: "Azerbaijan Republican Olympiad in Informatics"
+    year: 2022
+  - title: "Azerbaijan Republican Olympiad in Informatics"
+    year: 2023
+  - title: "Azerbaijan Republican Olympiad in Informatics"
+    year: 2024
+  - title: "Azerbaijan Republican Olympiad in Informatics"
+    year: 2025
+
+silver:
+  - title: "International Advanced Tournament in Informatics"
+    year: 2024
+    location: Bulgaria
+  - title: "info(1)cup competition"
+    year: 2023
+    location: Romania
+
+bronze:
+  - title: "International Autumn Tournament in Informatics"
+    year: 2022
+    location: Bulgaria
+  - title: "Junior Balkan Olympiad in Informatics"
+    year: 2022
+    location: Romania
+  - title: "International Zhautykov Olympiad"
+    year: 2024
+    location: Kazakhstan
+  - title: "International Zhautykov Olympiad"
+    year: 2025
+    location: Kazakhstan
+
+honorable_mentions:
+  - title: "International Olympiad in Informatics"
+    acronym: "IOI"
+    year: 2025
+    location: Bolivia
+

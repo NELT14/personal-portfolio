@@ -9,55 +9,40 @@ permalink: /projects/
     <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">Selected projects and research work</p>
 
     <div class="projects-grid">
-      <div class="project-card">
-        <div class="project-image">
-          <img src="{{ '/assets/images/logic_gates.png' | relative_url }}" alt="Digital Logic Gates Implementation">
-        </div>
-        <h3>Digital Logic Gates Implementation</h3>
-        <p>
-          Built AND, OR, NOT, and NAND gates using breadboard and transistors.
-          A hands-on exploration of digital logic and circuit design fundamentals.
-          Team project in collaboration with peers.
-        </p>
-        <div class="project-tags">
-          <span>Team Project (SITE 1101)</span>
-          <span>2025</span>
-        </div>
-        <a href="https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu" target="_blank" rel="noopener noreferrer" class="btn btn-outline">Watch Demo</a>
-      </div>
-
-      <div class="project-card">
-        <div class="project-image">
-          <img src="{{ '/assets/images/research_project.png' | relative_url }}" alt="Research on Machine Learning for Education">
-        </div>
-        <h3>Research on Machine Learning for Education</h3>
-        <p>
-          Research on applying machine learning and ensemble learning methods
-          to predict student performance and improve educational outcomes.
-          Presented findings at international conferences.
-        </p>
-        <div class="project-tags">
-          <span>Research</span>
-          <span>2024</span>
-        </div>
-        <button class="btn btn-outline papers-toggle" data-target="papers-1">View Research Papers</button>
-        <div id="papers-1" class="papers" hidden>
-          <div class="paper">
-            <h4>6th International Black Sea Modern Scientific Research Congress</h4>
-            <p><strong>Thesis:</strong> "Predicting Student Performance Using Ensemble Learning to Improve Success Quality"</p>
-            <p><strong>Location:</strong> Trabzon, August 23-25, 2024</p>
-            <p><strong>Pages:</strong> 1250-1254</p>
-            <a href="https://www.blackseacountries.org/_files/ugd/614b1f_484ed20333674aa5b2e634a5f443b278.pdf" target="_blank" rel="noopener noreferrer">View Paper →</a>
+      {% for project in site.data.projects %}
+        <div class="project-card">
+          <div class="project-image">
+            <img src="{{ '/assets/images/' | append: project.image | relative_url }}" alt="{{ project.image_alt }}">
           </div>
-          <div class="paper">
-            <h4>10th International European Conference on Interdisciplinary Scientific Research</h4>
-            <p><strong>Thesis:</strong> "Predicting Final Exam Success in a Data Course Using Ensemble Learning Models"</p>
-            <p><strong>Location:</strong> Zurich, August 27-29, 2024</p>
-            <p><strong>Pages:</strong> 186-191</p>
-            <a href="https://www.eucongress.org/_files/ugd/614b1f_090579f0cb3d4ced99d9cfd41ba8fc5b.pdf" target="_blank" rel="noopener noreferrer">View Paper →</a>
+          <h3>{{ project.title }}</h3>
+          <p>{{ project.description }}</p>
+          <div class="project-tags">
+            {% for tag in project.tags %}
+              <span>{{ tag }}</span>
+            {% endfor %}
           </div>
+          {% if project.links %}
+            {% for link in project.links %}
+              <a href="{{ link.url }}" target="_blank" rel="noopener noreferrer" class="btn btn-outline">{{ link.text }}</a>
+            {% endfor %}
+          {% endif %}
+          {% if project.papers %}
+            {% assign paper_id = 'papers-' | append: forloop.index %}
+            <button class="btn btn-outline papers-toggle" data-target="{{ paper_id }}">View Research Papers</button>
+            <div id="{{ paper_id }}" class="papers" hidden>
+              {% for paper in project.papers %}
+                <div class="paper">
+                  <h4>{{ paper.title }}</h4>
+                  <p><strong>Thesis:</strong> "{{ paper.thesis }}"</p>
+                  <p><strong>Location:</strong> {{ paper.location }}</p>
+                  <p><strong>Pages:</strong> {{ paper.pages }}</p>
+                  <a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">View Paper →</a>
+                </div>
+              {% endfor %}
+            </div>
+          {% endif %}
         </div>
-      </div>
+      {% endfor %}
     </div>
   </div>
 </section>

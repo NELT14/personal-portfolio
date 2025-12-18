@@ -27,6 +27,14 @@ url: "https://nelt14.github.io"
 twitter_username: ""
 github_username:  NELT14
 
+# Author information (also available in _data/personal.yml)
+author:
+  name: Ali Aliyev
+  location: Baku, Azerbaijan
+
+# Site metadata
+tagline: "Competitive Programmer and Machine Learning Enthusiast"
+
 # Build settings
 theme: minima
 plugins: []

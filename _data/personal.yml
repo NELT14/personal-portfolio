@@ -1,0 +1,38 @@
+# Personal information
+name: "Ali Aliyev"
+age: 18
+location: "Baku, Azerbaijan"
+bio: "I'm Ali Aliyev, an 18-year-old competitive programmer from Baku, Azerbaijan. I've developed a strong interest in computer science through participating in Informatics Olympiads and research projects on machine learning applications in education."
+
+education:
+  - institution: "Ankara‑school school‑lyceum"
+    type: "High School"
+    period: "2014 – 2025"
+  - institution: "ADA University"
+    type: "Freshman"
+    period: "2025 – present"
+
+languages:
+  - name: "Azerbaijani"
+    level: "Native"
+  - name: "English"
+    level: "Proficient"
+  - name: "Russian"
+    level: "Proficient"
+
+skills:
+  programming_languages:
+    - "C++"
+    - "Python"
+    - "JavaScript"
+  competitive_programming:
+    - "Data structures and Algorithms"
+    - "Problem Solving"
+  web_technologies:
+    - "HTML"
+    - "CSS"
+  tools_platforms:
+    - "Git"
+    - "VS Code"
+    - "Codeforces"
+

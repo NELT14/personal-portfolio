@@ -1,0 +1,30 @@
+{% comment %}
+  Contact section component - displays contact icons
+  Usage: {% include contact-section.html %}
+{% endcomment %}
+<section id="contact" class="contact">
+  <div class="container">
+    <h2>Contact Me</h2>
+    <p>{{ site.data.contact.message }}</p>
+    <div class="contact-icons">
+      {% for social in site.data.social %}
+        {% if social.show_in_contact %}
+          <a href="{{ social.url }}" target="_blank" class="contact-icon" aria-label="{{ social.name }}" rel="noopener noreferrer">
+            <i class="{{ social.icon }}"></i>
+          </a>
+        {% endif %}
+      {% endfor %}
+      {% if site.data.contact.email %}
+        <a href="mailto:{{ site.data.contact.email }}" class="contact-icon" aria-label="Email">
+          <i class="fas fa-envelope"></i>
+        </a>
+      {% endif %}
+      {% if site.data.contact.phone %}
+        <a href="tel:{{ site.data.contact.phone }}" class="contact-icon" aria-label="Phone">
+          <i class="fas fa-phone"></i>
+        </a>
+      {% endif %}
+    </div>
+  </div>
+</section>
+

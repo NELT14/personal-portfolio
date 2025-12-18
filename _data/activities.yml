@@ -1,0 +1,36 @@
+# Activities data
+work_experience:
+  - title: "Informatics Teaching and Tutoring"
+    description: "In addition to my research experience, I also enjoy teaching. My first step was locally tutoring informatics and C++ for the \"Azercell CUP 2025\" programming competition participants. I currently work as an Informatics tutor at ROOF Academy, an education company in Azerbaijan."
+    tags:
+      - "Teaching"
+      - "2025–Present"
+
+extracurricular:
+  - title: "Codeforces Enthusiast"
+    description: "Since 2021, I have actively trained and competed on Codeforces to prepare for National and International Olympiads in Informatics. I regularly solve problems, participate in rated contests, and contribute to the community, continuing this practice to steadily improve algorithmic thinking and speed."
+    tags:
+      - "Competitive Programming"
+      - "2021–Present"
+    links:
+      - type: external
+        url: https://codeforces.com/profile/Nxxlt
+        text: "View on Codeforces"
+
+  - title: "Voluntary Service at \"Sevgi\" Home for Orphaned Children"
+    description: "08/06/2024 - 08/07/2024 • Baku. During the month, I helped teachers care for children and introduced them to computer science. I created engaging logical problem assignments and organized team activities to develop cooperation skills. For older children, I taught basics of the Python programming language and guided them to build simple programs."
+    tags:
+      - "Volunteering"
+      - "Summer 2024"
+    links: []
+
+  - title: "Codecademy Learning Path"
+    description: "I practice fundamentals and complete guided projects on Codecademy to broaden my skills. This includes programming exercises and web basics that complement olympiad training."
+    tags:
+      - "Self‑Learning"
+      - "Ongoing"
+    links:
+      - type: external
+        url: https://www.codecademy.com/profiles/net9134894948
+        text: "View Codecademy"
+
