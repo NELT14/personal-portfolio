@@ -976,11 +976,26 @@ ul {
     /* iOS safe area support for home indicator */
     padding-bottom: calc(var(--spacing-lg) + env(safe-area-inset-bottom, 0));
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer .container {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
 }
 
 .footer p {
     margin-bottom: var(--spacing);
     opacity: 0.8;
+    text-align: center;
+    width: 100%;
 }
 
 .footer p:last-child {
@@ -990,6 +1005,10 @@ ul {
 .footer a {
     color: var(--accent);
     transition: var(--transition);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
 }
 
 .footer a:hover {
@@ -1037,6 +1056,13 @@ ul {
             padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0));
             padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0));
         }
+        
+        /* Ensure footer text is centered on iPhone - use symmetric padding */
+        .footer .container {
+            padding-left: var(--spacing);
+            padding-right: var(--spacing);
+            text-align: center;
+        }
     }
 
     @media (orientation: landscape) and (max-width: 1024px) {
@@ -1044,6 +1070,13 @@ ul {
         .nav .container {
             padding-left: calc(var(--spacing) + env(safe-area-inset-left, 0)) !important;
             padding-right: calc(var(--spacing) + env(safe-area-inset-right, 0)) !important;
+        }
+        
+        /* Ensure footer text is centered in landscape on iPhone */
+        .footer .container {
+            padding-left: var(--spacing) !important;
+            padding-right: var(--spacing) !important;
+            text-align: center !important;
         }
     }
 }
