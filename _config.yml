@@ -57,4 +57,3 @@ permalink: pretty
 # Only build the custom HTML homepage
 exclude:
   - index.markdown
-  - about.markdown

@@ -18,6 +18,7 @@ This site uses **Jekyll pretty permalinks**, so pages do **not** end with `.html
 
 - Home: `/personal-portfolio/`
 - About: `/personal-portfolio/about/`
+- Projects: `/personal-portfolio/projects/`
 - Activities: `/personal-portfolio/activities/`
 
 ## Local development
@@ -51,11 +52,14 @@ Note: Opening `index.html` directly will show the YAML front matter. Always run 
 ```
 index.html      # homepage with front matter
 about.html      # /about/
+projects.html   # /projects/
 activities.html # /activities/
 style.css       # styles
 script.js       # interactions (no JS URL rewriting; navigation uses real links)
 _config.yml     # site config
 assets/images/  # images
+_layouts/       # Jekyll layout templates
+_includes/      # reusable HTML includes (nav, footer, head)
 ```
 
 ## License / contact
