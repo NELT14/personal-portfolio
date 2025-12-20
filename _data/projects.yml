@@ -9,7 +9,10 @@
   links:
     - type: demo
       url: https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu
-      text: "Watch Demo"
+      text: "AND/NOT/OR Gates Demo"
+    - type: demo
+      url: https://youtu.be/yfSJgK8biPE?si=khn7WR9rdZnpWGoE
+      text: "NAND Gate Collaboration"
   papers: null
 
 - title: "Research on Machine Learning for Education"
