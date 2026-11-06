@@ -1,36 +1,20 @@
-# Activities data
 work_experience:
-  - title: "Informatics Teaching and Tutoring"
-    description: "In addition to my research experience, I also enjoy teaching. My first step was locally tutoring informatics and C++ for the \"Azercell CUP 2025\" programming competition participants. I currently work as an Informatics tutor at ROOF Academy, an education company in Azerbaijan."
-    tags:
-      - "Teaching"
-      - "2025–Present"
-
+  - title: AI Document Review for Technopark Applications
+    description: "Develop LLM-based structured extraction, retrieval-augmented generation, schema validation, and source-traceable outputs for a system supporting expert review of residency applications."
+    tags: [Applied AI, July 2026–Present]
+  - title: Informatics Olympiad Tutor · ROOF Academy
+    description: "Coach middle school students in C++, algorithms, data structures, and contest strategy for the national olympiad. Design lessons, practice contests, and personalized problem-solving guidance."
+    tags: [Teaching, October 2025–Present]
+  - title: Informatics Olympiad Problem Setter
+    description: "Authored two national olympiad final problems and two IOI team-selection problems. Prepared statements, solutions, tests, and judging materials; stress-tested solutions and translated contest statements into Russian."
+    tags: [Algorithms, October 2025–June 2026]
 extracurricular:
-  - title: "Codeforces Enthusiast"
-    description: "Since 2021, I have actively trained and competed on Codeforces to prepare for National and International Olympiads in Informatics. I regularly solve problems, participate in rated contests, and contribute to the community, continuing this practice to steadily improve algorithmic thinking and speed."
-    tags:
-      - "Competitive Programming"
-      - "2021–Present"
+  - title: Competitive Programming · Codeforces
+    description: "Competing and training since 2021, with a peak Codeforces rating of 2166. I use contests to explore algorithms, sharpen problem-solving, and learn from the programming community."
+    tags: [Peak rating 2166, 2021–Present]
     links:
-      - type: external
-        url: https://codeforces.com/profile/Nxxlt
-        text: "View on Codeforces"
-
-  - title: "Voluntary Service at \"Sevgi\" Home for Orphaned Children"
-    description: "08/06/2024 - 08/07/2024 • Baku. During the month, I helped teachers care for children and introduced them to computer science. I created engaging logical problem assignments and organized team activities to develop cooperation skills. For older children, I taught basics of the Python programming language and guided them to build simple programs."
-    tags:
-      - "Volunteering"
-      - "Summer 2024"
-    links: []
-
-  - title: "Codecademy Learning Path"
-    description: "I practice fundamentals and complete guided projects on Codecademy to broaden my skills. This includes programming exercises and web basics that complement olympiad training."
-    tags:
-      - "Self‑Learning"
-      - "Ongoing"
-    links:
-      - type: external
-        url: https://www.codecademy.com/profiles/net9134894948
-        text: "View Codecademy"
-
+      - url: https://codeforces.com/profile/Nxxlt
+        text: Codeforces profile
+  - title: Sevgi Children’s Home
+    description: "Supported educational activities, prepared logic and collaborative problem-solving exercises, and introduced older students to Python."
+    tags: [Volunteering, June–July 2024]

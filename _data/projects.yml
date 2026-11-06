@@ -1,20 +1,21 @@
-# Projects data
-- title: "Digital Logic Gates Implementation"
-  description: "Built AND, OR, NOT, and NAND gates using breadboard and transistors. A hands-on exploration of digital logic and circuit design fundamentals. Team project in collaboration with peers."
-  image: logic_gates.png
-  image_alt: "Digital Logic Gates Implementation"
-  tags:
-    - "Team Project (SITE 1101)"
-    - "2025"
-  links:
-    - type: demo
-      url: https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu
-      text: "AND/NOT/OR Gates"
-    - type: demo
-      url: https://youtu.be/yfSJgK8biPE?si=khn7WR9rdZnpWGoE
-      text: "NAND Gate Collaboration"
-  papers: null
+- title: AI Document Review for Technopark Applications
+  description: "An AI-assisted review system for residency applications, combining LLM-based structured extraction, retrieval-augmented generation, schema validation, and outputs traceable to source documents."
+  tags: [LLMs, RAG, 2026–Present]
+  visual: document
+  visual_label: Structured extraction / Source-traceable review
 
+- title: HKU Lunch Planner
+  description: "A browser-based planner that compares campus restaurants between classes using spreadsheet-backed location data. Ranks options by estimated walking and waiting time; timings are scenario assumptions rather than live predictions."
+  tags: [JavaScript, Spreadsheet data, Web application]
+  visual: planner
+  visual_label: Campus locations / Compare lunch options
+  links:
+    - url: https://nelt14.github.io/comp1110-trip-planner/
+      text: Open planner
+    - url: https://github.com/NELT14/comp1110-trip-planner
+      text: Source code
+
+# Projects data
 - title: "Research on Machine Learning for Education"
   description: "Research on applying machine learning and ensemble learning methods to predict student performance and improve educational outcomes. Presented findings at international conferences."
   image: research_project.png
@@ -27,11 +28,28 @@
     - title: "6th International Black Sea Modern Scientific Research Congress"
       thesis: "Predicting Student Performance Using Ensemble Learning to Improve Success Quality"
       location: "Trabzon, August 23-25, 2024"
-      pages: "1250-1254"
+      pages: "1249-1254"
       url: https://www.blackseacountries.org/_files/ugd/614b1f_484ed20333674aa5b2e634a5f443b278.pdf
     - title: "10th International European Conference on Interdisciplinary Scientific Research"
       thesis: "Predicting Final Exam Success in a Data Course Using Ensemble Learning Models"
       location: "Zurich, August 27-29, 2024"
       pages: "186-191"
       url: https://www.eucongress.org/_files/ugd/614b1f_090579f0cb3d4ced99d9cfd41ba8fc5b.pdf
+
+
+- title: "Digital Logic Gates Implementation"
+  description: "Built AND, OR, NOT, and NAND gates using breadboard and transistors. A hands-on exploration of digital logic and circuit design fundamentals. Team project in collaboration with peers."
+  image: logic_gates.png
+  image_alt: "Digital Logic Gates Implementation"
+  tags:
+    - "Digital electronics"
+    - "2025"
+  links:
+    - type: demo
+      url: https://youtu.be/MISVJeIT2z8?si=ew8Iq8RXrZlrClQu
+      text: "AND/NOT/OR Gates"
+    - type: demo
+      url: https://youtu.be/yfSJgK8biPE?si=khn7WR9rdZnpWGoE
+      text: "NAND Gate Collaboration"
+  papers: null
 

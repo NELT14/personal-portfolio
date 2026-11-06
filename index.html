@@ -1,30 +1,43 @@
 ---
-title: Ali Aliyev
+title: Ali Aliyev — Computer Science & Applied AI
 layout: default
 permalink: /
 ---
-<!-- Hero -->
-<section id="home" class="hero">
-  <div class="container">
-    <div class="hero-content">
-      <img src="{{ '/assets/images/profile.jpg' | relative_url }}" alt="Ali Aliyev" class="hero-img">
-      <div class="hero-text">
-        <h1>Hi, I'm <span>{{ site.data.personal.name }}</span>!</h1>
-        <p>{{ site.tagline | default: "Competitive programmer passionate about Informatics Olympiads and algorithmic problem-solving." }}</p>
-        <div class="hero-buttons">
-          <a href="#contact" class="btn btn-primary">Contact Me</a>
-          <a href="{{ '/projects/' | relative_url }}" class="btn btn-outline">View My Projects</a>
-        </div>
+<section class="hero">
+  <div class="container hero-content">
+    <div class="hero-text">
+      <p class="eyebrow">COMPUTER SCIENCE · HONG KONG</p>
+      <h1>Ali Aliyev<span class="hero-dot">.</span></h1>
+      <p class="hero-lead">From olympiad problems<br>to practical software.</p>
+      <p class="hero-description">Computer Science undergraduate at The University of Hong Kong. Building with AI, teaching algorithms, and solving challenging problems.</p>
+      <div class="hero-buttons">
+        <a href="{{ '/projects/' | relative_url }}" class="btn btn-primary">Explore my work <span aria-hidden="true">↗</span></a>
+        <a href="mailto:{{ site.data.contact.email }}" class="btn btn-outline">Get in touch</a>
       </div>
+    </div>
+    <figure class="hero-portrait">
+      <img src="{{ '/assets/images/profile.jpg' | relative_url }}" alt="Portrait of Ali Aliyev" class="hero-img" width="440" height="520" fetchpriority="high">
+      <figcaption><span>Currently at</span> The University of Hong Kong</figcaption>
+    </figure>
+  </div>
+</section>
+<section class="highlights" aria-label="Portfolio highlights">
+  <div class="container highlights-grid">
+    <div><strong>4× national gold</strong><span>Informatics Olympiad · 2022–2025</span></div>
+    <div><strong>IOI honorable mention</strong><span>International Olympiad · 2025</span></div>
+    <div><strong>2166 peak rating</strong><span>Codeforces · Nxxlt</span></div>
+  </div>
+</section>
+<section class="section">
+  <div class="container">
+    <div class="section-heading"><div><p class="eyebrow">SELECTED WORK</p><h2>What I’m working on</h2></div><a class="text-link" href="{{ '/projects/' | relative_url }}">All projects <span aria-hidden="true">↗</span></a></div>
+    <div class="projects-grid">
+      {% for project in site.data.projects limit:2 %}
+        {% include project-card.html item=project show_image=true index=forloop.index %}
+      {% endfor %}
     </div>
   </div>
 </section>
-
-<!-- Social Links -->
-<section class="social">
-  <div class="container">
-    <h2>Around the Web</h2>
-    {% include social-links.html %}
-  </div>
+<section class="social section-alt">
+  <div class="container"><p class="eyebrow">ELSEWHERE</p><h2>Code, compete, connect.</h2>{% include social-links.html %}</div>
 </section>
-

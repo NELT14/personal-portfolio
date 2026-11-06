@@ -8,22 +8,24 @@ permalink: /about/
   <div class="container">
     {% include page-header.html title="About Me" %}
     <p class="bio">{{ site.data.personal.bio }}</p>
+    <p class="education-note">I completed my first year of Computer Science studies at ADA University before beginning a new degree at HKU in September 2026.</p>
     <div class="info-grid">
       {% include info-card.html title="Education" items=site.data.personal.education format="education" %}
       {% include info-card.html title="Languages" items=site.data.personal.languages format="languages" %}
     </div>
+    <p class="academic-results">SAT <strong>1560</strong> · IELTS <strong>8.0</strong> (2024) · AP Calculus BC, Computer Science A, and Computer Science Principles: <strong>5/5</strong> (2026)</p>
   </div>
 </section>
 
 <!-- Skills -->
 <section id="skills" class="section section-alt">
   <div class="container">
-    {% include page-header.html title="Technical Skills" %}
+    <div class="section-heading"><h2>Technical Skills</h2></div>
     <div class="skills-grid">
       {% include skill-card.html title="Programming Languages" skills=site.data.personal.skills.programming_languages %}
       {% include skill-card.html title="Competitive Programming" skills=site.data.personal.skills.competitive_programming %}
       {% include skill-card.html title="Web Technologies" skills=site.data.personal.skills.web_technologies %}
-      {% include skill-card.html title="Tools & Platforms" skills=site.data.personal.skills.tools_platforms %}
+      {% include skill-card.html title="Applied AI" skills=site.data.personal.skills.tools_platforms %}
     </div>
   </div>
 </section>

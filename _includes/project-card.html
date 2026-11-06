@@ -1,17 +1,13 @@
-{% comment %}
-  Reusable project/work/activity card component
-  
-  Parameters:
-    - item: The project/work/activity object from data files
-    - show_image: Boolean, whether to show the image (default: true for projects)
-    - index: Optional index for generating unique IDs (for papers toggle)
-{% endcomment %}
-<div class="project-card">
+<article class="project-card">
   {% if include.show_image and include.item.image %}
     <div class="project-image">
-      <img src="{{ '/assets/images/' | append: include.item.image | relative_url }}" alt="{{ include.item.image_alt | default: include.item.title }}">
+      <img loading="lazy" src="{{ '/assets/images/' | append: include.item.image | relative_url }}" alt="{{ include.item.image_alt | default: include.item.title }}">
     </div>
   {% endif %}
+  {% if include.show_image and include.item.visual %}
+    <div class="project-visual {{ include.item.visual }}" aria-hidden="true"><span>{{ include.item.visual_label }}</span><strong>{% if include.item.visual == 'document' %}{ extract → validate → review }{% else %}A → lunch → B{% endif %}</strong></div>
+  {% endif %}
+  <div class="project-body">
   <h3>{{ include.item.title }}</h3>
   <p>{{ include.item.description }}</p>
   {% if include.item.tags %}
@@ -27,13 +23,7 @@
     {% endfor %}
   {% endif %}
   {% if include.item.papers %}
-    {% if include.index %}
-      {% assign paper_id = 'papers-' | append: include.index %}
-    {% else %}
-      {% assign paper_id = 'papers-' | append: forloop.index %}
-    {% endif %}
-    <button class="btn btn-outline papers-toggle" data-target="{{ paper_id }}">View Research Papers</button>
-    <div id="{{ paper_id }}" class="papers" hidden>
+    <details class="papers"><summary>Research publications <span aria-hidden="true">↗</span></summary>
       {% for paper in include.item.papers %}
         <div class="paper">
           <h4>{{ paper.title }}</h4>
@@ -43,7 +33,8 @@
           <a href="{{ paper.url }}" target="_blank" rel="noopener noreferrer">View Paper →</a>
         </div>
       {% endfor %}
-    </div>
+    </details>
   {% endif %}
-</div>
+  </div>
+</article>
 

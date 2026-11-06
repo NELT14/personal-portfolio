@@ -12,7 +12,7 @@
   icon: fab fa-instagram
   icon_class: instagram
   description: "@nelt_13"
-  show_in_social: true
+  show_in_social: false
   show_in_contact: true
 
 - name: Facebook
@@ -20,7 +20,7 @@
   icon: fab fa-facebook
   icon_class: facebook
   description: Ali Aliyev
-  show_in_social: true
+  show_in_social: false
   show_in_contact: true
 
 - name: GitHub
@@ -37,7 +37,7 @@
   icon_class: codecademy
   icon_image: /assets/images/codecademy_icon.png
   description: Learning profile
-  show_in_social: true
+  show_in_social: false
   show_in_contact: false
 
 - name: Codeforces

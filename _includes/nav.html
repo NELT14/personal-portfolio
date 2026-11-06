@@ -1,4 +1,4 @@
-<nav class="nav">
+<nav class="nav" aria-label="Main navigation">
   <div class="container">
     <div class="nav-content">
       <div class="nav-brand">
@@ -6,16 +6,16 @@
       </div>
       <ul class="nav-menu">
         <li>
-          <a href="{{ '/' | relative_url }}" class="{% if page.url == '/' %}current{% endif %}">Home</a>
+          <a href="{{ '/' | relative_url }}" {% if page.url == '/' %}aria-current="page"{% endif %} class="{% if page.url == '/' %}current{% endif %}">Home</a>
         </li>
         <li>
-          <a href="{{ '/about/' | relative_url }}" class="{% if page.url == '/about/' %}current{% endif %}">About</a>
+          <a href="{{ '/about/' | relative_url }}" {% if page.url == '/about/' %}aria-current="page"{% endif %} class="{% if page.url == '/about/' %}current{% endif %}">About</a>
         </li>
         <li>
-          <a href="{{ '/projects/' | relative_url }}" class="{% if page.url == '/projects/' %}current{% endif %}">Projects</a>
+          <a href="{{ '/projects/' | relative_url }}" {% if page.url == '/projects/' %}aria-current="page"{% endif %} class="{% if page.url == '/projects/' %}current{% endif %}">Projects</a>
         </li>
         <li>
-          <a href="{{ '/activities/' | relative_url }}" class="{% if page.url == '/activities/' %}current{% endif %}">Activities</a>
+          <a href="{{ '/activities/' | relative_url }}" {% if page.url == '/activities/' %}aria-current="page"{% endif %} class="{% if page.url == '/activities/' %}current{% endif %}">Experience</a>
         </li>
       </ul>
     </div>

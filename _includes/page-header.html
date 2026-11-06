@@ -1,12 +1,1 @@
-{% comment %}
-  Reusable page header component with title and optional description
-  
-  Parameters:
-    - title: The main page title (h2)
-    - description: Optional description text below the title
-{% endcomment %}
-<h2>{{ include.title }}</h2>
-{% if include.description %}
-  <p style="text-align: center; margin-bottom: 2rem; color: var(--text-muted);">{{ include.description }}</p>
-{% endif %}
-
+<header class="page-header"><p class="eyebrow">{{ site.data.personal.name }} / PORTFOLIO</p><h1>{{ include.title }}</h1>{% if include.description %}<p>{{ include.description }}</p>{% endif %}</header>
