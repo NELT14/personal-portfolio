@@ -1,6 +1,6 @@
 - title: AI Document Review for Technopark Applications
-  description: "An AI-assisted review system for residency applications, combining LLM-based structured extraction, retrieval-augmented generation, schema validation, and outputs traceable to source documents."
-  tags: [LLMs, RAG, 2026–Present]
+  description: "Developed an AI-assisted review system for residency applications, combining LLM-based structured extraction, retrieval-augmented generation, schema validation, and outputs traceable to source documents."
+  tags: [LLMs, RAG, July–October 2026]
   visual: document
   visual_label: Structured extraction / Source-traceable review
 

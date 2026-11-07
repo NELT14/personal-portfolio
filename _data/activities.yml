@@ -1,7 +1,7 @@
 work_experience:
   - title: AI Document Review for Technopark Applications
-    description: "Develop LLM-based structured extraction, retrieval-augmented generation, schema validation, and source-traceable outputs for a system supporting expert review of residency applications."
-    tags: [Applied AI, July 2026–Present]
+    description: "Developed LLM-based structured extraction, retrieval-augmented generation, schema validation, and source-traceable outputs for a system supporting expert review of residency applications."
+    tags: [Applied AI, July–October 2026]
   - title: Informatics Olympiad Tutor · ROOF Academy
     description: "Coach middle school students in C++, algorithms, data structures, and contest strategy for the national olympiad. Design lessons, practice contests, and personalized problem-solving guidance."
     tags: [Teaching, October 2025–Present]

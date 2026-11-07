@@ -30,7 +30,7 @@ permalink: /
 </section>
 <section class="section">
   <div class="container">
-    <div class="section-heading"><div><p class="eyebrow">SELECTED WORK</p><h2>What I’m working on</h2></div><a class="text-link" href="{{ '/projects/' | relative_url }}">All projects <span aria-hidden="true">↗</span></a></div>
+    <div class="section-heading"><div><p class="eyebrow">SELECTED WORK</p><h2>Projects & applied work</h2></div><a class="text-link" href="{{ '/projects/' | relative_url }}">All projects <span aria-hidden="true">↗</span></a></div>
     <div class="projects-grid">
       {% for project in site.data.projects limit:2 %}
         {% include project-card.html item=project show_image=true index=forloop.index %}
